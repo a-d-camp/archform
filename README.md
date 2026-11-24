@@ -45,7 +45,7 @@ Fit points use v = 0 for the inner edge and 1 for the outer edge at that x. Weig
 
 ## Adjusting in the browser builder
 
-`tools/builder.sh` rebuilds the builder and opens it. The builder draws exactly the exported surface (it matches the Python model to 0.01 mm), and these sliders adjust it:
+The builder is live at https://a-d-camp.github.io/archform/. `tools/builder.sh` rebuilds a local copy and opens it. The builder draws exactly the exported surface (it matches the Python model to 0.01 mm), and these sliders adjust it:
 
 - **Arch height change** (mm): largest at the inner edge under the peak, fading smoothly along and across.
 - **Arch position change** (mm toward the toes or heel).

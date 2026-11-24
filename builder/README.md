@@ -2,6 +2,8 @@
 
 The browser half of [Archform](../README.md). It draws the Archform shell, a thin moulded 3/4-length shape fitted to a 3D scan and exported from the Python tool with `ortho export`, lets you adjust the arch and heel cup with sliders, and downloads an STL ready for your slicer. No CAD skills, no install.
 
+**Open it:** https://a-d-camp.github.io/archform/
+
 This builder is a fork of [Orthotics Builder](https://github.com/markusg1234/Orthotics-builder) by markusg1234, used under the MIT licence. Archform is an independent project and isn't affiliated with or endorsed by the original author.
 
 ![The Archform builder showing a right-foot orthotic coloured by height, with dimensions](docs/screenshot.png)
@@ -47,7 +49,7 @@ node tests/check_mesh.js      # watertightness and sanity checks across many set
 python3 build.py --check      # confirm index.html matches the sources
 ```
 
-Edit the files in `src/`, then run `build.py`. `index.html` is generated, and it is the page you open or host. CI runs the mesh checks and the up-to-date check on every push.
+Edit the files in `src/`, then run `build.py`. `index.html` is generated, and it is the page you open or host. CI runs the mesh checks and the up-to-date check on every push, and every push to `main` deploys `index.html` to GitHub Pages (`.github/workflows/pages.yml`).
 
 To run it locally, open `index.html` in a browser, or serve the folder with `python3 -m http.server`.
 
