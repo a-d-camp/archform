@@ -5,8 +5,8 @@
                                                      # refit the control heights to the points, then build
   uv run ortho scan my_scan.stl designs/high-arch.json my_scan_points.json [--check points.json]
                                                      # scan (shell side up) -> fit points -> refit the design
-  uv run ortho export "designs/high-arch.json=High arch baseline"
-                                                     # hand designs to the browser builder as base shapes
+  uv run ortho export designs/high-arch.json
+                                                     # make the design the browser builder's shape
 """
 from __future__ import annotations
 
@@ -106,19 +106,13 @@ def main(argv=None) -> int:
     sc.add_argument("--scan-outline", action="store_true", help="replace the design's outline and opening with the scan's footprint")
     sc.add_argument("--smooth", type=float, default=0.05)
     sc.add_argument("--out", default=None)
-    ex = sub.add_parser("export", help="write designs as base shapes for the browser builder")
-    ex.add_argument("designs", nargs="+", help="design files; label with path=Label, e.g. designs/high-arch.json='High arch baseline'")
-    ex.add_argument("--to", default="builder/src/bases.js")
+    ex = sub.add_parser("export", help="write a design as the browser builder's shape")
+    ex.add_argument("design")
+    ex.add_argument("--to", default="builder/src/shape.js")
     a = ap.parse_args(argv)
     if a.cmd == "export":
-        from .export import base_record, write_bases
-        entries = {}
-        for spec in a.designs:
-            path, _, label = spec.partition("=")
-            d = Design.load(path)
-            entries[d.name] = base_record(d, label or d.name)
-            print(f"{d.name}: {label or d.name}")
-        write_bases(entries, a.to)
+        from .export import shape_record, write_shape
+        write_shape(shape_record(Design.load(a.design)), a.to)
         print(f"wrote {a.to}")
         return 0
 
