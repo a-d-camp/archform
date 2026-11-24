@@ -1,5 +1,5 @@
 /*
- * Photo measurement for Orthotics Builder.
+ * Photo measurement for Archform.
  * Pure JavaScript, no dependencies. Everything works on a plain
  * { width, height, data } RGBA buffer, so the browser can hand it a canvas and
  * Node can test it without one.

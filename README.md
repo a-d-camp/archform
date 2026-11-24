@@ -1,16 +1,18 @@
-# Orthotics Builder
+# Archform builder
 
-Design 3D-printable foot orthotics from a tape measure. No 3D scan, no CAD skills, no install. Start from your foot's length and widths, photograph a tracing and let the page read them off, or measure an orthotic you already have. Then shape the arch, heel cup, posts and met pad with sliders, and download an STL ready for your slicer.
+The browser half of [Archform](../README.md). Design 3D-printable foot orthotics from a tape measure. No 3D scan, no CAD skills, no install. Start from your foot's length and widths, photograph a tracing and let the page read them off, or measure an orthotic you already have. Then shape the arch, heel cup, posts and met pad with sliders, and download an STL ready for your slicer.
 
-**Use it:** https://markusg1234.github.io/Orthotics-builder/
+Archform adds one thing on top: **Start from** can load fitted base shapes exported by `ortho export` (see the main README), which the sliders then adjust.
 
-![Orthotics Builder showing a pair of full-length orthotics coloured by height](docs/screenshot.png)
+This builder is a fork of [Orthotics Builder](https://github.com/markusg1234/Orthotics-builder) by markusg1234, used under the MIT licence. Archform is an independent project and isn't affiliated with or endorsed by the original author.
+
+![The Archform builder showing a right-foot 3/4-length orthotic coloured by height, with dimensions](docs/screenshot.png)
 
 ## What you can adjust
 
 | Area | Settings |
 |---|---|
-| Your foot | Foot length, ball width, heel width, from a tape measure, a photo, or a starting point from your shoe size (AU/UK, US, EU) |
+| Your foot | Foot length, forefoot width, heel width, from a tape measure, a photo, or a starting point from your shoe size (AU/UK, US, EU) |
 | Length | 3/4 (ends behind the ball of the foot), sulcus (ends at the toe crease) or full length |
 | Arch | Height, peak position, how far across the foot it reaches, outer arch |
 | Heel | Heel cup depth, heel lift, rearfoot post angle |
@@ -26,7 +28,7 @@ The preview updates live. You can view one foot or the pair, switch to top, inne
 1. Stand on a sheet of paper against a wall, with your weight on that foot.
 2. Trace around the foot with the pen held upright.
 3. **Length:** heel line to the tip of the longest toe.
-4. **Ball width:** widest point across the ball, from the big-toe joint to the little-toe joint.
+4. **Forefoot width:** widest point across the ball of the foot, from the big-toe joint to the little-toe joint.
 5. **Heel width:** widest point of the heel, 2–3 cm in from the back.
 6. Measure both feet. They often differ by a few millimetres, so design each one with its own numbers.
 
@@ -40,7 +42,7 @@ Photograph the sheet so it fills the frame, in even light, avoiding an ultra-wid
 
 | What you photograph | What it gives you |
 |---|---|
-| **A foot tracing** | Foot length, ball width and heel width. Trace with the pen held upright, then lay the sheet flat. |
+| **A foot tracing** | Foot length, forefoot width and heel width. Trace with the pen held upright, then lay the sheet flat. |
 | **A wet footprint** | Which way your arch leans, from how wide the middle of the print is next to the widest part. Standing flattens the arch, and that is the point: the index is defined on a loaded print, and it is the flattening that tells a high arch from a flat one. A print leaves the toes out, so it will not set your foot length. |
 | **An insole or orthotic** | Its outline, matched through the same solver as *Copy an existing orthotic*. An insole out of a shoe that fits you is the easiest thing to photograph. |
 | **A side view** | Arch height and where the arch peaks, which nothing else here can measure. No paper and nothing to prop up: your own foot length is the ruler. |
@@ -121,7 +123,7 @@ Start with a modest arch (10–15 mm for most adults), wear the orthotic for a f
 
 The geometry engine (`src/geometry.js`) is plain JavaScript with no dependencies:
 
-- **Outline.** The inner and outer edges come from monotone cubic curves fitted through stations along the foot, scaled from your length, ball width and heel width. The heel is rounded, and the end of the orthotic is shaped for the length you chose. The big toe is longest at full length, and the 3/4 and sulcus ends follow the slant of the metatarsal heads.
+- **Outline.** The inner and outer edges come from monotone cubic curves fitted through stations along the foot, scaled from your length, forefoot width and heel width. The heel is rounded, and the end of the orthotic is shaped for the length you chose. The big toe is longest at full length, and the 3/4 and sulcus ends follow the slant of the metatarsal heads.
 - **Height field.** The top surface adds up the base thickness, the posts and lifts, the arch (a cosine profile along the foot times a smooth ramp across it), the heel cup (a function of true distance to the edge), and the met pad (a teardrop dome). The heel cup and the arch are blended with a smooth maximum so the cup wall flows into the arch instead of stacking on it.
 - **Mesh.** A 150 × 56 grid, denser near the ends and edges, becomes a top surface, a bottom surface (flat, or following the arch for the shell style) and side walls. The result is a closed, consistently wound mesh. Left feet are mirrored from right feet.
 
@@ -147,7 +149,7 @@ python3 build.py --check      # confirm index.html matches the sources
 transform, adds a lighting gradient and noise, and checks the pipeline measures the design back
 out of it.
 
-Edit the files in `src/`, then run `build.py`. `index.html` is generated and is what GitHub Pages serves. CI runs the mesh checks and the up-to-date check on every push.
+Edit the files in `src/`, then run `build.py`. `index.html` is generated, and it is the page you open or host. CI runs the mesh checks and the up-to-date check on every push.
 
 To run it locally, open `index.html` in a browser, or serve the folder with `python3 -m http.server`.
 
@@ -157,4 +159,4 @@ These are general-purpose supports, not a medical device, and this tool does not
 
 ## Licence
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE). Original work copyright (c) 2026 markusg1234; modifications copyright (c) 2026 Andrew Camp.

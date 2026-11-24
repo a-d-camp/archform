@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SOURCES = {"/*__GEOMETRY__*/": "geometry.js", "/*__PHOTO__*/": "photo.js"}
+SOURCES = {"/*__BASES__*/": "bases.js", "/*__GEOMETRY__*/": "geometry.js", "/*__PHOTO__*/": "photo.js"}
 SPLIT = '<div class="app">'
 
 

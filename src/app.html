@@ -1,4 +1,4 @@
-<title>Orthotics Builder</title>
+<title>Archform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -304,6 +304,9 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
+/*__BASES__*/
+</script>
+<script>
 /*__GEOMETRY__*/
 </script>
 <script>
@@ -315,11 +318,11 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     <div class="brand">
       <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
         <rect width="34" height="34" rx="8" fill="var(--accent)"/>
-        <path d="M17 5c-4.6 0-7 3.6-7 8.4 0 3 1.3 4.6 1.3 7.4 0 2.6-1.3 3.6-1.3 6 0 1.8 1.6 2.6 3.4 2.6 3 0 4.5-2 5.6-5 1.4-3.6 3-5.6 3-10.4C22 8.5 20.4 5 17 5z" fill="var(--accent-ink)" opacity=".95"/>
-        <path d="M12.6 15.5c1.6.9 2.6 3 2.6 5.4" stroke="var(--accent)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <path d="M6 24h22c0-1.6-1-2.6-2.6-2.6-2.4 0-3.6-8.4-8.4-8.4S11 21.4 8.6 21.4C7 21.4 6 22.4 6 24z" fill="var(--accent-ink)" opacity=".95"/>
+        <path d="M8 27h18" stroke="var(--accent-ink)" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
       </svg>
       <div>
-        <h1>Orthotics Builder</h1>
+        <h1>Archform</h1>
         <p>Enter foot measurements, shape the support, download a printable STL.</p>
       </div>
     </div>
@@ -379,24 +382,46 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
   const G = window.OrthoGeom;
   const STORE_KEY = 'scan-free-orthotic-designer.v1';
 
+  const BASES = window.OrthoBases || {};
+  const ADJUST = ['archAdjHeight', 'archAdjShift', 'archAdjLength', 'archAdjReach', 'outerAdj', 'heelAdj'];
   const SECTIONS = [
+    { id: 'base', title: 'Start from', sub: 'Base shape', fields: [
+      { type: 'choice', k: 'base', label: 'Shape', options: [['none', 'My measurements'], ...Object.entries(BASES).map(([k, b]) => [k, b.label])],
+        hints: Object.assign({ none: 'Built from your foot measurements and the arch, heel and forefoot settings below.' },
+          ...Object.entries(BASES).map(([k, b]) => ({ [k]: `${b.label}, fitted to a 3D scan, as the starting shape. Adjust the arch from it with the sliders below; at zero you get the original shape. ${b.notes || ''}` }))) },
+      { k: 'archAdjHeight', label: 'Arch height change', unit: 'mm', step: 0.5, hint: 'Raises (+) or lowers (-) the orthotic\'s arch surface, most at the inner edge under the peak, fading smoothly along the foot and across it. This changes the support\'s height, not a measurement of your foot.' },
+      { k: 'archAdjShift', label: 'Arch position change', unit: 'mm', step: 1, hint: 'Moves the arch toward the toes (+) or the heel (-).' },
+      { k: 'archAdjLength', label: 'Arch length change', unit: '%', step: 1, hint: 'Stretches (+) or shortens (-) the arch along the foot.' },
+      { k: 'archAdjReach', label: 'Arch change reaches across', unit: '%', step: 5, hint: 'How far from the inner edge toward the outer edge an arch height change carries. Lower keeps it to the inner flange; 100 lifts or lowers the whole midfoot.' },
+      { k: 'outerAdj', label: 'Outer side change', unit: 'mm', step: 0.5, hint: 'Raises (+) or lowers (-) the outer side under the arch.' },
+      { k: 'heelAdj', label: 'Heel cup change', unit: 'mm', step: 0.5, hint: 'Deepens (+) or flattens (-) the heel cup walls.' }
+    ]},
     { id: 'foot', title: 'Your foot', sub: 'Measurements', fields: [
       { type: 'sizefill' },
       { k: 'length', label: 'Foot length', unit: 'mm', step: 1, hint: 'Back of the heel to the tip of your longest toe, standing.' },
-      { k: 'ballWidth', label: 'Ball width', unit: 'mm', step: 1, hint: 'Widest part across the ball of the foot, standing.' },
+      { k: 'ballWidth', label: 'Forefoot width', unit: 'mm', step: 1, hint: 'Widest part across the ball of the foot (the metatarsal heads, big-toe joint to little-toe joint), standing.' },
       { k: 'heelWidth', label: 'Heel width', unit: 'mm', step: 1, hint: 'Widest part of the heel, about 2–3 cm in from the back.' },
       { type: 'choice', k: 'coverage', label: 'Length of the orthotic', options: [['3q', '3/4'], ['sulcus', 'Sulcus'], ['full', 'Full']],
         hints: { '3q': 'Ends just behind the ball of the foot. Goes in on top of the shoe\'s own insole, so it fits shoes whose insole will not come out. If that makes the shoe tight, take the insole out: the front edge is skived thin, so the step is small.', sulcus: 'Ends under the crease of the toes. Goes over the shoe\'s insole or in place of it, with your toes off the front.', full: 'Toe to heel. Replaces the shoe\'s insole, if it comes out.' } },
+      { k: 'shellLength', label: 'Shell length', unit: 'mm', step: 1, hint: 'Sets the exact length of a 3/4 or sulcus shell, back of the heel to the front tip, for example to match an orthotic you already have. 0 uses the length above.' },
+      { k: 'shellWidth', label: 'Shell width', unit: 'mm', step: 1, hint: 'The widest a 3/4 or sulcus shell gets across the foot. Parts of the outline that would be wider ease down to it; narrower parts, like the heel, stay as they are. 0 follows your foot.' },
+      { k: 'shellSlant', label: 'Front edge slant', unit: 'mm', step: 1, hint: 'How much further forward the inner side of a 3/4 or sulcus shell reaches than the outer side, so the front edge follows the slant of the ball of the foot. 0 keeps a rounded front.' },
       { type: 'guide' }
     ]},
     { id: 'arch', title: 'Arch', sub: 'Main support', fields: [
-      { k: 'archHeight', label: 'Arch height', unit: 'mm', step: 0.5, hint: 'Rise under the inner arch. Most adults start at 10–15 mm and go up 2 mm at a time.' },
+      { k: 'archHeight', label: 'Arch height', unit: 'mm', step: 0.5, hint: 'Height of the orthotic\'s top surface under the inner (medial) arch, above the floor. This is the support, not your foot\'s own arch height (navicular height), which a podiatrist measures on the foot itself and which is usually higher. Most adults start at 10–15 mm and go up 2 mm at a time.' },
       { k: 'archPeak', label: 'Arch peak position', unit: '%', step: 1, hint: 'Highest point, as a percentage of foot length from the heel. 40–45% suits most feet.' },
-      { k: 'archSpread', label: 'Arch spread', unit: '%', step: 1, hint: 'How far across the foot the arch support reaches.' },
+      { k: 'archLength', label: 'Arch length', unit: '%', step: 1, hint: 'How far along the foot, heel to toe, the arch stays at full height, as a percentage of foot length, centred on the peak. 0 is a single peak; higher values give a long, flat-topped arch.' },
+      { k: 'archSpread', label: 'Arch spread', unit: '%', step: 1, hint: 'How far across the foot the arch support reaches. At 100% it reaches the outer edge.' },
+      { k: 'archRound', label: 'Arch roundness', unit: '%', step: 5, hint: 'The shape across the foot, seen from the front. 0 is an S-curve that flattens out near the inner edge; 100 keeps rising right up to the inner edge with no flat top, like a moulded shell. The height at the inner edge stays the same.' },
+      { k: 'archFill', label: 'Arch plateau', unit: '%', step: 1, hint: 'How much of the spread stays at full arch height before it slopes down toward the outside. 0 slopes all the way from the inner edge; higher values give a broad, raised midfoot. With spread and plateau both at 100% the arch is full height right across to the outer edge.' },
       { k: 'lateralArch', label: 'Outer arch', unit: 'mm', step: 0.5, hint: 'A small rise on the outside of the midfoot. Helps the orthotic sit stable.' }
     ]},
     { id: 'heel', title: 'Heel', sub: 'Cup, lift and post', fields: [
       { k: 'heelCup', label: 'Heel cup depth', unit: 'mm', step: 0.5, hint: 'Wall height around the heel. Deeper cups cradle the heel pad and stop it sliding.' },
+      { k: 'heelCupReach', label: 'Heel cup curve', unit: '%', step: 5, hint: 'How far the curve of the cup reaches toward the centre of the heel. 0 keeps a flat heel seat with walls at the edge; 100 makes one continuous bowl.' },
+      { k: 'heelHole', label: 'Heel opening', unit: 'mm', step: 1, hint: 'Width of an oval opening under the middle of the heel, so the heel pad rests on the shoe instead of the orthotic. The seat slopes down to a thin rim around it. Pairs well with a heel cup curve near 100. 0 turns it off.' },
+      { k: 'heelHolePos', label: 'Heel opening position', unit: 'mm', step: 1, hint: 'Distance from the back of the heel to the centre of the opening. 0 centres it under the heel pad, about half the heel width in.' },
       { k: 'heelLift', label: 'Heel lift', unit: 'mm', step: 0.5, hint: 'Raises the heel, for example to even up a leg-length difference.' },
       { k: 'rearPost', label: 'Rearfoot post', unit: '°', step: 0.5, hint: 'Tilts the heel. Positive raises the inner side for feet that roll in; negative raises the outer side.' }
     ]},
@@ -406,9 +431,9 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       { k: 'forePost', label: 'Forefoot post', unit: '°', step: 0.5, hint: 'Tilts the forefoot. Positive raises the inner side.' }
     ]},
     { id: 'print', title: 'Print', sub: 'Build and material', fields: [
-      { type: 'choice', k: 'style', label: 'Base', options: [['solid', 'Solid, flat base'], ['shell', 'Shell']],
-        hints: { solid: 'Flat underneath, prints with no supports. Best in TPU.', shell: 'Hollow under the arch, lighter. Needs supports under the arch.' } },
-      { k: 'shellThick', label: 'Heel and arch thickness', unit: 'mm', step: 0.1, hint: 'Base thickness from the heel to the arch.' },
+      { type: 'choice', k: 'style', label: 'Base', options: [['solid', 'Solid, flat base'], ['shell', 'Shell'], ['thin', 'Thin shell']],
+        hints: { solid: 'Flat underneath, prints with no supports. Best in TPU.', shell: 'Hollow under the arch, lighter. Needs supports under the arch.', thin: 'The same thickness everywhere, like a moulded shell: the heel cup and arch are rounded underneath and only touch the shoe where they are low. Lightest. Needs supports under the heel cup and arch.' } },
+      { k: 'shellThick', label: 'Shell thickness', unit: 'mm', step: 0.1, hint: 'Thickness of the shell from the heel through the arch.' },
       { k: 'foreThick', label: 'Forefoot thickness', unit: 'mm', step: 0.1, hint: 'Base thickness under the forefoot. The end of a 3/4 or sulcus shell tapers thinner.' },
       { type: 'choice', k: 'material', label: 'Material', options: [['tpu', 'TPU 95A'], ['petg', 'PETG'], ['pla', 'PLA']],
         hints: {
@@ -426,7 +451,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       id: 'trace', kind: 'top', mode: 'trace', label: 'Foot tracing', sub: 'Length and widths',
       steps: '<li>Stand on the sheet against a wall with your weight on that foot, and trace around the foot with the pen held upright.</li>' +
         '<li>Step off, lay the sheet flat, and photograph it from straight above with the sheet filling the frame.</li>',
-      sets: 'Sets foot length, ball width and heel width.'
+      sets: 'Sets foot length, forefoot width and heel width.'
     },
     {
       id: 'print', kind: 'top', mode: 'print', label: 'Wet footprint', sub: 'Arch type',
@@ -523,7 +548,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       if (f.type === 'guide') { body.append(buildGuide()); continue; }
       if (f.type === 'choice') { body.append(buildChoice(f)); continue; }
       const [min, max] = G.LIMITS[f.k];
-      const wrap = el('div', { class: 'field' });
+      const wrap = el('div', { class: 'field', 'data-k': f.k });
       const head = el('div', { class: 'field-head' });
       head.append(el('label', { for: 'r-' + f.k }, f.label));
       const num = el('span', { class: 'num' });
@@ -542,6 +567,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
   }
   host.prepend(buildCopy());
   host.prepend(buildPhoto());
+  host.prepend(document.getElementById('sec-base'));
 
   /* ---------- Copy an existing orthotic ---------- */
   // Width of a closed polyline at a station. Declared, not assigned, because the
@@ -627,7 +653,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       return wrap;
     };
     body.append(segRow('Where does it end?', 'coverage', [['3q', 'Behind the ball (3/4)'], ['sulcus', 'Toe crease'], ['full', 'Full']]));
-    body.append(segRow('Underneath the arch', 'style', [['solid', 'Flat'], ['shell', 'Hollow']]));
+    body.append(segRow('Underneath the arch', 'style', [['solid', 'Flat'], ['shell', 'Hollow'], ['thin', 'Thin shell']]));
 
     const inputs = {};
     const field = (key, n, label, hint) => {
@@ -726,7 +752,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
         '<div class="table-wrap"><table class="check"><thead><tr><th>Measurement</th><th>Yours</th><th>Design</th></tr></thead><tbody>' +
         rows.map(([n, l, a, b]) => `<tr><td><span class="badge" aria-hidden="true">${n}</span> ${l}</td><td>${f1(a)}</td><td>${f1(b)}</td></tr>`).join('') +
         '</tbody></table></div>' +
-        `<p class="hint">That works out at a foot length of ${Math.round(p.length)} mm, ball width ${Math.round(p.ballWidth)} mm, arch ${f1(p.archHeight)} mm at ${Math.round(p.archPeak)}%, heel cup ${f1(p.heelCup)} mm.` +
+        `<p class="hint">That works out at a foot length of ${Math.round(p.length)} mm, forefoot width ${Math.round(p.ballWidth)} mm, arch ${f1(p.archHeight)} mm at ${Math.round(p.archPeak)}%, heel cup ${f1(p.heelCup)} mm.` +
         (p.rearPost || p.forePost ? ` Posts: rearfoot ${f1(p.rearPost)}°, forefoot ${f1(p.forePost)}°.` : '') + '</p>';
       result.innerHTML = html;
       for (const n of r.notes) result.append(el('div', { class: 'alert' }, n));
@@ -1151,7 +1177,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       }
 
       rows.append(reading(f1(m.length), 'mm', state.flow.id === 'insole' ? 'overall length' : 'foot length'));
-      rows.append(reading(f1(m.maxWidth), 'mm', state.flow.id === 'insole' ? 'widest width' : 'ball width'));
+      rows.append(reading(f1(m.maxWidth), 'mm', state.flow.id === 'insole' ? 'widest width' : 'forefoot width'));
       rows.append(reading(f1(m.heelWidth), 'mm', 'heel width'));
       result.append(rows);
 
@@ -1289,7 +1315,11 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     const seg = el('div', { class: 'seg', role: 'group', 'aria-label': f.label });
     for (const [val, text] of f.options) {
       const b = el('button', { type: 'button', id: 'c-' + f.k + '-' + val }, text);
-      b.addEventListener('click', () => App.set({ [f.k]: val }, { refit: f.k === 'coverage' }));
+      b.addEventListener('click', () => {
+        if (f.k === 'base' && val !== 'none' && params.base !== val) {
+          App.set({ base: val, style: 'thin', shellThick: BASES[val].thickness }, { refit: true });
+        } else App.set({ [f.k]: val }, { refit: f.k === 'coverage' || f.k === 'base' });
+      });
       seg.append(b);
     }
     const hint = el('p', { class: 'hint' });
@@ -1325,7 +1355,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       '<li>Stand on a sheet of paper against a wall, with your weight on that foot.</li>' +
       '<li>Trace around the foot with the pen held upright.</li>' +
       '<li><b>Length:</b> heel line to the tip of the longest toe.</li>' +
-      '<li><b>Ball width:</b> widest point across the ball, big-toe joint to little-toe joint.</li>' +
+      '<li><b>Forefoot width:</b> widest point across the ball of the foot, big-toe joint to little-toe joint.</li>' +
       '<li><b>Heel width:</b> widest point of the heel, 2–3 cm in from the back.</li>' +
       '<li>Measure both feet and use each foot\'s own numbers. They often differ by a few millimetres.</li>'));
     const svg = el('div', { id: 'plan-host' });
@@ -1368,13 +1398,13 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     const [b0, b1] = across(xb), [h0, h1] = across(xh);
     const rx = X(minY) + 14;
     const s = [];
-    s.push(`<svg class="plan" viewBox="0 0 ${w.toFixed(0)} ${h.toFixed(0)}" role="img" aria-label="Plan view of the ${side} foot outline with length ${mm(L)} mm, ball width ${mm(p.ballWidth)} mm and heel width ${mm(p.heelWidth)} mm">`);
+    s.push(`<svg class="plan" viewBox="0 0 ${w.toFixed(0)} ${h.toFixed(0)}" role="img" aria-label="Plan view of the ${side} foot outline with length ${mm(L)} mm, forefoot width ${mm(p.ballWidth)} mm and heel width ${mm(p.heelWidth)} mm">`);
     s.push(`<path class="outline" d="${path}"/>`);
     s.push(`<line class="ext" x1="30" y1="${Y(L)}" x2="${rx + 4}" y2="${Y(L)}"/><line class="ext" x1="30" y1="${Y(0)}" x2="${rx + 4}" y2="${Y(0)}"/>`);
     s.push(`<line class="dim" x1="${rx}" y1="${Y(L)}" x2="${rx}" y2="${Y(0)}"/>`);
     s.push(`<text x="${rx + 4}" y="${(Y(L) + Y(0)) / 2}" transform="rotate(90 ${rx + 4} ${(Y(L) + Y(0)) / 2})" text-anchor="middle">length ${mm(L)}</text>`);
     s.push(`<line class="dim" x1="${X(b1)}" y1="${Y(xb)}" x2="${X(b0)}" y2="${Y(xb)}"/>`);
-    s.push(`<text x="${(X(b1) + X(b0)) / 2}" y="${Y(xb) - 5}" text-anchor="middle">ball ${mm(p.ballWidth)}</text>`);
+    s.push(`<text x="${(X(b1) + X(b0)) / 2}" y="${Y(xb) - 5}" text-anchor="middle">forefoot ${mm(p.ballWidth)}</text>`);
     s.push(`<line class="dim" x1="${X(h1)}" y1="${Y(xh)}" x2="${X(h0)}" y2="${Y(xh)}"/>`);
     s.push(`<text x="${(X(h1) + X(h0)) / 2}" y="${Y(xh) - 5}" text-anchor="middle">heel ${mm(p.heelWidth)}</text>`);
     s.push(`<text x="2" y="${Y(L) + 3}">toes</text><text x="2" y="${Y(0) + 3}">heel</text>`);
@@ -1401,6 +1431,13 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       c.hint.textContent = c.hints[params[k]] || '';
     }
     for (const b of document.querySelectorAll('[data-side]')) b.setAttribute('aria-pressed', b.dataset.side === params.side ? 'true' : 'false');
+    const onBase = params.base !== 'none';
+    for (const id of ['sec-foot', 'sec-arch', 'sec-heel', 'sec-fore', 'sec-copy', 'sec-photo']) {
+      const sec = document.getElementById(id);
+      if (sec) sec.hidden = onBase;
+    }
+    for (const k of ADJUST) { const w = document.querySelector(`.field[data-k="${k}"]`); if (w) w.hidden = !onBase; }
+    for (const k of ['shellLength', 'shellWidth', 'shellSlant']) { const w = document.querySelector(`.field[data-k="${k}"]`); if (w) w.hidden = onBase; }
     const label = params.side === 'pair' ? 'Download pair STL' : 'Download ' + params.side + ' STL';
     document.getElementById('download-label').textContent = label;
     const alerts = document.getElementById('alerts');
@@ -1416,6 +1453,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     return JSON.stringify({ app: 'orthotics-builder', version: 1, params }, null, 2);
   }
   function fileStem(side) {
+    if (G.baseOf(params)) return `orthotic-${side}-${params.base}`;
     return `orthotic-${side}-${Math.round(params.length)}mm-${params.coverage}`;
   }
   function stlFor(side) {
@@ -1430,10 +1468,10 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     return G.toSTL([G.build(params, { side })]);
   }
   const README = () => [
-    'Orthotics Builder export',
+    'Archform export',
     '',
     'Units: millimetres. The base sits flat on Z = 0, toes point along +X.',
-    'Print with the flat base on the bed. Shell style needs supports under the arch.',
+    'Print with the flat base on the bed. Shell style needs supports under the arch; thin shell under the heel cup and arch.',
     'settings.json reloads these exact values with "Load settings".',
     '',
     'General-purpose supports only. See a podiatrist if you have diabetes, poor circulation,',
@@ -1641,14 +1679,26 @@ function buildDims(stats, oy) {
   const near = App.params.side === 'left' ? -1 : 1;
   const gap = Math.max(10, stats.maxWidth * 0.12), tick = gap * 0.4;
   const yOut = (near > 0 ? yHi : yLo) + gap * near;
-  addDim(V(0, yOut, 0), V(L, yOut, 0), V(0, 0, tick), L.toFixed(0) + ' mm long');
-  addDim(V(-gap, yLo, 0), V(-gap, yHi, 0), V(0, 0, tick), stats.maxWidth.toFixed(0) + ' mm wide');
+  // These measure the orthotic. Where that differs from the foot measurements in the panel
+  // (a 3/4 or sulcus length, or an end that stops short of the ball), say so on the label.
+  const pf = App.params;
+  const baseL = G.baseOf(pf);
+  const cov = baseL ? null : pf.coverage === 'full' ? null
+    : pf.shellLength > 0 ? Math.round((100 * L) / pf.length) + '%' : { '3q': '3/4', sulcus: 'sulcus' }[pf.coverage];
+  const narrower = !baseL && stats.maxWidth < pf.ballWidth - 0.5;
+  addDim(V(0, yOut, 0), V(L, yOut, 0), V(0, 0, tick),
+    L.toFixed(0) + ' mm long' + (baseL ? ` · ${baseL.label}` : cov ? ` · ${cov} of ${pf.length.toFixed(0)} mm foot` : ''));
+  addDim(V(-gap, yLo, 0), V(-gap, yHi, 0), V(0, 0, tick),
+    stats.maxWidth.toFixed(0) + ' mm wide' + (narrower ? ` · forefoot ${pf.ballWidth.toFixed(0)} mm` : ''));
   addDim(V(-gap, yOut, 0), V(-gap, yOut, H), V(tick, 0, 0), H.toFixed(1) + ' mm tall');
   // The arch, standing at the point along the foot where it actually peaks. It
   // spans the rise above the base, which is what the arch height slider sets, so
   // it reads lower than the tallest point by the thickness underneath it.
   const pa = App.params;
-  if (pa.archHeight > 0) {
+  if (baseL) {
+    const md = G.measureDesign(pa);
+    addDim(V(md.archDist, yOut, 0), V(md.archDist, yOut, md.archTop), V(tick, 0, 0), md.archTop.toFixed(1) + ' mm arch');
+  } else if (pa.archHeight > 0) {
     const md = G.measureDesign(pa), top = md.archTop, base = Math.max(0, top - pa.archHeight);
     addDim(V(md.archDist, yOut, base), V(md.archDist, yOut, top), V(tick, 0, 0), pa.archHeight.toFixed(1) + ' mm arch');
   }
@@ -1751,8 +1801,10 @@ function rebuild() {
   const matName = { tpu: 'TPU', petg: 'PETG', pla: 'PLA' }[p.material];
   const per = sides.length > 1 ? ' each' : '';
   document.getElementById('readout').innerHTML =
-    `<span class="chip">Length <b>${st.length.toFixed(0)} mm</b></span>` +
-    `<span class="chip">Width <b>${st.maxWidth.toFixed(0)} mm</b></span>` +
+    (G.baseOf(p) ? `<span class="chip">Base <b>${G.baseOf(p).label}</b></span><span class="chip">Length <b>${st.length.toFixed(0)} mm</b></span>` +
+      `<span class="chip">Width <b>${st.maxWidth.toFixed(0)} mm</b></span>`
+    : `<span class="chip">Length <b>${st.length.toFixed(0)} mm</b>${p.coverage !== 'full' ? ` of ${p.length.toFixed(0)} mm foot` : ''}</span>` +
+      `<span class="chip">Width <b>${st.maxWidth.toFixed(0)} mm</b>${st.maxWidth < p.ballWidth - 0.5 ? ` · forefoot ${p.ballWidth.toFixed(0)} mm` : ''}</span>`) +
     `<span class="chip">Tallest point <b>${st.maxHeight.toFixed(1)} mm</b></span>` +
     `<span class="chip">Solid volume <b>${st.volume.toFixed(0)} cm³</b>${per} · up to <b>${st.weight.toFixed(0)} g</b> ${matName}</span>`;
 
