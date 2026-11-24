@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout: lab bench — measurement controls in a left column, the model on a stage to the right; on phones the stage pins to the top while the controls scroll beneath it. */
+/* Layout: lab bench — controls in a left column, the model on a stage to the right; on phones the stage pins to the top while the controls scroll beneath it. */
 :root {
   --bg: #ECEFEE;
   --panel: #F8FAF9;
@@ -189,95 +189,11 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
 .choice .seg { width: 100%; }
 .choice .seg button { flex: 1; padding: 7px 6px; }
 
-.sizefill { display: grid; grid-template-columns: minmax(0, 1fr) 72px auto; gap: 8px; align-items: center; }
-.sizefill select, .sizefill input {
-  padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); min-width: 0;
-}
-.sizefill input { font-family: var(--font-mono); text-align: right; }
-
-.guide { border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
-.guide > summary { cursor: pointer; padding: 9px 12px; font-weight: 500; }
-.guide-body { padding: 0 12px 12px; display: grid; gap: 10px; }
-.guide ol { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; }
-.plan { width: 100%; max-width: 100%; max-height: 380px; height: auto; display: block; margin: 0 auto; }
-.plan text { font-family: var(--font-mono); font-size: 9px; fill: var(--muted); }
-.plan .outline { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.2; }
-.plan .dim { stroke: var(--ink); stroke-width: .8; fill: none; }
-.plan .ext { stroke: var(--muted); stroke-width: .6; stroke-dasharray: 2 2; fill: none; }
-
-.tips { font-size: 12.5px; color: var(--muted); margin: 0; }
 @media (max-width: 860px) { .bar-actions .wide { display: none; } }
 .foot-note { display: grid; gap: 10px; padding-top: 16px; font-size: 12.5px; color: var(--muted); }
 .foot-note p { margin: 0; max-width: 62ch; }
 .file-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .status { min-height: 1.4em; font-size: 12.5px; color: var(--muted); }
-
-/* ---------- Copy an existing orthotic ---------- */
-.steps { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; }
-.diagram { display: grid; gap: 4px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); padding: 6px 4px; }
-.plan .b { fill: var(--accent); }
-.plan .bt { fill: var(--accent-ink); font-size: 9px; font-weight: 600; }
-.ofields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.ofield { display: grid; gap: 4px; align-content: start; min-width: 0; }
-.ofield label { font-weight: 500; display: flex; align-items: center; gap: 6px; }
-.ofield input {
-  width: 100%; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg);
-  font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right;
-}
-.ofield .hint { font-size: 11.5px; }
-.badge {
-  display: inline-grid; place-items: center; flex: none; width: 18px; height: 18px; border-radius: 50%;
-  background: var(--accent); color: var(--accent-ink); font: 600 10px/1 var(--font-mono);
-}
-.wedge { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.copy-result { display: grid; gap: 8px; }
-.copy-result:empty { display: none; }
-.table-wrap { overflow-x: auto; }
-.check { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-.check th, .check td { padding: 5px 6px; border-bottom: 1px solid var(--line); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.check th { color: var(--muted); font-weight: 500; }
-.check th:first-child, .check td:first-child { text-align: left; }
-.check td:not(:first-child) { font-family: var(--font-mono); }
-
-/* ---------- Measure from a photo ---------- */
-.flowpick { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
-.flowpick button {
-  display: grid; gap: 1px; padding: 8px 10px; text-align: left; border: 1px solid var(--line);
-  border-radius: 8px; background: var(--bg); color: var(--muted); font: inherit; cursor: pointer;
-}
-.flowpick button:hover { color: var(--ink); }
-.flowpick button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
-.flowpick b { font-weight: 500; font-size: 13px; }
-.flowpick span { font-size: 11.5px; }
-.shot { position: relative; display: block; width: 100%; margin: 0 auto; touch-action: none; }
-.shot img, .shot canvas { display: block; width: 100%; height: auto; border-radius: 6px; background: var(--bg); }
-.shot .guides { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-.shot .guides polygon { fill: color-mix(in srgb, var(--accent) 12%, transparent); stroke: var(--accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
-.mark {
-  position: absolute; width: 28px; height: 28px; margin: -14px 0 0 -14px; padding: 0; border-radius: 50%;
-  border: 2px solid var(--accent-ink); background: var(--accent); color: var(--accent-ink);
-  box-shadow: 0 0 0 1px var(--accent), 0 1px 4px rgba(0, 0, 0, .3);
-  font: 600 10px/1 var(--font-mono); display: grid; place-items: center; cursor: grab; touch-action: none;
-}
-.mark.land { background: var(--warn); box-shadow: 0 0 0 1px var(--warn), 0 1px 4px rgba(0, 0, 0, .3); color: var(--warn-bg); }
-/* A thumb needs a bigger target than the dot, and the dot needs to stay small
-   enough to see what is under it. Grow the hit area, not the circle. */
-.mark::before { content: ''; position: absolute; inset: -9px; border-radius: 50%; }
-.mark:active { cursor: grabbing; }
-.mark:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.photo-result { display: grid; gap: 8px; }
-.photo-result:empty { display: none; }
-.readings { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 6px; }
-.reading { border: 1px solid var(--line); border-radius: 8px; background: var(--bg); padding: 6px 8px; display: grid; gap: 1px; }
-.reading b { font: 500 15px/1.2 var(--font-mono); font-variant-numeric: tabular-nums; }
-.reading span { font-size: 11px; color: var(--muted); }
-.plan .traced { fill: none; stroke: var(--warn); stroke-width: 1.2; stroke-dasharray: 4 3; }
-.plan .floor { stroke: var(--ink); stroke-width: 1; }
-.plan .sheet { fill: var(--panel); stroke: var(--line); stroke-width: 1; }
-.plan .cam { fill: none; stroke: var(--muted); stroke-width: 1.1; }
-.plan .lead { stroke: var(--warn); stroke-width: .8; stroke-dasharray: 2 2; fill: none; }
-.plan .bl { fill: var(--warn); }
-.plan .blt { fill: var(--warn-bg); font-size: 9px; font-weight: 600; }
 
 /* ---------- Phone layout ---------- */
 @media (max-width: 860px) {
@@ -311,148 +227,79 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
-// Generated by `uv run ortho export` from designs/*.json. Do not edit by hand.
-// Base shapes for the builder's "Start from" choice: outline table, opening and B-spline surface.
+// Generated by `uv run ortho export` from a design in designs/. Do not edit by hand.
+// The builder's shape: outline table, heel opening and B-spline surface.
 (function (root) {
-  root.OrthoBases = Object.assign(root.OrthoBases || {}, {"high-arch":{"label":"High arch baseline","thickness":2.5,"length":174.416,"edges":{"x":[0.0,0.727,1.453,2.18,2.907,3.634,4.36,5.087,5.814,6.541,7.267,7.994,8.721,9.448,10.174,10.901,11.628,12.354,13.081,13.808,14.535,15.261,15.988,16.715,17.442,18.168,18.895,19.622,20.349,21.075,21.802,22.529,23.255,23.982,24.709,25.436,26.162,26.889,27.616,28.343,29.069,29.796,30.523,31.25,31.976,32.703,33.43,34.157,34.883,35.61,36.337,37.063,37.79,38.517,39.244,39.97,40.697,41.424,42.151,42.877,43.604,44.331,45.058,45.784,46.511,47.238,47.964,48.691,49.418,50.145,50.871,51.598,52.325,53.052,53.778,54.505,55.232,55.959,56.685,57.412,58.139,58.865,59.592,60.319,61.046,61.772,62.499,63.226,63.953,64.679,65.406,66.133,66.86,67.586,68.313,69.04,69.766,70.493,71.22,71.947,72.673,73.4,74.127,74.854,75.58,76.307,77.034,77.761,78.487,79.214,79.941,80.668,81.394,82.121,82.848,83.574,84.301,85.028,85.755,86.481,87.208,87.935,88.662,89.388,90.115,90.842,91.569,92.295,93.022,93.749,94.475,95.202,95.929,96.656,97.382,98.109,98.836,99.563,100.289,101.016,101.743,102.47,103.196,103.923,104.65,105.376,106.103,106.83,107.557,108.283,109.01,109.737,110.464,111.19,111.917,112.644,113.371,114.097,114.824,115.551,116.277,117.004,117.731,118.458,119.184,119.911,120.638,121.365,122.091,122.818,123.545,124.272,124.998,125.725,126.452,127.179,127.905,128.632,129.359,130.085,130.812,131.539,132.266,132.992,133.719,134.446,135.173,135.899,136.626,137.353,138.08,138.806,139.533,140.26,140.986,141.713,142.44,143.167,143.893,144.62,145.347,146.074,146.8,147.527,148.254,148.981,149.707,150.434,151.161,151.887,152.614,153.341,154.068,154.794,155.521,156.248,156.975,157.701,158.428,159.155,159.882,160.608,161.335,162.062,162.788,163.515,164.242,164.969,165.695,166.422,167.149,167.876,168.602,169.329,170.056,170.783,171.509,172.236,172.963,173.689,174.416],"ymax":[-0.063,6.718,9.487,11.591,13.337,14.847,16.185,17.389,18.483,19.483,20.404,21.251,22.036,22.76,23.428,24.043,24.605,25.119,25.586,26.007,26.387,26.729,27.034,27.308,27.555,27.775,27.972,28.148,28.302,28.44,28.561,28.667,28.758,28.837,28.905,28.962,29.009,29.048,29.079,29.104,29.121,29.134,29.142,29.147,29.148,29.148,29.145,29.142,29.138,29.135,29.132,29.13,29.128,29.126,29.125,29.124,29.123,29.122,29.122,29.121,29.12,29.12,29.119,29.118,29.117,29.115,29.113,29.111,29.109,29.105,29.102,29.098,29.093,29.087,29.081,29.073,29.065,29.056,29.046,29.035,29.023,29.009,28.995,28.979,28.962,28.943,28.923,28.902,28.879,28.854,28.828,28.801,28.772,28.742,28.711,28.678,28.644,28.609,28.573,28.536,28.498,28.459,28.418,28.377,28.335,28.293,28.249,28.205,28.16,28.114,28.068,28.021,27.974,27.926,27.877,27.829,27.779,27.73,27.68,27.63,27.58,27.53,27.479,27.429,27.378,27.328,27.277,27.227,27.176,27.126,27.076,27.026,26.977,26.928,26.879,26.831,26.783,26.736,26.689,26.643,26.597,26.553,26.508,26.465,26.422,26.381,26.34,26.3,26.26,26.222,26.185,26.149,26.114,26.081,26.048,26.017,25.986,25.958,25.93,25.904,25.88,25.857,25.835,25.815,25.796,25.779,25.764,25.751,25.739,25.729,25.721,25.714,25.71,25.707,25.707,25.708,25.712,25.717,25.725,25.735,25.747,25.761,25.777,25.796,25.817,25.841,25.866,25.894,25.923,25.953,25.984,26.015,26.047,26.079,26.11,26.141,26.17,26.198,26.225,26.249,26.271,26.291,26.307,26.321,26.33,26.336,26.338,26.335,26.327,26.314,26.296,26.272,26.242,26.206,26.162,26.113,26.055,25.99,25.917,25.835,25.742,25.637,25.517,25.382,25.226,25.052,24.85,24.622,24.361,24.059,23.71,23.303,22.824,22.25,21.558,20.711,19.669,18.355,16.608,14.046,6.409],"ymin":[-0.063,-6.58,-9.316,-11.388,-13.111,-14.605,-15.932,-17.126,-18.214,-19.214,-20.136,-20.992,-21.786,-22.525,-23.215,-23.859,-24.46,-25.021,-25.544,-26.031,-26.485,-26.908,-27.301,-27.669,-28.014,-28.337,-28.639,-28.924,-29.191,-29.442,-29.678,-29.901,-30.111,-30.311,-30.498,-30.677,-30.845,-31.006,-31.159,-31.306,-31.445,-31.579,-31.708,-31.832,-31.953,-32.07,-32.184,-32.295,-32.405,-32.514,-32.621,-32.728,-32.836,-32.943,-33.051,-33.158,-33.266,-33.374,-33.481,-33.589,-33.697,-33.805,-33.914,-34.022,-34.131,-34.239,-34.348,-34.457,-34.566,-34.675,-34.785,-34.895,-35.004,-35.114,-35.224,-35.335,-35.445,-35.556,-35.667,-35.778,-35.89,-36.002,-36.113,-36.226,-36.338,-36.451,-36.564,-36.677,-36.79,-36.904,-37.018,-37.132,-37.247,-37.362,-37.477,-37.593,-37.709,-37.825,-37.941,-38.058,-38.175,-38.293,-38.411,-38.529,-38.648,-38.767,-38.886,-39.006,-39.126,-39.247,-39.368,-39.489,-39.611,-39.733,-39.856,-39.979,-40.103,-40.227,-40.351,-40.476,-40.601,-40.727,-40.853,-40.98,-41.107,-41.235,-41.363,-41.492,-41.621,-41.751,-41.881,-42.012,-42.143,-42.275,-42.407,-42.54,-42.673,-42.807,-42.94,-43.074,-43.209,-43.343,-43.477,-43.611,-43.745,-43.879,-44.013,-44.146,-44.279,-44.411,-44.543,-44.675,-44.805,-44.935,-45.065,-45.193,-45.32,-45.447,-45.572,-45.697,-45.82,-45.942,-46.062,-46.181,-46.299,-46.415,-46.53,-46.643,-46.754,-46.864,-46.972,-47.078,-47.182,-47.284,-47.384,-47.482,-47.577,-47.67,-47.762,-47.85,-47.936,-48.02,-48.101,-48.18,-48.255,-48.327,-48.392,-48.449,-48.496,-48.531,-48.553,-48.559,-48.547,-48.515,-48.464,-48.39,-48.296,-48.18,-48.042,-47.88,-47.694,-47.485,-47.248,-46.985,-46.695,-46.373,-46.02,-45.635,-45.213,-44.751,-44.248,-43.7,-43.102,-42.455,-41.756,-41.004,-40.201,-39.343,-38.431,-37.469,-36.452,-35.387,-34.272,-33.106,-31.886,-30.608,-29.27,-27.866,-26.393,-24.847,-23.224,-21.52,-19.734,-17.862,-15.9,-13.813,-11.551,-9.022,-6.058,-2.22,6.409]},"spline":{"ts":[0.0,0.0,0.0,0.0,0.077892,0.129725,0.176976,0.303837,0.465636,0.525773,0.632875,0.784364,0.823024,0.893184,1.0,1.0,1.0,1.0],"tv":[0.0,0.0,0.0,0.0,0.245,0.5,0.755,1.0,1.0,1.0,1.0],"C":[[15.85,15.85,15.85,15.85,15.85,15.85,15.85],[17.89,15.4,12.07,9.0,9.15,11.73,14.99],[18.77,14.28,7.86,2.84,3.16,7.8,13.78],[18.24,12.15,3.92,-0.89,-0.18,4.84,11.64],[18.18,10.21,2.13,-1.42,-0.64,3.24,8.92],[19.78,13.3,6.18,1.68,1.15,3.83,7.9],[23.01,19.59,13.04,6.27,3.75,5.66,8.52],[25.7,23.02,16.51,8.84,5.25,6.77,9.17],[26.63,22.94,16.34,8.74,5.26,6.43,8.75],[25.19,20.18,13.59,6.96,4.61,5.7,7.71],[19.62,14.51,9.43,5.35,4.67,5.6,6.72],[11.5,7.16,4.71,4.61,5.72,6.03,5.75],[5.2,2.7,2.16,3.79,5.31,5.09,4.16],[1.87,1.87,1.87,1.87,1.87,1.87,1.87]]},"arch":{"peak_x":109.72,"peak_s":0.6291},"notes":"High-arch baseline: a thin moulded 3/4-length shell with a deep heel cup, a tall inner arch and an egg-shaped heel opening. Adjust it for a foot in the builder, or refit it to your own scan with `ortho scan`.","opening":{"center":[40.98,-8.0],"size":[38.1,50.8],"fourier":[21.529,-0.132,0.032,3.314,-2.406,0.462,-0.529,0.159,-0.435,-0.028,-0.226]}}});
+  root.OrthoShape = {"thickness":2.5,"length":174.416,"edges":{"x":[0.0,0.727,1.453,2.18,2.907,3.634,4.36,5.087,5.814,6.541,7.267,7.994,8.721,9.448,10.174,10.901,11.628,12.354,13.081,13.808,14.535,15.261,15.988,16.715,17.442,18.168,18.895,19.622,20.349,21.075,21.802,22.529,23.255,23.982,24.709,25.436,26.162,26.889,27.616,28.343,29.069,29.796,30.523,31.25,31.976,32.703,33.43,34.157,34.883,35.61,36.337,37.063,37.79,38.517,39.244,39.97,40.697,41.424,42.151,42.877,43.604,44.331,45.058,45.784,46.511,47.238,47.964,48.691,49.418,50.145,50.871,51.598,52.325,53.052,53.778,54.505,55.232,55.959,56.685,57.412,58.139,58.865,59.592,60.319,61.046,61.772,62.499,63.226,63.953,64.679,65.406,66.133,66.86,67.586,68.313,69.04,69.766,70.493,71.22,71.947,72.673,73.4,74.127,74.854,75.58,76.307,77.034,77.761,78.487,79.214,79.941,80.668,81.394,82.121,82.848,83.574,84.301,85.028,85.755,86.481,87.208,87.935,88.662,89.388,90.115,90.842,91.569,92.295,93.022,93.749,94.475,95.202,95.929,96.656,97.382,98.109,98.836,99.563,100.289,101.016,101.743,102.47,103.196,103.923,104.65,105.376,106.103,106.83,107.557,108.283,109.01,109.737,110.464,111.19,111.917,112.644,113.371,114.097,114.824,115.551,116.277,117.004,117.731,118.458,119.184,119.911,120.638,121.365,122.091,122.818,123.545,124.272,124.998,125.725,126.452,127.179,127.905,128.632,129.359,130.085,130.812,131.539,132.266,132.992,133.719,134.446,135.173,135.899,136.626,137.353,138.08,138.806,139.533,140.26,140.986,141.713,142.44,143.167,143.893,144.62,145.347,146.074,146.8,147.527,148.254,148.981,149.707,150.434,151.161,151.887,152.614,153.341,154.068,154.794,155.521,156.248,156.975,157.701,158.428,159.155,159.882,160.608,161.335,162.062,162.788,163.515,164.242,164.969,165.695,166.422,167.149,167.876,168.602,169.329,170.056,170.783,171.509,172.236,172.963,173.689,174.416],"ymax":[-0.063,6.718,9.487,11.591,13.337,14.847,16.185,17.389,18.483,19.483,20.404,21.251,22.036,22.76,23.428,24.043,24.605,25.119,25.586,26.007,26.387,26.729,27.034,27.308,27.555,27.775,27.972,28.148,28.302,28.44,28.561,28.667,28.758,28.837,28.905,28.962,29.009,29.048,29.079,29.104,29.121,29.134,29.142,29.147,29.148,29.148,29.145,29.142,29.138,29.135,29.132,29.13,29.128,29.126,29.125,29.124,29.123,29.122,29.122,29.121,29.12,29.12,29.119,29.118,29.117,29.115,29.113,29.111,29.109,29.105,29.102,29.098,29.093,29.087,29.081,29.073,29.065,29.056,29.046,29.035,29.023,29.009,28.995,28.979,28.962,28.943,28.923,28.902,28.879,28.854,28.828,28.801,28.772,28.742,28.711,28.678,28.644,28.609,28.573,28.536,28.498,28.459,28.418,28.377,28.335,28.293,28.249,28.205,28.16,28.114,28.068,28.021,27.974,27.926,27.877,27.829,27.779,27.73,27.68,27.63,27.58,27.53,27.479,27.429,27.378,27.328,27.277,27.227,27.176,27.126,27.076,27.026,26.977,26.928,26.879,26.831,26.783,26.736,26.689,26.643,26.597,26.553,26.508,26.465,26.422,26.381,26.34,26.3,26.26,26.222,26.185,26.149,26.114,26.081,26.048,26.017,25.986,25.958,25.93,25.904,25.88,25.857,25.835,25.815,25.796,25.779,25.764,25.751,25.739,25.729,25.721,25.714,25.71,25.707,25.707,25.708,25.712,25.717,25.725,25.735,25.747,25.761,25.777,25.796,25.817,25.841,25.866,25.894,25.923,25.953,25.984,26.015,26.047,26.079,26.11,26.141,26.17,26.198,26.225,26.249,26.271,26.291,26.307,26.321,26.33,26.336,26.338,26.335,26.327,26.314,26.296,26.272,26.242,26.206,26.162,26.113,26.055,25.99,25.917,25.835,25.742,25.637,25.517,25.382,25.226,25.052,24.85,24.622,24.361,24.059,23.71,23.303,22.824,22.25,21.558,20.711,19.669,18.355,16.608,14.046,6.409],"ymin":[-0.063,-6.58,-9.316,-11.388,-13.111,-14.605,-15.932,-17.126,-18.214,-19.214,-20.136,-20.992,-21.786,-22.525,-23.215,-23.859,-24.46,-25.021,-25.544,-26.031,-26.485,-26.908,-27.301,-27.669,-28.014,-28.337,-28.639,-28.924,-29.191,-29.442,-29.678,-29.901,-30.111,-30.311,-30.498,-30.677,-30.845,-31.006,-31.159,-31.306,-31.445,-31.579,-31.708,-31.832,-31.953,-32.07,-32.184,-32.295,-32.405,-32.514,-32.621,-32.728,-32.836,-32.943,-33.051,-33.158,-33.266,-33.374,-33.481,-33.589,-33.697,-33.805,-33.914,-34.022,-34.131,-34.239,-34.348,-34.457,-34.566,-34.675,-34.785,-34.895,-35.004,-35.114,-35.224,-35.335,-35.445,-35.556,-35.667,-35.778,-35.89,-36.002,-36.113,-36.226,-36.338,-36.451,-36.564,-36.677,-36.79,-36.904,-37.018,-37.132,-37.247,-37.362,-37.477,-37.593,-37.709,-37.825,-37.941,-38.058,-38.175,-38.293,-38.411,-38.529,-38.648,-38.767,-38.886,-39.006,-39.126,-39.247,-39.368,-39.489,-39.611,-39.733,-39.856,-39.979,-40.103,-40.227,-40.351,-40.476,-40.601,-40.727,-40.853,-40.98,-41.107,-41.235,-41.363,-41.492,-41.621,-41.751,-41.881,-42.012,-42.143,-42.275,-42.407,-42.54,-42.673,-42.807,-42.94,-43.074,-43.209,-43.343,-43.477,-43.611,-43.745,-43.879,-44.013,-44.146,-44.279,-44.411,-44.543,-44.675,-44.805,-44.935,-45.065,-45.193,-45.32,-45.447,-45.572,-45.697,-45.82,-45.942,-46.062,-46.181,-46.299,-46.415,-46.53,-46.643,-46.754,-46.864,-46.972,-47.078,-47.182,-47.284,-47.384,-47.482,-47.577,-47.67,-47.762,-47.85,-47.936,-48.02,-48.101,-48.18,-48.255,-48.327,-48.392,-48.449,-48.496,-48.531,-48.553,-48.559,-48.547,-48.515,-48.464,-48.39,-48.296,-48.18,-48.042,-47.88,-47.694,-47.485,-47.248,-46.985,-46.695,-46.373,-46.02,-45.635,-45.213,-44.751,-44.248,-43.7,-43.102,-42.455,-41.756,-41.004,-40.201,-39.343,-38.431,-37.469,-36.452,-35.387,-34.272,-33.106,-31.886,-30.608,-29.27,-27.866,-26.393,-24.847,-23.224,-21.52,-19.734,-17.862,-15.9,-13.813,-11.551,-9.022,-6.058,-2.22,6.409]},"spline":{"ts":[0.0,0.0,0.0,0.0,0.077892,0.129725,0.176976,0.303837,0.465636,0.525773,0.632875,0.784364,0.823024,0.893184,1.0,1.0,1.0,1.0],"tv":[0.0,0.0,0.0,0.0,0.245,0.5,0.755,1.0,1.0,1.0,1.0],"C":[[15.85,15.85,15.85,15.85,15.85,15.85,15.85],[17.89,15.4,12.07,9.0,9.15,11.73,14.99],[18.77,14.28,7.86,2.84,3.16,7.8,13.78],[18.24,12.15,3.92,-0.89,-0.18,4.84,11.64],[18.18,10.21,2.13,-1.42,-0.64,3.24,8.92],[19.78,13.3,6.18,1.68,1.15,3.83,7.9],[23.01,19.59,13.04,6.27,3.75,5.66,8.52],[25.7,23.02,16.51,8.84,5.25,6.77,9.17],[26.63,22.94,16.34,8.74,5.26,6.43,8.75],[25.19,20.18,13.59,6.96,4.61,5.7,7.71],[19.62,14.51,9.43,5.35,4.67,5.6,6.72],[11.5,7.16,4.71,4.61,5.72,6.03,5.75],[5.2,2.7,2.16,3.79,5.31,5.09,4.16],[1.87,1.87,1.87,1.87,1.87,1.87,1.87]]},"arch":{"peak_x":109.72,"peak_s":0.6291},"opening":{"center":[40.98,-8.0],"size":[38.1,50.8],"fourier":[21.529,-0.132,0.032,3.314,-2.406,0.462,-0.529,0.159,-0.435,-0.028,-0.226]}};
 })(typeof window !== 'undefined' ? window : globalThis);
 
 </script>
 <script>
 /*
- * Orthotic geometry engine — scan-free, measurement-driven.
- * Pure JavaScript, no dependencies. Builds a closed, printable triangle mesh
+ * Orthotic geometry engine.
+ * Pure JavaScript, no dependencies. Builds a closed, printable triangle mesh of the default shape
+ * (src/shape.js, exported from the Python tool) with the adjustments below applied
  * (millimetres, Z up, X from heel to toe, +Y = medial side of a RIGHT foot).
  */
 (function (root) {
   'use strict';
 
+  function shape() {
+    const S = root.OrthoShape;
+    if (!S) throw new Error('No shape loaded: load src/shape.js before src/geometry.js');
+    return S;
+  }
+
   const DEFAULTS = {
     side: 'right',        // right | left | pair (pair is a view/export option)
-    length: 265,          // foot length, heel to longest toe (mm)
-    ballWidth: 100,       // widest part across the ball of the foot (mm)
-    heelWidth: 66,        // widest part of the heel (mm)
-    base: 'none',         // 'none' (shape from the measurements below) or a fitted base shape from src/bases.js
-    archAdjHeight: 0,     // base shapes: raise (+) or lower (-) the arch, mm at the inner edge under the peak
-    archAdjShift: 0,      // base shapes: move the arch toward the toes (+) or the heel (-), mm
-    archAdjLength: 0,     // base shapes: stretch (+) or shorten (-) the arch along the foot, %
-    archAdjReach: 60,     // base shapes: how far across from the inner edge an arch height change carries, %
-    outerAdj: 0,          // base shapes: raise (+) or lower (-) the outer side under the arch, mm
-    heelAdj: 0,           // base shapes: deepen (+) or flatten (-) the heel cup walls, mm
-    coverage: '3q',       // 3q | sulcus | full
-    shellLength: 0,       // length of a 3q or sulcus shell (mm), overriding the coverage's share of the foot; 0 = off
-    shellWidth: 0,        // widest a 3q or sulcus shell gets across the foot (mm); wider parts of the outline ease down to it; 0 = off
-    shellSlant: 0,        // how much further forward the inner side of a 3q or sulcus front edge reaches than the outer (mm); 0 = rounded front
-    archHeight: 15,       // medial arch rise above the base (mm)
-    archPeak: 42,         // arch peak position, % of foot length from heel
-    archSpread: 65,       // how far across the foot the arch reaches (%)
-    archFill: 0,          // share of the spread held at full arch height (%); 0 = a ramp from the inner edge
-    archLength: 0,        // length held at full arch height around the peak, % of foot length; 0 = a single peak
-    archRound: 0,         // across the foot: 0 = S-curve with a flat top by the inner edge; 100 = keeps rising to the edge
-    lateralArch: 2,       // outer (lateral) arch rise (mm)
-    heelCup: 12,          // heel cup wall height (mm)
-    heelCupReach: 0,      // how far the cup curve reaches toward the heel centre, % of half the heel width;
-                          // 0 = walls only (curve reaches 8 + 0.8 x depth mm in from the edge)
-    heelHole: 0,          // width of an oval opening under the heel centre (mm); 0 = none
-    heelHolePos: 0,       // distance from the back of the heel to the opening's centre (mm); 0 = under the heel pad (55% of heel width)
-    heelLift: 0,          // extra height under the heel (mm)
-    rearPost: 0,          // rearfoot post angle, + raises inner side (deg)
-    metPad: 0,            // metatarsal pad height (mm)
-    metPadPos: 63,        // met pad centre, % of foot length
-    forePost: 0,          // forefoot post angle, + raises inner side (deg)
-    style: 'solid',       // solid (flat base) | shell (hollow under arch) | thin (constant thickness, rounded underneath)
-    shellThick: 3,        // thickness at heel and arch (mm)
-    foreThick: 2,         // thickness at forefoot (mm)
+    archAdjHeight: 0,     // raise (+) or lower (-) the arch, mm at the inner edge under the peak
+    archAdjShift: 0,      // move the arch toward the toes (+) or the heel (-), mm
+    archAdjLength: 0,     // stretch (+) or shorten (-) the arch along the foot, %
+    archAdjReach: 60,     // how far across from the inner edge an arch height change carries, %
+    outerAdj: 0,          // raise (+) or lower (-) the outer side under the arch, mm
+    heelAdj: 0,           // deepen (+) or flatten (-) the heel cup walls, mm
+    style: 'thin',        // thin (constant thickness, rounded underneath) | solid (flat base)
+    shellThick: root.OrthoShape ? root.OrthoShape.thickness : 2.5, // shell thickness (mm)
     material: 'tpu'
   };
 
   const LIMITS = {
     archAdjHeight: [-8, 8], archAdjShift: [-25, 25], archAdjLength: [-30, 30], archAdjReach: [20, 100],
     outerAdj: [-5, 8], heelAdj: [-8, 8],
-    length: [150, 340], ballWidth: [55, 135], heelWidth: [35, 95], shellLength: [0, 340], shellWidth: [0, 135], shellSlant: [0, 60],
-    archHeight: [0, 30], archPeak: [32, 52], archSpread: [35, 100], archFill: [0, 100], archLength: [0, 30], archRound: [0, 100], lateralArch: [0, 8],
-    heelCup: [0, 25], heelCupReach: [0, 100], heelHole: [0, 45], heelHolePos: [0, 120], heelLift: [0, 15], rearPost: [-8, 8],
-    metPad: [0, 8], metPadPos: [55, 68], forePost: [-8, 8],
-    shellThick: [1.5, 8], foreThick: [1, 6]
+    shellThick: [1.5, 8]
   };
 
-  const COVERAGE_END = { '3q': 0.67, sulcus: 0.80, full: 1.0 };
-  // Where the orthotic ends, as a share of foot length. A shell length (3/4 and sulcus only) sets it
-  // directly, kept between half and 95% of the foot.
-  const SHELL_MIN = 0.5, SHELL_MAX = 0.95, SHELL_KNEE = 8;
   // Thin shell: on very steep walls, thicken the vertical offset by at most this factor (about 70 degrees)
   const THIN_MAX_SLANT = 3;
-  // Slanted front: tip set in from the inner edge by this share of the width, rounded over this share
-  // of the width, and the outer edge's sweep to it (1 = straight diagonal, larger = fuller curve).
-  const SLANT_TIP_IN = 0.16, SLANT_TIP_ROUND = 0.10, SLANT_CURVE = 1.2;
-  function coverageEnd(p) {
-    const Bc = baseOf(p);
-    if (Bc) return Bc.length / p.length;
-    if (p.coverage !== 'full' && p.shellLength > 0) return clamp(p.shellLength / p.length, SHELL_MIN, SHELL_MAX);
-    return COVERAGE_END[p.coverage];
-  }
   const DENSITY = { tpu: 1.21, petg: 1.27, pla: 1.24 }; // g/cm^3
 
   const N_ROWS = 150;   // along the length
   const N_COLS = 56;    // across the width
 
   const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
-  const lerp = (a, b, t) => a + (b - a) * t;
   function smooth(e0, e1, x) {
     const t = clamp((x - e0) / (e1 - e0), 0, 1);
     return t * t * (3 - 2 * t);
   }
-  function smoother(e0, e1, x) {
-    const t = clamp((x - e0) / (e1 - e0), 0, 1);
-    return t * t * t * (t * (t * 6 - 15) + 10);
-  }
 
-  // Monotone cubic Hermite interpolation (Fritsch–Carlson): smooth, no overshoot.
-  function makeInterp(xs, ys) {
-    const n = xs.length, d = new Array(n - 1), m = new Array(n);
-    for (let i = 0; i < n - 1; i++) d[i] = (ys[i + 1] - ys[i]) / (xs[i + 1] - xs[i]);
-    m[0] = d[0]; m[n - 1] = d[n - 2];
-    for (let i = 1; i < n - 1; i++) m[i] = d[i - 1] * d[i] <= 0 ? 0 : (d[i - 1] + d[i]) / 2;
-    for (let i = 0; i < n - 1; i++) {
-      if (d[i] === 0) { m[i] = 0; m[i + 1] = 0; continue; }
-      const a = m[i] / d[i], b = m[i + 1] / d[i], s = a * a + b * b;
-      if (s > 9) { const t = 3 / Math.sqrt(s); m[i] = t * a * d[i]; m[i + 1] = t * b * d[i]; }
-    }
-    return function (x) {
-      if (x <= xs[0]) return ys[0];
-      if (x >= xs[n - 1]) return ys[n - 1];
-      let i = 0;
-      while (x > xs[i + 1]) i++;
-      const h = xs[i + 1] - xs[i], t = (x - xs[i]) / h, t2 = t * t, t3 = t2 * t;
-      return (2 * t3 - 3 * t2 + 1) * ys[i] + (t3 - 2 * t2 + t) * h * m[i] +
-        (-2 * t3 + 3 * t2) * ys[i + 1] + (t3 - t2) * h * m[i + 1];
-    };
-  }
-
+  // Only the settings above are kept, each inside its limits; anything else in the input is dropped.
   function sanitize(input) {
-    const p = Object.assign({}, DEFAULTS, input || {});
+    const src = input || {}, p = {};
+    for (const k in DEFAULTS) p[k] = src[k] !== undefined ? src[k] : DEFAULTS[k];
     for (const k in LIMITS) {
       const v = Number(p[k]);
       p[k] = Number.isFinite(v) ? clamp(v, LIMITS[k][0], LIMITS[k][1]) : DEFAULTS[k];
     }
-    if (!COVERAGE_END[p.coverage]) p.coverage = DEFAULTS.coverage;
-    if (typeof p.base !== 'string' || (p.base !== 'none' && !(root.OrthoBases && root.OrthoBases[p.base]))) p.base = 'none';
-    if (p.style !== 'shell' && p.style !== 'thin') p.style = 'solid';
+    if (p.side !== 'left' && p.side !== 'pair') p.side = 'right';
+    if (p.style !== 'solid') p.style = 'thin';
     if (!DENSITY[p.material]) p.material = DEFAULTS.material;
-    // keep the heel narrower than the ball so the outline stays sensible
-    p.heelWidth = Math.min(p.heelWidth, p.ballWidth * 0.95, p.length * 0.36);
     return p;
   }
 
-  /* ---------- Base shapes (fitted designs from the Python tool, see src/bases.js) ---------- */
-  // A base replaces the measurement-driven outline and surface with a fitted one: an outline table
-  // and a bicubic B-spline over (s along the shell 0..1, v across 0 = inner edge .. 1 = outer edge).
-  // The arch adjustments then reshape it smoothly; at zero they give the base exactly.
-  const BASE_ARCH_CORE = 0.18, BASE_ARCH_FADE = 0.16, BASE_CUP_R = 15;
-  function baseOf(p) {
-    const B = root.OrthoBases;
-    return p && p.base && p.base !== 'none' && B && B[p.base] ? B[p.base] : null;
-  }
+  /* ---------- The shape (fitted with the Python tool, see src/shape.js) ---------- */
+  // An outline table and a bicubic B-spline over (s along the shell 0..1, v across 0 = inner edge ..
+  // 1 = outer edge). The adjustments reshape it smoothly; at zero they give the shape exactly.
+  const ARCH_CORE = 0.18, ARCH_FADE = 0.16, CUP_R = 15;
   function bspan(t, n, u) {            // knot span for clamped cubic with n control points
     if (u >= t[n]) return n - 1;
     let lo = 3, hi = n;
@@ -472,7 +319,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     }
     return N;
   }
-  function baseSpline(B) {
+  function spline(B) {
     if (B._eval) return B._eval;
     const { ts, tv, C } = B.spline, ns = C.length, nv = C[0].length;
     return (B._eval = (s, v) => {
@@ -486,7 +333,8 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       return z;
     });
   }
-  function baseOutline(B) {
+  function makeOutline() {
+    const B = shape();
     const X = B.edges.x, YM = B.edges.ymax, YL = B.edges.ymin, xe = B.length;
     const at = (arr, x) => {
       x = clamp(x, 0, xe);
@@ -499,232 +347,53 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     const y0 = (YM[0] + YL[0]) / 2, yTip = (YM[YM.length - 1] + YL[YL.length - 1]) / 2;
     let W = 0;
     for (const x of X) W = Math.max(W, at(YM, x) - at(YL, x));
-    return { edges, xe, yc: yTip, y0, L: xe, W, H: at(YM, 0.15 * xe) - at(YL, 0.15 * xe), base: B };
+    return { edges, xe, yc: yTip, y0, L: xe, W, H: at(YM, 0.15 * xe) - at(YL, 0.15 * xe) };
   }
-  // The arch adjustments, in the base's own (s, v). Returns the height at plan point (s, v), d mm from the edge.
-  function baseHeights(p, ol, B) {
-    const S = baseSpline(B), L = B.length, sp = B.arch.peak_s;
+
+  /* ---------- Height field ---------- */
+  // The adjustments, in the shape's own (s, v). Returns [top, bottom, thickness] at plan point (x, y),
+  // where m and l are the inner and outer edges there and d is the distance to the outline.
+  function makeHeights(p, ol) {
+    const B = shape(), S = spline(B), L = B.length, sp = B.arch.peak_s, t = p.shellThick;
     const k = 1 + p.archAdjLength / 100, c = clamp(sp + p.archAdjShift / L, 0.15, 0.85);
-    const core = BASE_ARCH_CORE * k, fade = BASE_ARCH_FADE;
+    const core = ARCH_CORE * k, fade = ARCH_FADE;
     const win = s => 1 - smooth(core, core + fade, Math.abs(s - c));
     const reach = p.archAdjReach / 100;
-    return (s, v, d) => {
-      // move and stretch the arch: read the base from where this point's arch came from
+    return function (x, y, m, l, d) {
+      const span = m + l, s = x / ol.xe, v = span > 1e-6 ? clamp((m - y) / span, 0, 1) : 0.5;
+      if (d == null) d = 1e9;
+      // move and stretch the arch: read the shape from where this point's arch came from
       const w = win(s);
       const s0 = s + w * (sp + (s - c) / k - s);
       let z = S(s0, v);
       const across = v < reach ? (1 - v / reach) ** 2 : 0;
       z += p.archAdjHeight * w * across;
       z += p.outerAdj * w * smooth(0.45, 1.0, v);
-      if (p.heelAdj !== 0 && d < BASE_CUP_R) z += p.heelAdj * (1 - smooth(0.10, 0.30, s)) * (1 - d / BASE_CUP_R) ** 2;
-      return z;
+      if (p.heelAdj !== 0 && d < CUP_R) z += p.heelAdj * (1 - smooth(0.10, 0.30, s)) * (1 - d / CUP_R) ** 2;
+      return [Math.max(t, z), 0, t];
     };
   }
 
-  /* ---------- Outline: medial offset m(x) and lateral offset l(x) from the foot axis ---------- */
-  function makeOutline(p) {
-    const Bs = baseOf(p);
-    if (Bs) return baseOutline(Bs);
-    const L = p.length, W = p.ballWidth, H = p.heelWidth;
-    const rh = Math.min(H / 2, 0.2 * L);
-    const mi = makeInterp(
-      [rh, 0.25 * L, 0.45 * L, 0.72 * L, 0.86 * L, L],
-      [0.5 * H, 0.5 * H, 0.5 * (0.5 * H + 0.45 * W) - 0.025 * W, 0.45 * W, 0.42 * W, 0.34 * W]);
-    const li = makeInterp(
-      [rh, 0.30 * L, 0.47 * L, 0.66 * L, 0.84 * L, L],
-      [0.5 * H, 0.56 * H, 0.5 * (0.56 * H + 0.55 * W) + 0.01 * W, 0.55 * W, 0.44 * W, 0.30 * W]);
-
-    const baseM = x => (x < rh ? 0.5 * H * Math.sqrt(Math.max(0, 1 - (1 - x / rh) ** 2)) : mi(x));
-    const baseL = x => (x < rh ? 0.5 * H * Math.sqrt(Math.max(0, 1 - (1 - x / rh) ** 2)) : li(x));
-
-    const xe = coverageEnd(p) * L;
-    let capStart, yc, pm, pl;
-    // Slanted front (3/4 and sulcus): the outer side ends `slant` mm short of the tip, and the edge sweeps
-    // forward to a rounded tip near the inner side, like a shell cut along the line of the metatarsal heads.
-    let slant = 0, capStartM = 0, capStartL = 0;
-    if (p.coverage === 'full') {
-      capStart = 0.84 * L; yc = 0.18 * W; pm = 2.6; pl = 1.5;           // toe shape, big toe longest
+  /* ---------- Heel opening ---------- */
+  // rad(x, y) is 1 on the edge (below 1 inside, and it grows in proportion to the distance from the
+  // centre), ang(x, y) is the angle round the centre, at(t) the edge point there. The shape gives a
+  // centre and size for an oval, and optionally a Fourier series of the radius for any rounded shape.
+  function heelOpening() {
+    const o = shape().opening;
+    if (!o) return null;
+    const [xh, yh] = o.center, [w, len] = o.size, rx = len / 2, ry = w / 2, F = o.fourier;
+    const ho = { xh, yh };
+    if (F) {
+      const R = t => { let r = F[0]; for (let k = 1; 2 * k < F.length; k++) r += F[2 * k - 1] * Math.cos(k * t) + F[2 * k] * Math.sin(k * t); return r; };
+      ho.ang = (x, y) => Math.atan2(y - yh, x - xh);
+      ho.rad = (x, y) => Math.hypot(x - xh, y - yh) / R(ho.ang(x, y));
+      ho.at = t => [xh + R(t) * Math.cos(t), yh + R(t) * Math.sin(t)];
     } else {
-      const w = baseM(xe) + baseL(xe);
-      capStart = xe - (p.coverage === '3q' ? 0.18 : 0.22) * w;      // gently rounded distal edge
-      yc = (baseM(capStart) - baseL(capStart)) / 2 + 0.12 * w;          // longer on the inner side
-      pm = 2.5; pl = 1.6;
-      if (p.shellSlant > 0) {
-        slant = Math.min(p.shellSlant, 0.5 * xe);
-        capStartM = xe - SLANT_TIP_ROUND * w;                           // rounding into the tip
-        capStartL = Math.min(xe - slant, capStartM);                    // outer corner
-        yc = baseM(xe) - SLANT_TIP_IN * w;                              // tip, just in from the inner edge
-      }
-    }
-    // Shell width (3/4 and sulcus): a ceiling on the width across the foot. Narrower sections are left
-    // alone; wider ones ease down toward it over the last SHELL_KNEE mm, so the outline has no corner.
-    // Each section narrows evenly about the foot axis.
-    const capW = p.coverage !== 'full' && p.shellWidth > 0 ? p.shellWidth : 0;
-    const narrow = x => {
-      if (!capW) return 1;
-      const w = baseM(x) + baseL(x), knee = capW - SHELL_KNEE;
-      return w <= knee ? 1 : (capW - SHELL_KNEE * Math.exp(-(w - knee) / SHELL_KNEE)) / w;
-    };
-    function edges(x) {
-      let m = baseM(x), l = baseL(x);
-      if (slant > 0) {
-        if (x > capStartM) {
-          const s = clamp((x - capStartM) / (xe - capStartM), 0, 1);
-          m = yc + (m - yc) * Math.sqrt(Math.max(0, 1 - s ** 2.5));
-        }
-        if (x > capStartL) {
-          const s = clamp((x - capStartL) / (xe - capStartL), 0, 1);
-          l = -yc + (l + yc) * Math.max(0, 1 - s ** SLANT_CURVE) ** (1 / SLANT_CURVE);
-        }
-      } else if (x > capStart) {
-        const s = clamp((x - capStart) / (xe - capStart), 0, 1);
-        m = yc + (m - yc) * Math.sqrt(Math.max(0, 1 - s ** pm));
-        l = -yc + (l + yc) * Math.sqrt(Math.max(0, 1 - s ** pl));
-      }
-      const k = narrow(x);
-      return [m * k, l * k];
-    }
-    return { edges, xe, yc: yc * narrow(xe), L, W, H };
-  }
-
-  // How far in from the edge the heel cup curve reaches (mm). The default ties it to the wall
-  // height; heelCupReach can carry the curve further in, up to the heel centre, for a rounder seat.
-  function cupRadius(p) {
-    if (baseOf(p)) return BASE_CUP_R;
-    return Math.max(8 + 0.8 * p.heelCup, (p.heelCupReach / 100) * (p.heelWidth / 2));
-  }
-
-  // The heel opening: an oval centred under the heel pad, 25% longer than wide. The heel seat slopes
-  // down over `taper` mm to a thin rim around it, so the middle of the heel rests on the shoe instead.
-  // It shrinks to keep at least HOLE_SIDE mm of material either side and HOLE_BACK mm behind it.
-  const HOLE_SIDE = 10, HOLE_BACK = 8, HOLE_TAPER = 12, HOLE_RIM = 1.5;
-  // Shape helpers on the returned opening: rad(x, y) is 1 on the edge (below 1 inside, and it grows in
-  // proportion to the distance from the centre), ang(x, y) is the angle round the centre, at(t) the edge point there.
-  function shapeOpening(ho, fourier) {
-    if (fourier) {
-      const R = t => { let r = fourier[0]; for (let k = 1; 2 * k < fourier.length; k++) r += fourier[2 * k - 1] * Math.cos(k * t) + fourier[2 * k] * Math.sin(k * t); return r; };
-      ho.ang = (x, y) => Math.atan2(y - ho.yh, x - ho.xh);
-      ho.rad = (x, y) => Math.hypot(x - ho.xh, y - ho.yh) / R(ho.ang(x, y));
-      ho.at = t => [ho.xh + R(t) * Math.cos(t), ho.yh + R(t) * Math.sin(t)];
-    } else {
-      ho.ang = (x, y) => Math.atan2((y - ho.yh) / ho.ry, (x - ho.xh) / ho.rx);
-      ho.rad = (x, y) => Math.hypot((x - ho.xh) / ho.rx, (y - ho.yh) / ho.ry);
-      ho.at = t => [ho.xh + ho.rx * Math.cos(t), ho.yh + ho.ry * Math.sin(t)];
+      ho.ang = (x, y) => Math.atan2((y - yh) / ry, (x - xh) / rx);
+      ho.rad = (x, y) => Math.hypot((x - xh) / rx, (y - yh) / ry);
+      ho.at = t => [xh + rx * Math.cos(t), yh + ry * Math.sin(t)];
     }
     return ho;
-  }
-  function heelOpening(p, ol) {
-    const Bo = baseOf(p);
-    if (Bo) {
-      if (!Bo.opening) return null;
-      const [cx, cy] = Bo.opening.center, [w, len] = Bo.opening.size;
-      return shapeOpening({ xh: cx, yh: cy, rx: len / 2, ry: w / 2, width: w, taper: 0, rim: HOLE_RIM, fromBase: true }, Bo.opening.fourier);
-    }
-    if (!(p.heelHole > 0)) return null;
-    const xh = p.heelHolePos > 0 ? Math.min(p.heelHolePos, ol.xe - HOLE_BACK - 4) : 0.55 * p.heelWidth;
-    const [m, l] = ol.edges(xh);
-    const ry = Math.min(p.heelHole / 2, (m + l) / 2 - HOLE_SIDE, (xh - HOLE_BACK) / 1.25, (ol.xe - HOLE_SIDE - xh) / 1.25);
-    if (ry < 3) return null;
-    return shapeOpening({ xh, yh: (m - l) / 2, rx: 1.25 * ry, ry, width: 2 * ry, taper: HOLE_TAPER, rim: HOLE_RIM });
-  }
-
-  /* ---------- Height field ---------- */
-  function makeHeights(p, ol) {
-    const Bh = baseOf(p);
-    if (Bh) {
-      const H = baseHeights(p, ol, Bh), t = p.shellThick;
-      return function (x, y, m, l, d) {
-        const span = m + l, s = x / ol.xe, v = span > 1e-6 ? clamp((m - y) / span, 0, 1) : 0.5;
-        const top = Math.max(t, H(s, v, d == null ? 1e9 : d));
-        return [top, 0, t];
-      };
-    }
-    const ho = heelOpening(p, ol);
-    const L = p.length, W = p.ballWidth, xe = ol.xe, fEnd = xe / L;
-    const A = p.archHeight, LA = p.lateralArch, C = p.heelCup, P = p.metPad;
-    const fs = 0.16, fpk = clamp(p.archPeak / 100, fs + 0.08, Math.min(0.70, fEnd - 0.01) - 0.08);
-    const fae = Math.min(0.70, fEnd - 0.01);
-    const cupR = cupRadius(p);
-    const spread = p.archSpread / 100;
-    // Across the foot (tn: 0 = outer edge, 1 = inner edge) the arch is at full height from archFull to the
-    // inner edge and ramps down to zero at archFoot. The ramp is kept at least 10% of the width so a big
-    // plateau never becomes a vertical step; when that pushes archFoot past the outer edge (archFoot < 0)
-    // the outer edge stays raised. At 100% spread and 100% plateau the whole width is at full height.
-    const archFull = 1 - (p.archFill / 100) * spread;
-    const archFoot = Math.min(1 - spread, archFull - 0.10);
-    const rp = (p.rearPost * Math.PI) / 180, fp = (p.forePost * Math.PI) / 180;
-    const xp = (p.metPadPos / 100) * L, yp = -0.04 * W;
-    const aProx = 0.10 * L, aDist = 0.045 * L, bPad = 0.17 * W;
-
-    // Along the foot the arch rises from fs to pa, holds full height to pb, and falls to fae. With no
-    // arch length pa = pb = the peak. Each slope keeps at least 6% of the foot length.
-    const half = p.archLength / 200;
-    const pa = Math.max(fs + 0.06, Math.min(fpk, fpk - half)), pb = Math.max(pa, Math.min(fae - 0.06, fpk + half));
-    function gArch(f) {
-      if (f <= fs || f >= fae) return 0;
-      if (f < pa) return 0.5 - 0.5 * Math.cos(Math.PI * (f - fs) / (pa - fs));
-      if (f <= pb) return 1;
-      return 0.5 + 0.5 * Math.cos(Math.PI * (f - pb) / (fae - pb));
-    }
-    function gLat(f) {
-      const a = 0.24, pk = 0.40, b = Math.min(0.60, fEnd - 0.02);
-      if (f <= a || f >= b) return 0;
-      return f < pk ? 0.5 - 0.5 * Math.cos(Math.PI * (f - a) / (pk - a))
-        : 0.5 + 0.5 * Math.cos(Math.PI * (f - pk) / (b - pk));
-    }
-
-    return function (x, y, m, l, d) {
-      const f = x / L;
-      let t = lerp(p.shellThick, p.foreThick, smooth(0.55, 0.72, f));
-      if (p.coverage !== 'full') t = lerp(t, Math.min(t, 1.2), smooth(xe - 16, xe, x)); // skive the end
-
-      // Posts and lifts sit underneath the shell
-      const wR = 1 - smooth(0.30, 0.55, f), wF = smooth(0.55, 0.72, f);
-      let post = p.heelLift * (1 - smooth(0.28, 0.55, f));
-      if (rp > 0) post += Math.tan(rp) * (y + l) * wR;
-      else if (rp < 0) post += Math.tan(-rp) * (m - y) * wR;
-      if (fp > 0) post += Math.tan(fp) * (y + l) * wF;
-      else if (fp < 0) post += Math.tan(-fp) * (m - y) * wF;
-
-      // Contours of the shell
-      const span = m + l;
-      const tn = span > 1e-6 ? clamp((y + l) / span, 0, 1) : 0.5; // 0 = outer edge, 1 = inner edge
-      // Across the foot: an S-curve, flat at the top (roundness 0), blending into a curve that keeps
-      // rising to the inner edge with no flat top, like a moulded shell (roundness 100)
-      const ua = clamp((tn - archFoot) / (archFull - archFoot), 0, 1);
-      const across = lerp(smoother(archFoot, archFull, tn), ua * ua, p.archRound / 100);
-      const arch = A * gArch(f) * across;
-      const lat = LA * gLat(f) * smoother(0.6, 1.0, 1 - tn);
-      let cup = 0;
-      if (C > 0 && d < cupR) cup = C * (1 - smooth(0.25, 0.50, f)) * (1 - d / cupR) ** 2;
-      let pad = 0;
-      if (P > 0) {
-        const dx = x - xp, a = dx < 0 ? aProx : aDist;
-        const r = Math.sqrt((dx / a) ** 2 + ((y - yp) / bPad) ** 2);
-        if (r < 1) pad = P * 0.5 * (1 + Math.cos(Math.PI * r));
-      }
-
-      // Smooth maximum, so the heel cup wall flows into the arch instead of stacking on it
-      // With a plateau the outer arch fills in under it rather than stacking a ridge on top
-      // (archFill 0 leaves the plain sum unchanged).
-      const a = arch + Math.max(0, lat - (p.archFill / 100) * arch), k = Math.min(4, 0.5 * Math.min(a, cup));
-      let shell = Math.max(a, cup);
-      if (k > 1e-6) {
-        const h = clamp(0.5 + (0.5 * (a - cup)) / k, 0, 1);
-        shell = lerp(cup, a, h) + k * h * (1 - h);
-      }
-      let top = t + post + shell + pad;
-      const bottom = p.style === 'shell' ? a * smooth(0.20, 0.34, f) : 0;
-      if (ho) {
-        // Slope the seat down to the rim of the heel opening (inside it, the rim height stands in;
-        // the mesh builder cuts those cells away)
-        const ex = x - ho.xh, ey = y - ho.yh, r = ho.rad(x, y), rimTop = bottom + ho.rim;
-        if (r <= 1) top = rimTop;
-        else top = rimTop + (top - rimTop) * smooth(0, ho.taper, Math.hypot(ex, ey) * (1 - 1 / r));
-      }
-      // Third value: the shell's thickness here, which the mesh builder uses for the thin style
-      return [top, bottom, t];
-    };
   }
 
   function segDist(px, py, ax, ay, bx, by) {
@@ -769,7 +438,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
 
     // Heel opening: drop the grid cells whose centre falls inside the oval, then move the vertices
     // on the cut onto the oval itself so the edge is smooth rather than stepped along the grid.
-    const ho = heelOpening(p, ol);
+    const ho = heelOpening();
     const cut = new Uint8Array((N - 1) * M); // cell (i, j) for rows i = 1..N-2 -> index (i - 1) * M + j
     const ci = (i, j) => (i - 1) * M + j;
     if (ho) {
@@ -912,10 +581,10 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     loop.push(toePole);
     for (let i = N - 1; i >= 1; i--) loop.push(gi(i, 0));
 
-    // Distance to the edge (only needed where the heel cup lives)
-    const cupR = cupRadius(p), dLimit = 0.55 * p.length + cupR;
+    // Distance to the edge (only needed where the heel cup change reaches, the back 30% of the shell)
+    const cupR = CUP_R, dLimit = 0.3 * xe + cupR;
     const dist = new Float64Array(nSurf).fill(1e9);
-    if (baseOf(p) ? p.heelAdj !== 0 : p.heelCup > 0) {
+    if (p.heelAdj !== 0) {
       const lx = loop.map(k => sx[k]), ly = loop.map(k => sy[k]), nl = loop.length;
       for (let k = 0; k < nSurf; k++) {
         const x = sx[k];
@@ -1122,899 +791,27 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     return buf;
   }
 
-  /* ---------- Shoe size to foot length (approximate, Brannock-style) ---------- */
-  function lengthFromShoeSize(system, size) {
-    const s = Number(size);
-    if (!Number.isFinite(s)) return null;
-    switch (system) {
-      case 'eu': return (s / 1.5 - 1.5) * 10;
-      case 'au-m': return (25.4 * (s + 23)) / 3;     // AU/UK men's
-      case 'us-m': return (25.4 * (s + 22)) / 3;
-      case 'au-w': return (25.4 * (s + 21)) / 3;     // AU/US women's
-      default: return null;
-    }
-  }
 
   // Each warning names the setting that tripped it, where that setting lives and
   // what to do about it. A warning you cannot act on is just noise.
   function warnings(input) {
     const p = sanitize(input), w = [];
     const n1 = v => v.toFixed(1);
-    const Bw = baseOf(p);
-    if (Bw) {
-      if (p.style !== 'thin') w.push(`${Bw.label} is a thin moulded shell. Set Base to Thin shell under Print to match it; ${p.style === 'solid' ? 'solid' : 'shell'} fills in underneath.`);
-      if (p.style !== 'solid' && p.shellThick < 2.5 && p.material !== 'tpu') w.push(`A ${p.material.toUpperCase()} shell ${n1(p.shellThick)} mm thick can crack. Raise shell thickness to 2.5–3.5 mm under Print, or switch the material to TPU.`);
-      if (Math.abs(p.archAdjHeight) > 4) w.push(`The arch is ${p.archAdjHeight > 0 ? 'raised' : 'lowered'} ${n1(Math.abs(p.archAdjHeight))} mm from ${Bw.label}. Big changes are easier to judge in 2 mm steps, printing between them.`);
-      return w;
-    }
-    const ratioW = p.ballWidth / p.length, ratioH = p.heelWidth / p.ballWidth;
-    if (ratioW < 0.32 || ratioW > 0.46) {
-      w.push(`Forefoot width is ${Math.round(ratioW * 100)}% of the foot length, and most feet are 34–42%. Check forefoot width and foot length under Your foot.`);
-    }
-    if (ratioH < 0.55 || ratioH > 0.85) {
-      w.push(`Heel width is ${Math.round(ratioH * 100)}% of the forefoot width, and it is usually 60–80%. Re-measure the heel about 2–3 cm forward from the back and set it under Your foot.`);
-    }
-    if (p.archHeight > 22) {
-      w.push(`Arch height is ${n1(p.archHeight)} mm. Above about 20 mm feels aggressive for most people: lower it under Arch and go back up 2 mm at a time.`);
-    }
-    if (Math.abs(p.rearPost) > 6) {
-      w.push(`Rearfoot post is ${n1(p.rearPost)}°, which tilts the heel by about ${n1(Math.abs(Math.tan((p.rearPost * Math.PI) / 180) * p.heelWidth))} mm across. Anything past 6° is uncommon unless a podiatrist measured you for it: set it back under Heel.`);
-    }
-    if (Math.abs(p.forePost) > 6) {
-      w.push(`Forefoot post is ${n1(p.forePost)}°, which tilts the forefoot by about ${n1(Math.abs(Math.tan((p.forePost * Math.PI) / 180) * p.ballWidth))} mm across. Anything past 6° is uncommon unless a podiatrist measured you for it: set it back under Forefoot.`);
-    }
-    if (p.metPad > 0 && p.coverage === '3q' && p.metPadPos > 64) {
-      w.push('The met pad sits at the very end of a 3/4 shell. Move metatarsal pad position back under Forefoot, or switch the orthotic to sulcus or full length under Your foot.');
-    }
-    if (p.shellLength > 0 && p.coverage !== 'full') {
-      const want = p.shellLength / p.length;
-      if (want < SHELL_MIN - 1e-9 || want > SHELL_MAX + 1e-9) w.push(`Shell length is kept between ${Math.round(SHELL_MIN * p.length)} and ${Math.round(SHELL_MAX * p.length)} mm for a ${Math.round(p.length)} mm foot, so it is ${Math.round(coverageEnd(p) * p.length)} mm, not ${Math.round(p.shellLength)} mm.`);
-    }
-    if (p.heelHole > 0) {
-      const ho = heelOpening(p, makeOutline(p));
-      if (!ho) w.push('There is no room for a heel opening here, so there is none. Set heel opening to 0 under Heel, move it with heel opening position, or check heel width under Your foot.');
-      else if (ho.width < p.heelHole - 0.5) w.push(`The heel opening is ${n1(ho.width)} mm wide, not ${n1(p.heelHole)} mm: it keeps at least ${HOLE_SIDE} mm of shell round its sides and front and ${HOLE_BACK} mm behind it so the rim stays strong.`);
-    }
-    if (p.style !== 'solid' && p.shellThick < 2.5 && p.material !== 'tpu') {
-      w.push(`A ${p.material.toUpperCase()} shell ${n1(p.shellThick)} mm thick can crack. Raise shell thickness to 2.5–3.5 mm under Print, or switch the material to TPU.`);
-    }
+    if (p.style !== 'thin') w.push('The shape is a thin moulded shell. Set Base to Thin shell under Print to match it; solid fills in underneath.');
+    if (p.shellThick < 2.5 && p.material !== 'tpu') w.push(`A ${p.material.toUpperCase()} shell ${n1(p.shellThick)} mm thick can crack. Raise shell thickness to 2.5–3.5 mm under Print, or switch the material to TPU.`);
+    if (Math.abs(p.archAdjHeight) > 4) w.push(`The arch is ${p.archAdjHeight > 0 ? 'raised' : 'lowered'} ${n1(Math.abs(p.archAdjHeight))} mm from the shape. Big changes are easier to judge in 2 mm steps, printing between them.`);
     return w;
   }
 
-  /* ---------- Measuring a design the way you would measure a real orthotic ---------- */
-  // Heights are top-surface heights above the table. "Inner edge" is the arch side.
-  function measureDesign(input, opts) {
-    const p = sanitize(input), ol = makeOutline(p), hf = makeHeights(p, ol), L = p.length;
-    const top = (x, y, m, l, d) => hf(x, y, m, l, d)[0];
-    // Edge to edge across the whole outline (inner and outer bulges are at different points along it)
-    let maxM = 0, maxL = 0;
-    for (let i = 0; i <= 400; i++) {
-      const [m, l] = ol.edges((ol.xe * i) / 400);
-      if (m > maxM) maxM = m;
-      if (l > maxL) maxL = l;
-    }
-    const maxWidth = maxM + maxL;
-    const out = { length: ol.xe, maxWidth, heelWidth: p.heelWidth };
-    if (opts && opts.widthOnly) return out;
-    // Heel rim: the very back of the heel cup
-    out.heelRim = top(0, 0, 0, 0, 0);
-    // Heel seat: the middle of the heel, where the heel is widest
-    const xs = Math.min(p.heelWidth / 2, 0.2 * L);
-    const [ms, ls] = ol.edges(xs), ys = (ms - ls) / 2;
-    out.heelSeat = top(xs, ys, ms, ls, Math.min(ms - ys, ys + ls));
-    // Arch: height of the inner edge at the arch peak, and how far that is from the back of the heel
-    const fae = Math.min(0.70, ol.xe / L - 0.01);
-    const Bm = baseOf(p);
-    const xa = Bm ? clamp(Bm.arch.peak_x + p.archAdjShift, 0, ol.xe) : clamp(p.archPeak / 100, 0.24, fae - 0.08) * L;
-    out.archDist = xa;
-    out.archTop = innerEdgeTop(p, xa);
-    return out;
+  // Where the arch peaks along the inner edge, and how high its top surface is there above the table.
+  function archPeak(input) {
+    const p = sanitize(input), ol = makeOutline(), hf = makeHeights(p, ol);
+    const x = clamp(shape().arch.peak_x + p.archAdjShift, 0.5, ol.xe - 0.5);
+    const [m, l] = ol.edges(x);
+    return { x, top: hf(x, m, m, l, 0)[0] };
   }
 
-  function innerEdgeTop(input, x) {
-    const p = sanitize(input), ol = makeOutline(p), hf = makeHeights(p, ol);
-    const xx = clamp(x, 0.5, ol.xe - 0.5);
-    const [m, l] = ol.edges(xx);
-    return hf(xx, m, m, l, 0)[0];
-  }
-
-  /* ---------- Converting measurements of an existing orthotic into settings ---------- */
-  // meas: { coverage, style, length, maxWidth, heelWidth, heelSeat, heelRim, archTop, archDist,
-  //         foreThick, padHeight, padDist, heelWedgeInner, heelWedgeOuter, heelWedgeWidth,
-  //         foreWedgeInner, foreWedgeOuter, foreWedgeWidth }  (all lengths in mm)
-  function fromOrthotic(meas, base) {
-    const num = k => {
-      const v = meas[k];
-      if (v === '' || v == null) return null;
-      const x = Number(v);
-      return Number.isFinite(x) ? x : null;
-    };
-    const q = Object.assign({}, sanitize(base));
-    q.shellLength = 0; q.shellWidth = 0; q.shellSlant = 0; // matching works back from the coverage's share of the foot
-    if (COVERAGE_END[meas.coverage]) q.coverage = meas.coverage;
-    if (meas.style === 'shell' || meas.style === 'solid' || meas.style === 'thin') q.style = meas.style;
-
-    const Lo = num('length'), Wo = num('maxWidth');
-    if (!(Lo > 0)) return { error: 'Enter the overall length of the orthotic (measurement 1).' };
-    if (!(Wo > 0)) return { error: 'Enter the widest width of the orthotic (measurement 2).' };
-    const raw = {};
-    raw.length = q.length = Lo / COVERAGE_END[q.coverage];
-
-    // Wedges (posts): angle from the thickness difference across the wedge
-    const wedge = (i, o, w) => {
-      const a = num(i), b = num(o), c = num(w);
-      return a != null && b != null && c > 0 ? (Math.atan((a - b) / c) * 180) / Math.PI : 0;
-    };
-    raw.rearPost = q.rearPost = wedge('heelWedgeInner', 'heelWedgeOuter', 'heelWedgeWidth');
-    raw.forePost = q.forePost = wedge('foreWedgeInner', 'foreWedgeOuter', 'foreWedgeWidth');
-
-    // Outline: heel width as measured, ball width solved so the widest point matches
-    const Ho = num('heelWidth');
-    raw.heelWidth = q.heelWidth = Ho != null ? Ho : 0.66 * Wo;
-    let lo = LIMITS.ballWidth[0], hi = LIMITS.ballWidth[1];
-    for (let i = 0; i < 40; i++) {
-      const mid = (lo + hi) / 2;
-      if (measureDesign(Object.assign({}, q, { ballWidth: mid }), { widthOnly: true }).maxWidth < Wo) lo = mid; else hi = mid;
-    }
-    q.ballWidth = (lo + hi) / 2;
-    if (q.heelWidth > q.ballWidth * 0.95) q.heelWidth = q.ballWidth * 0.95;
-
-    // Thickness from the heel seat height, less any separate heel lift and the rearfoot post under it
-    const seat = num('heelSeat'), liftPad = Math.max(0, num('heelLift') || 0);
-    q.heelLift = liftPad;
-    if (seat != null) {
-      const [tMin, tMax] = LIMITS.shellThick;
-      const postAtSeat = measureDesign(Object.assign({}, q, { shellThick: tMin, heelLift: 0 })).heelSeat - tMin;
-      const rest = seat - postAtSeat - liftPad;
-      if (rest <= tMax) raw.shellThick = rest; else raw.thickOverflow = true;
-      q.shellThick = clamp(rest, tMin, tMax);
-      if (rest > tMax) q.heelLift = liftPad + (rest - tMax);
-    }
-    raw.heelLift = q.heelLift;
-    const fore = num('foreThick');
-    if (fore != null && q.coverage !== '3q') raw.foreThick = q.foreThick = fore;
-
-    // Heel cup from the rim height
-    const rim = num('heelRim');
-    if (rim != null) {
-      const noCup = measureDesign(Object.assign({}, q, { heelCup: 0 })).heelRim;
-      raw.heelCup = q.heelCup = Math.max(0, rim - noCup);
-    }
-
-    // Arch: position from the distance, height solved so the inner-edge high point matches
-    const ad = num('archDist');
-    if (ad != null) raw.archPeak = q.archPeak = (ad / q.length) * 100;
-    const at = num('archTop');
-    if (at != null) {
-      let a0 = LIMITS.archHeight[0], a1 = LIMITS.archHeight[1];
-      const xAt = ad != null ? ad : measureDesign(q).archDist;
-      const h = A => innerEdgeTop(Object.assign({}, q, { archHeight: A }), xAt);
-      if (h(a1) < at) { q.archHeight = a1; raw.archHeight = a1 + (at - h(a1)); }
-      else if (h(a0) >= at) { q.archHeight = 0; raw.archHeight = 0; }
-      else {
-        for (let i = 0; i < 40; i++) { const mid = (a0 + a1) / 2; if (h(mid) < at) a0 = mid; else a1 = mid; }
-        raw.archHeight = q.archHeight = (a0 + a1) / 2;
-      }
-    }
-
-    // Metatarsal pad
-    const ph = num('padHeight'), pd = num('padDist');
-    raw.metPad = q.metPad = ph != null && ph > 0 ? ph : 0;
-    if (q.metPad > 0 && pd != null) raw.metPadPos = q.metPadPos = (pd / q.length) * 100;
-
-    const params = sanitize(q);
-    const notes = [];
-    const label = {
-      length: 'Foot length', heelWidth: 'Heel width', shellThick: 'Shell thickness', foreThick: 'Forefoot thickness',
-      heelCup: 'Heel cup depth', archPeak: 'Arch peak position', archHeight: 'Arch height', metPad: 'Met pad height',
-      metPadPos: 'Met pad position', rearPost: 'Rearfoot post', forePost: 'Forefoot post'
-    };
-    for (const k in raw) {
-      if (!LIMITS[k]) continue;
-      const [a, b] = LIMITS[k];
-      if (raw[k] < a - 1e-6 || raw[k] > b + 1e-6) {
-        notes.push(`${label[k] || k} works out at ${raw[k].toFixed(1)}, outside the tool's range of ${a}–${b}. It was set to ${params[k].toFixed(1)}.`);
-      }
-    }
-    if (params.ballWidth >= LIMITS.ballWidth[1] - 0.01 || params.ballWidth <= LIMITS.ballWidth[0] + 0.01) {
-      notes.push('The widest width is outside what this tool can draw. Check measurement 2.');
-    }
-    if (at != null && params.archHeight === 0 && raw.archHeight === 0) {
-      notes.push('The arch high point is no higher than the base, so the arch was set to 0. Check measurement 6.');
-    }
-    if (raw.thickOverflow) notes.push(`The heel seat is thicker than ${LIMITS.shellThick[1]} mm, so the extra went into heel lift.`);
-    return { params, notes };
-  }
-
-  root.OrthoGeom = { DEFAULTS, LIMITS, COVERAGE_END, coverageEnd, baseOf, build, toSTL, lengthFromShoeSize, warnings, sanitize, measureDesign, innerEdgeTop, fromOrthotic };
-})(typeof window !== 'undefined' ? window : globalThis);
-
-</script>
-<script>
-/*
- * Photo measurement for Archform.
- * Pure JavaScript, no dependencies. Everything works on a plain
- * { width, height, data } RGBA buffer, so the browser can hand it a canvas and
- * Node can test it without one.
- *
- * The sheet of paper is a rectangle of known size, so its four corners in the
- * photo give a homography onto millimetre space. That removes perspective
- * outright rather than merely scaling by a reference length, which is the part
- * hand-held photos otherwise get wrong: a 15 degree tilt is worth millimetres.
- */
-(function (root) {
-  'use strict';
-
-  const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
-
-  // Sheets to lay a foot on. Two A4 taped along the long edge covers feet over
-  // 290 mm, which do not fit on one sheet at all.
-  const SHEETS = {
-    a4: { id: 'a4', label: 'A4', detail: '210 x 297 mm', w: 210, h: 297 },
-    letter: { id: 'letter', label: 'US Letter', detail: '216 x 279 mm', w: 216, h: 279 },
-    a4x2: { id: 'a4x2', label: 'Two A4', detail: '420 x 297 mm, taped along the long edge', w: 420, h: 297 }
-  };
-
-  /* ---------- Pixels ---------- */
-
-  function toGray(img) {
-    const n = img.width * img.height, d = img.data, g = new Uint8Array(n);
-    for (let i = 0; i < n; i++) {
-      const j = i * 4;
-      g[i] = (d[j] * 77 + d[j + 1] * 150 + d[j + 2] * 29) >> 8;
-    }
-    return { width: img.width, height: img.height, data: g };
-  }
-
-  // Box-average down to maxDim on the long side. Finding the sheet does not need
-  // full resolution, and the corners are scaled back up afterwards.
-  function downscale(gr, maxDim) {
-    const f = Math.max(1, Math.ceil(Math.max(gr.width, gr.height) / maxDim));
-    if (f === 1) return { width: gr.width, height: gr.height, data: gr.data, scale: 1 };
-    const w = Math.max(1, Math.floor(gr.width / f)), h = Math.max(1, Math.floor(gr.height / f));
-    const out = new Uint8Array(w * h);
-    for (let y = 0; y < h; y++) {
-      for (let x = 0; x < w; x++) {
-        let s = 0, c = 0;
-        for (let dy = 0; dy < f; dy++) {
-          const sy = y * f + dy;
-          if (sy >= gr.height) break;
-          for (let dx = 0; dx < f; dx++) {
-            const sx = x * f + dx;
-            if (sx >= gr.width) break;
-            s += gr.data[sy * gr.width + sx]; c++;
-          }
-        }
-        out[y * w + x] = c ? (s / c) | 0 : 0;
-      }
-    }
-    return { width: w, height: h, data: out, scale: 1 / f };
-  }
-
-  // Otsu: the grey level that best splits the histogram in two. No threshold to
-  // tune, which matters because lighting is never the same twice.
-  function otsu(data) {
-    const hist = new Float64Array(256);
-    for (let i = 0; i < data.length; i++) hist[data[i]]++;
-    const n = data.length;
-    let sum = 0;
-    for (let i = 0; i < 256; i++) sum += i * hist[i];
-    let wB = 0, sumB = 0, best = -1, bestT = 127;
-    for (let t = 0; t < 256; t++) {
-      wB += hist[t];
-      if (!wB) continue;
-      const wF = n - wB;
-      if (!wF) break;
-      sumB += t * hist[t];
-      const mB = sumB / wB, mF = (sum - sumB) / wF, v = wB * wF * (mB - mF) * (mB - mF);
-      if (v > best) { best = v; bestT = t; }
-    }
-    return bestT;
-  }
-
-  /* ---------- Masks ---------- */
-
-  // The largest 4-connected run of set cells, as a new mask.
-  function largestBlob(mask, w, h) {
-    const n = w * h, lab = new Int32Array(n).fill(-1), stack = new Int32Array(n);
-    let best = -1, bestN = 0, id = 0;
-    for (let s = 0; s < n; s++) {
-      if (!mask[s] || lab[s] >= 0) continue;
-      let top = 0, count = 0;
-      stack[top++] = s; lab[s] = id;
-      while (top) {
-        const p = stack[--top], x = p % w, y = (p - x) / w;
-        count++;
-        if (x > 0 && mask[p - 1] && lab[p - 1] < 0) { lab[p - 1] = id; stack[top++] = p - 1; }
-        if (x < w - 1 && mask[p + 1] && lab[p + 1] < 0) { lab[p + 1] = id; stack[top++] = p + 1; }
-        if (y > 0 && mask[p - w] && lab[p - w] < 0) { lab[p - w] = id; stack[top++] = p - w; }
-        if (y < h - 1 && mask[p + w] && lab[p + w] < 0) { lab[p + w] = id; stack[top++] = p + w; }
-      }
-      if (count > bestN) { bestN = count; best = id; }
-      id++;
-    }
-    const out = new Uint8Array(n);
-    if (best >= 0) for (let i = 0; i < n; i++) if (lab[i] === best) out[i] = 1;
-    return { mask: out, size: bestN };
-  }
-
-  // Everything reachable from the frame edge without crossing a set cell.
-  // Whatever is left over is enclosed: inside the pen loop, or a hole in a blob.
-  function reachableFromBorder(mask, w, h) {
-    const n = w * h, out = new Uint8Array(n), stack = new Int32Array(n);
-    let top = 0;
-    const push = p => { if (!mask[p] && !out[p]) { out[p] = 1; stack[top++] = p; } };
-    for (let x = 0; x < w; x++) { push(x); push((h - 1) * w + x); }
-    for (let y = 0; y < h; y++) { push(y * w); push(y * w + w - 1); }
-    while (top) {
-      const p = stack[--top], x = p % w, y = (p - x) / w;
-      if (x > 0) push(p - 1);
-      if (x < w - 1) push(p + 1);
-      if (y > 0) push(p - w);
-      if (y < h - 1) push(p + w);
-    }
-    return out;
-  }
-
-  // Separable box dilate (grow) or erode (shrink) by radius r. Outside the frame
-  // counts as unset when growing and set when shrinking, so edges hold still.
-  function morph(mask, w, h, r, grow) {
-    if (r <= 0) return mask;
-    const want = grow ? 1 : 0, edge = grow ? 0 : 1;
-    const a = new Uint8Array(w * h), b = new Uint8Array(w * h);
-    for (let y = 0; y < h; y++) {
-      const row = y * w;
-      for (let x = 0; x < w; x++) {
-        let v = grow ? 0 : 1;
-        for (let d = -r; d <= r; d++) {
-          const xx = x + d, s = xx < 0 || xx >= w ? edge : mask[row + xx];
-          if (s === want) { v = want; break; }
-        }
-        a[row + x] = v;
-      }
-    }
-    for (let x = 0; x < w; x++) {
-      for (let y = 0; y < h; y++) {
-        let v = grow ? 0 : 1;
-        for (let d = -r; d <= r; d++) {
-          const yy = y + d, s = yy < 0 || yy >= h ? edge : a[yy * w + x];
-          if (s === want) { v = want; break; }
-        }
-        b[y * w + x] = v;
-      }
-    }
-    return b;
-  }
-
-  /* ---------- Finding the sheet ---------- */
-
-  function convexHull(pts) {
-    const p = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
-    if (p.length < 3) return p;
-    const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
-    const lower = [], upper = [];
-    for (const q of p) {
-      while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], q) <= 0) lower.pop();
-      lower.push(q);
-    }
-    for (let i = p.length - 1; i >= 0; i--) {
-      const q = p[i];
-      while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], q) <= 0) upper.pop();
-      upper.push(q);
-    }
-    lower.pop(); upper.pop();
-    return lower.concat(upper);
-  }
-
-  // Hull candidates. Every hull vertex is the extreme set cell of its own row or
-  // column, so taking just those loses nothing and keeps the hull input tiny.
-  function extremeCells(mask, w, h) {
-    const pts = [];
-    for (let y = 0; y < h; y++) {
-      let lo = -1, hi = -1;
-      for (let x = 0; x < w; x++) if (mask[y * w + x]) { if (lo < 0) lo = x; hi = x; }
-      if (lo >= 0) { pts.push([lo, y]); if (hi !== lo) pts.push([hi, y]); }
-    }
-    for (let x = 0; x < w; x++) {
-      let lo = -1, hi = -1;
-      for (let y = 0; y < h; y++) if (mask[y * w + x]) { if (lo < 0) lo = y; hi = y; }
-      if (lo >= 0) { pts.push([x, lo]); if (hi !== lo) pts.push([x, hi]); }
-    }
-    return pts;
-  }
-
-  // Four corners of a hull without assuming any ordering: the point farthest from
-  // the centroid, the point farthest from that, then the extreme point either side
-  // of the line between the two. Walking 1-2-3-4 is then always a simple quad.
-  function quadFromHull(hull) {
-    if (hull.length < 4) return null;
-    let cx = 0, cy = 0;
-    for (const p of hull) { cx += p[0]; cy += p[1]; }
-    cx /= hull.length; cy /= hull.length;
-    const farthest = (ax, ay) => {
-      let bi = 0, bd = -1;
-      for (let i = 0; i < hull.length; i++) {
-        const dx = hull[i][0] - ax, dy = hull[i][1] - ay, d = dx * dx + dy * dy;
-        if (d > bd) { bd = d; bi = i; }
-      }
-      return bi;
-    };
-    const i1 = farthest(cx, cy), i3 = farthest(hull[i1][0], hull[i1][1]);
-    const a = hull[i1], c = hull[i3];
-    const ex = c[0] - a[0], ey = c[1] - a[1];
-    let i2 = -1, i4 = -1, d2 = 0, d4 = 0;
-    for (let i = 0; i < hull.length; i++) {
-      const s = (hull[i][0] - a[0]) * ey - (hull[i][1] - a[1]) * ex;
-      if (s > d2) { d2 = s; i2 = i; }
-      if (-s > d4) { d4 = -s; i4 = i; }
-    }
-    if (i2 < 0 || i4 < 0 || i1 === i3) return null;
-    return [i1, i2, i3, i4];
-  }
-
-  // Total-least-squares line through points: a point on it and a unit direction.
-  function fitLine(pts) {
-    let cx = 0, cy = 0;
-    for (const p of pts) { cx += p[0]; cy += p[1]; }
-    cx /= pts.length; cy /= pts.length;
-    let sxx = 0, sxy = 0, syy = 0;
-    for (const p of pts) {
-      const dx = p[0] - cx, dy = p[1] - cy;
-      sxx += dx * dx; sxy += dx * dy; syy += dy * dy;
-    }
-    // Principal eigenvector of the 2x2 covariance, in closed form.
-    const t = (sxx - syy) / 2, r = Math.sqrt(t * t + sxy * sxy), lam = (sxx + syy) / 2 + r;
-    let vx = sxy, vy = lam - sxx;
-    if (Math.abs(vx) + Math.abs(vy) < 1e-9) { vx = lam - syy; vy = sxy; }
-    if (Math.abs(vx) + Math.abs(vy) < 1e-9) { vx = 1; vy = 0; }
-    const n = Math.hypot(vx, vy);
-    return { x: cx, y: cy, dx: vx / n, dy: vy / n };
-  }
-
-  function intersect(l1, l2) {
-    const den = l1.dx * l2.dy - l1.dy * l2.dx;
-    if (Math.abs(den) < 1e-9) return null;
-    const t = ((l2.x - l1.x) * l2.dy - (l2.y - l1.y) * l2.dx) / den;
-    return [l1.x + l1.dx * t, l1.y + l1.dy * t];
-  }
-
-  // Each side of the quad carries a run of hull points. Fitting a line to each run
-  // and intersecting neighbours puts the corners on sub-pixel positions, which a
-  // single hull vertex never is.
-  function refineQuad(hull, idx) {
-    const n = hull.length, lines = [];
-    let diag = 0;
-    for (let k = 0; k < 4; k++) {
-      const a = hull[idx[k]], b = hull[idx[(k + 2) % 4]];
-      diag = Math.max(diag, Math.hypot(a[0] - b[0], a[1] - b[1]));
-    }
-    for (let k = 0; k < 4; k++) {
-      const s = idx[k], e = idx[(k + 1) % 4], run = [];
-      for (let i = s; ; i = (i + 1) % n) { run.push(hull[i]); if (i === e || run.length > n) break; }
-      // Drop the end points: they belong to the corners, not to the side.
-      const inner = run.length >= 5 ? run.slice(1, -1) : run;
-      lines.push(inner.length >= 2 ? fitLine(inner) : null);
-    }
-    const out = [];
-    for (let k = 0; k < 4; k++) {
-      const raw = hull[idx[k]], a = lines[(k + 3) % 4], b = lines[k];
-      const p = a && b ? intersect(a, b) : null;
-      // A degenerate fit can throw a corner across the frame; keep the hull vertex then.
-      out.push(p && Math.hypot(p[0] - raw[0], p[1] - raw[1]) < 0.1 * diag ? p : raw.slice());
-    }
-    return out;
-  }
-
-  // Order the corners the way the destination rectangle expects: the first side
-  // along the sheet's long edge, wound to match so the result is not mirrored.
-  function orderQuad(q, mmW, mmH) {
-    let c = q.slice();
-    const len = (a, b) => Math.hypot(c[a][0] - c[b][0], c[a][1] - c[b][1]);
-    const sideA = (len(0, 1) + len(2, 3)) / 2, sideB = (len(1, 2) + len(3, 0)) / 2;
-    if ((mmW >= mmH) !== (sideA >= sideB)) c = [c[1], c[2], c[3], c[0]];
-    let area = 0;
-    for (let i = 0; i < 4; i++) {
-      const a = c[i], b = c[(i + 1) % 4];
-      area += a[0] * b[1] - b[0] * a[1];
-    }
-    if (area < 0) c = [c[0], c[3], c[2], c[1]];
-    return c;
-  }
-
-  // Four points in order, turning the same way at every corner. A quad that fails
-  // this is wound through itself, and rectifying it gives nonsense.
-  function isConvexQuad(q) {
-    if (!q || q.length !== 4) return false;
-    let sign = 0;
-    for (let i = 0; i < 4; i++) {
-      const a = q[i], b = q[(i + 1) % 4], c = q[(i + 2) % 4];
-      const z = (b[0] - a[0]) * (c[1] - b[1]) - (b[1] - a[1]) * (c[0] - b[0]);
-      if (z === 0) return false;
-      if (sign === 0) sign = z > 0 ? 1 : -1;
-      else if ((z > 0 ? 1 : -1) !== sign) return false;
-    }
-    return true;
-  }
-
-  // Gross sanity checks. Detection only has to get close enough that dragging the
-  // markers is quick, so these catch blunders and leave the rest to the eye.
-  function quadLooksLikeSheet(q, w, h, sheet) {
-    if (!isConvexQuad(q)) return false;
-    let area = 0;
-    for (let i = 0; i < 4; i++) {
-      const a = q[i], b = q[(i + 1) % 4];
-      area += a[0] * b[1] - b[0] * a[1];
-    }
-    if (Math.abs(area) / 2 < 0.25 * w * h) return false;
-    const len = (a, b) => Math.hypot(q[a][0] - q[b][0], q[a][1] - q[b][1]);
-    const sa = (len(0, 1) + len(2, 3)) / 2, sb = (len(1, 2) + len(3, 0)) / 2;
-    if (sa < 1e-6 || sb < 1e-6) return false;
-    const got = Math.max(sa, sb) / Math.min(sa, sb);
-    const want = Math.max(sheet.w, sheet.h) / Math.min(sheet.w, sheet.h);
-    // Loose, because perspective foreshortens one pair of sides.
-    return got > want * 0.6 && got < want * 1.5;
-  }
-
-  // The sheet's four corners in the photo, or null to fall back to dragging them.
-  function findQuad(img, sheet, opts) {
-    const o = opts || {};
-    const sm = downscale(toGray(img), o.detectDim || 400);
-    const n = sm.width * sm.height, t = otsu(sm.data), bright = new Uint8Array(n);
-    for (let i = 0; i < n; i++) if (sm.data[i] >= t) bright[i] = 1;
-    const blob = largestBlob(bright, sm.width, sm.height);
-    if (blob.size < 0.15 * n) return null;
-    const hull = convexHull(extremeCells(blob.mask, sm.width, sm.height));
-    const idx = quadFromHull(hull);
-    if (!idx) return null;
-    const q = refineQuad(hull, idx).map(p => [p[0] / sm.scale, p[1] / sm.scale]);
-    if (!quadLooksLikeSheet(q, img.width, img.height, sheet)) return null;
-    return orderQuad(q, sheet.w, sheet.h);
-  }
-
-  /* ---------- Homography ---------- */
-
-  // The homography taking the four src points to the four dst points, with h8
-  // fixed at 1: an 8x8 system solved by Gaussian elimination with partial pivoting.
-  function solveHomography(src, dst) {
-    const A = [], b = [];
-    for (let i = 0; i < 4; i++) {
-      const x = src[i][0], y = src[i][1], u = dst[i][0], v = dst[i][1];
-      A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.push(u);
-      A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); b.push(v);
-    }
-    for (let c = 0; c < 8; c++) {
-      let piv = c;
-      for (let r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[piv][c])) piv = r;
-      if (Math.abs(A[piv][c]) < 1e-12) return null;
-      if (piv !== c) {
-        const t = A[piv]; A[piv] = A[c]; A[c] = t;
-        const u = b[piv]; b[piv] = b[c]; b[c] = u;
-      }
-      for (let r = c + 1; r < 8; r++) {
-        const f = A[r][c] / A[c][c];
-        if (!f) continue;
-        for (let k = c; k < 8; k++) A[r][k] -= f * A[c][k];
-        b[r] -= f * b[c];
-      }
-    }
-    const h = new Float64Array(9);
-    h[8] = 1;
-    for (let r = 7; r >= 0; r--) {
-      let s = b[r];
-      for (let k = r + 1; k < 8; k++) s -= A[r][k] * h[k];
-      h[r] = s / A[r][r];
-    }
-    return h;
-  }
-
-  function applyH(h, x, y) {
-    const d = h[6] * x + h[7] * y + h[8];
-    return [(h[0] * x + h[1] * y + h[2]) / d, (h[3] * x + h[4] * y + h[5]) / d];
-  }
-
-  // Resample the quad into millimetre space. Solving the homography the other way
-  // round, millimetres to pixels, gives the backward map sampling wants, so there
-  // is no matrix to invert.
-  function rectify(img, corners, mmW, mmH, pxPerMm) {
-    const gr = toGray(img), ppm = pxPerMm || 4;
-    const W = Math.max(1, Math.round(mmW * ppm)), H = Math.max(1, Math.round(mmH * ppm));
-    const h = solveHomography([[0, 0], [mmW, 0], [mmW, mmH], [0, mmH]], corners);
-    if (!h) return null;
-    const sw = gr.width, sh = gr.height, sd = gr.data, out = new Uint8Array(W * H);
-    for (let y = 0; y < H; y++) {
-      const my = (y + 0.5) / ppm;
-      for (let x = 0; x < W; x++) {
-        const mx = (x + 0.5) / ppm;
-        const d = h[6] * mx + h[7] * my + h[8];
-        const sx = (h[0] * mx + h[1] * my + h[2]) / d, sy = (h[3] * mx + h[4] * my + h[5]) / d;
-        if (sx < 0 || sy < 0 || sx > sw - 1 || sy > sh - 1) { out[y * W + x] = 255; continue; }
-        const x0 = sx | 0, y0 = sy | 0;
-        const x1 = x0 + 1 < sw ? x0 + 1 : x0, y1 = y0 + 1 < sh ? y0 + 1 : y0;
-        const fx = sx - x0, fy = sy - y0;
-        const top = sd[y0 * sw + x0] + (sd[y0 * sw + x1] - sd[y0 * sw + x0]) * fx;
-        const bot = sd[y1 * sw + x0] + (sd[y1 * sw + x1] - sd[y1 * sw + x0]) * fx;
-        out[y * W + x] = (top + (bot - top) * fy) | 0;
-      }
-    }
-    return { width: W, height: H, data: out, pxPerMm: ppm, mmW, mmH };
-  }
-
-  /* ---------- Outline ---------- */
-
-  // Moore-neighbour tracing: walk the set cells that touch the outside.
-  function traceBoundary(mask, w, h) {
-    let s = -1;
-    for (let i = 0; i < w * h; i++) if (mask[i]) { s = i; break; }
-    if (s < 0) return [];
-    const D = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
-    const on = (x, y) => x >= 0 && y >= 0 && x < w && y < h && mask[y * w + x] === 1;
-    const sx = s % w, sy = (s - sx) / w, out = [];
-    // Raster order found it, so nothing above or left is set: we came from the west.
-    let cx = sx, cy = sy, back = 4;
-    const cap = 8 * (w + h);
-    for (let step = 0; step < cap; step++) {
-      out.push([cx, cy]);
-      let moved = false;
-      for (let k = 1; k <= 8; k++) {
-        const nd = (back + k) & 7, nx = cx + D[nd][0], ny = cy + D[nd][1];
-        if (on(nx, ny)) {
-          back = (nd + 4) & 7;
-          cx = nx; cy = ny;
-          moved = true;
-          break;
-        }
-      }
-      if (!moved) break;
-      if (cx === sx && cy === sy && out.length > 3) break;
-    }
-    return out;
-  }
-
-  // Douglas-Peucker, with an explicit stack so a long boundary cannot blow the call stack.
-  function simplify(pts, tol) {
-    if (pts.length < 4) return pts;
-    const keep = new Uint8Array(pts.length), stack = [[0, pts.length - 1]];
-    keep[0] = 1; keep[pts.length - 1] = 1;
-    while (stack.length) {
-      const seg = stack.pop(), a = seg[0], b = seg[1];
-      if (b <= a + 1) continue;
-      const ax = pts[a][0], ay = pts[a][1];
-      const dx = pts[b][0] - ax, dy = pts[b][1] - ay, len = Math.hypot(dx, dy);
-      let bi = -1, bd = tol;
-      for (let i = a + 1; i < b; i++) {
-        const d = len < 1e-9
-          ? Math.hypot(pts[i][0] - ax, pts[i][1] - ay)
-          : Math.abs((pts[i][0] - ax) * dy - (pts[i][1] - ay) * dx) / len;
-        if (d > bd) { bd = d; bi = i; }
-      }
-      if (bi > 0) { keep[bi] = 1; stack.push([a, bi], [bi, b]); }
-    }
-    const out = [];
-    for (let i = 0; i < pts.length; i++) if (keep[i]) out.push(pts[i]);
-    return out;
-  }
-
-  // A closed outline in millimetres, from a rectified sheet.
-  //   'trace' - a pen line drawn around the foot: a thin closed curve.
-  //   'print' - a wet footprint, an insole or an orthotic: already a filled shape.
-  function extractOutline(rect, mode, opts) {
-    const o = opts || {}, w = rect.width, h = rect.height, n = w * h, ppm = rect.pxPerMm;
-    const t = otsu(rect.data), ink = new Uint8Array(n);
-    for (let i = 0; i < n; i++) if (rect.data[i] < t) ink[i] = 1;
-    let solid;
-    if (mode === 'trace') {
-      // Bridge gaps in the pen line, keep what the line encloses, then grow that
-      // back out to the line's inner edge: with the pen held upright, the inner
-      // edge is where the foot actually was. Closing also rounds off concavities
-      // at the same scale, which costs nothing here because every measurement
-      // taken below is an outer extreme.
-      const r = Math.max(1, Math.round((o.closeMm != null ? o.closeMm : 2.5) * ppm / 2));
-      const thick = morph(ink, w, h, r, true);
-      const outside = reachableFromBorder(thick, w, h);
-      const inside = new Uint8Array(n);
-      let count = 0;
-      for (let i = 0; i < n; i++) if (!thick[i] && !outside[i]) { inside[i] = 1; count++; }
-      if (count < 0.02 * n) {
-        return { error: 'No closed tracing found. Check the pen line has no gaps, and that the whole tracing sits inside the sheet without touching an edge.' };
-      }
-      if (count > 0.9 * n) return { error: 'Nearly the whole sheet reads as foot. Retake the photo in even light with the sheet filling the frame.' };
-      solid = morph(largestBlob(inside, w, h).mask, w, h, r, true);
-    } else {
-      const big = largestBlob(ink, w, h);
-      if (big.size < 0.02 * n) return { error: 'Nothing dark enough found on the sheet. Check the photo is sharp and evenly lit.' };
-      if (big.size > 0.9 * n) return { error: 'Nearly the whole sheet reads as dark. Retake the photo in even light.' };
-      // Keep the shape plus anything it encloses, so a logo or a dry patch inside
-      // a footprint does not punch a hole in it.
-      const outside = reachableFromBorder(big.mask, w, h);
-      solid = new Uint8Array(n);
-      for (let i = 0; i < n; i++) if (!outside[i]) solid[i] = 1;
-    }
-    const px = traceBoundary(solid, w, h);
-    if (px.length < 16) return { error: 'Could not trace an outline. Try a sharper photo with more contrast.' };
-    const mm = px.map(p => [(p[0] + 0.5) / ppm, (p[1] + 0.5) / ppm]);
-    return { poly: simplify(mm, o.tolMm != null ? o.tolMm : 0.3), threshold: t, mask: solid };
-  }
-
-  /* ---------- Measuring ---------- */
-
-  // Width of a closed polyline at station xs, by ray casting.
-  function spanAt(pts, xs) {
-    let lo = Infinity, hi = -Infinity;
-    for (let i = 0; i < pts.length; i++) {
-      const p1 = pts[i], p2 = pts[(i + 1) % pts.length];
-      const x1 = p1[0], y1 = p1[1], x2 = p2[0], y2 = p2[1];
-      if ((x1 - xs) * (x2 - xs) <= 0 && x1 !== x2) {
-        const y = y1 + (y2 - y1) * (xs - x1) / (x2 - x1);
-        lo = Math.min(lo, y); hi = Math.max(hi, y);
-      }
-    }
-    return [lo, hi];
-  }
-
-  // Translate and rotate so a sits at the origin and b lies on +x.
-  function align(poly, a, b) {
-    const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy);
-    const ux = dx / L, uy = dy / L;
-    return poly.map(p => {
-      const px = p[0] - a[0], py = p[1] - a[1];
-      return [px * ux + py * uy, -px * uy + py * ux];
-    });
-  }
-
-  // Measure an outline the way the README tells you to measure a foot, so the two
-  // routes into the designer cannot disagree.
-  function measureOutline(poly) {
-    if (!poly || poly.length < 8) return { error: 'Outline too small to measure.' };
-    // The farthest-apart pair of points is the back of the heel and the longest toe.
-    let ai = 0, bi = 0, best = -1;
-    for (let i = 0; i < poly.length; i++) {
-      for (let j = i + 1; j < poly.length; j++) {
-        const dx = poly[j][0] - poly[i][0], dy = poly[j][1] - poly[i][1], d = dx * dx + dy * dy;
-        if (d > best) { best = d; ai = i; bi = j; }
-      }
-    }
-    const L = Math.sqrt(best);
-    if (!(L > 20)) return { error: 'Outline too small to measure.' };
-    const width = (p, x) => { const s = spanAt(p, x); return isFinite(s[0]) ? s[1] - s[0] : 0; };
-    let pts = align(poly, poly[ai], poly[bi]);
-    // Which end is the heel? The heel is round, so it is still wide close to the
-    // tip; the far end tapers into one toe.
-    if (width(pts, 0.88 * L) > width(pts, 0.12 * L)) pts = align(poly, poly[bi], poly[ai]);
-
-    let maxWidth = 0, maxWidthAt = 0;
-    for (let i = 1; i < 200; i++) {
-      const x = L * i / 200, s = width(pts, x);
-      if (s > maxWidth) { maxWidth = s; maxWidthAt = x; }
-    }
-    // 2-3 cm in from the back, as the measuring instructions say.
-    const heelWidth = width(pts, Math.min(25, 0.2 * L));
-    let midWidth = Infinity;
-    for (let i = 0; i <= 40; i++) {
-      const s = width(pts, L * (0.4 + 0.2 * i / 40));
-      if (s > 0 && s < midWidth) midWidth = s;
-    }
-
-    // Which edge is the inside of the foot? The medial edge is the one that dips
-    // towards the centre line at the arch. Flip so medial is +y, the convention
-    // the geometry engine uses for a right foot.
-    const sag = sign => {
-      const x0 = 0.15 * L, x1 = 0.7 * L, s0 = spanAt(pts, x0), s1 = spanAt(pts, x1);
-      if (!isFinite(s0[0]) || !isFinite(s1[0])) return 0;
-      const yEnd = sign > 0 ? s1[1] : s1[0], yStart = sign > 0 ? s0[1] : s0[0];
-      let total = 0;
-      for (let i = 1; i < 20; i++) {
-        const x = x0 + (x1 - x0) * i / 20, s = spanAt(pts, x);
-        if (!isFinite(s[0])) continue;
-        const y = sign > 0 ? s[1] : s[0], chord = yStart + (yEnd - yStart) * i / 20;
-        total += sign > 0 ? chord - y : y - chord;
-      }
-      return total;
-    };
-    if (sag(-1) > sag(1)) pts = pts.map(p => [p[0], -p[1]]);
-    const mid = spanAt(pts, 0.5 * L), yc = isFinite(mid[0]) ? (mid[0] + mid[1]) / 2 : 0;
-    pts = pts.map(p => [p[0], p[1] - yc]);
-
-    return {
-      length: L,
-      maxWidth,
-      maxWidthAt,
-      heelWidth,
-      midWidth: isFinite(midWidth) ? midWidth : null,
-      csi: isFinite(midWidth) && maxWidth > 0 ? midWidth / maxWidth : null,
-      poly: pts
-    };
-  }
-
-  /* ---------- Footprint shape to a starting arch ---------- */
-
-  // The midfoot-to-forefoot width ratio of a print is the long-standing
-  // Chippaux-Smirak index. Published cut-offs scatter badly and most of the
-  // validation is in children, so this picks somewhere to start feeling from,
-  // never a diagnosis. A high arch leaves a gap worth filling; a flat foot gets a
-  // lower, broader support so it is held up rather than jammed.
-  const ARCH_BANDS = [
-    { max: 0.25, type: 'high', archHeight: 18, archSpread: 60,
-      say: 'a high arch: the print barely touches through the middle' },
-    { max: 0.45, type: 'average', archHeight: 14, archSpread: 65,
-      say: 'an average arch' },
-    { max: Infinity, type: 'low', archHeight: 10, archSpread: 72,
-      say: 'a low or flat arch: most of the middle of the foot is touching' }
-  ];
-
-  function archFromPrint(csi) {
-    if (!(csi > 0)) return null;
-    for (const b of ARCH_BANDS) {
-      if (csi <= b.max) {
-        return { type: b.type, say: b.say, csi, archHeight: b.archHeight, archSpread: b.archSpread };
-      }
-    }
-    return null;
-  }
-
-  /* ---------- Side view ---------- */
-
-  // The arch is at its lowest when you are standing on it, and that loaded shape
-  // is the one an orthotic has to meet: build to it and the support runs the whole
-  // length of the arch, which is the point of the thing.
-  //
-  // A measurement taken sitting is of an arch you will never stand on, so the drop
-  // comes off first -- about 7 mm, the middle of the usual 6 to 9 mm of navicular
-  // drop. That subtraction is not less support. It is what turns an unloaded
-  // measurement into the loaded one, and it is the same correction the arch fill
-  // of plaster casting makes. Build the sitting height in full and the orthotic
-  // lifts the arch above where it stands rather than supporting it there.
-  const ARCH_DROP = 7;
-  const DEFAULT_FILL = 100;
-
-  // Your own foot is the ruler, so there is nothing to stand up beside it and
-  // nothing in front of the arch. The back of the heel and the tip of the longest
-  // toe both sit on the floor, so the line between them is the floor and their
-  // separation is the foot length already measured. The arch height is then simply
-  // how far the top of the arch stands off that line.
-  //
-  // This scales but does not correct perspective, which is why the photo wants to
-  // be low and square on: a camera tilted 15 degrees reads the arch about 3% high.
-  // The published photographic method works the same way and agrees with calipers
-  // well, though it does tend to read a little high.
-  function archFromSide(marks, opts) {
-    const o = opts || {};
-    const L = o.footLength > 0 ? o.footLength : 265;
-    const h = marks.heel, t = marks.toe, a = marks.apex;
-    const dx = t[0] - h[0], dy = t[1] - h[1], span = Math.hypot(dx, dy);
-    if (!(span > 40)) {
-      return { error: 'The heel and the toe markers are almost on top of each other. Put one on the back of your heel and one on the tip of your longest toe, both where they meet the floor.' };
-    }
-    const mm = L / span, ux = dx / span, uy = dy / span;
-    const px = a[0] - h[0], py = a[1] - h[1];
-    const along = (px * ux + py * uy) * mm;    // towards the toes, along the floor
-    const clear = (px * uy - py * ux) * mm;    // off the floor line, positive is up
-    if (!(clear > 0)) {
-      return { error: 'The arch marker came out level with the floor or below it. Put it on the highest point of the arch underneath your foot, and check the heel and toe markers are both down at the floor.' };
-    }
-    if (clear > 60) return { error: 'The arch came out over 60 mm above the floor, which is too high to be right. Check all three markers.' };
-    const apexDist = clamp(along, 0, L);
-    const sitting = o.stance === 'sitting';
-    const loaded = sitting ? Math.max(0, clear - ARCH_DROP) : clear;
-    const fill = o.fill != null ? o.fill : DEFAULT_FILL / 100;
-    return {
-      clearHeight: clear,
-      loadedHeight: loaded,
-      stance: sitting ? 'sitting' : 'standing',
-      apexDist,
-      footLength: L,
-      fill,
-      archHeight: loaded * fill,
-      archPeak: clamp((apexDist / L) * 100, 0, 100)
-    };
-  }
-
-  root.OrthoPhoto = {
-    SHEETS, ARCH_BANDS, ARCH_DROP, DEFAULT_FILL,
-    toGray, downscale, otsu, morph, largestBlob, reachableFromBorder,
-    convexHull, isConvexQuad, findQuad, orderQuad, solveHomography, applyH, rectify,
-    traceBoundary, simplify, extractOutline, spanAt, measureOutline,
-    archFromPrint, archFromSide
-  };
+  root.OrthoGeom = { DEFAULTS, LIMITS, build, toSTL, warnings, sanitize, archPeak };
 })(typeof window !== 'undefined' ? window : globalThis);
 
 </script>
@@ -2030,7 +827,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       </svg>
       <div>
         <h1>Archform</h1>
-        <p>Enter foot measurements, shape the support, download a printable STL.</p>
+        <p>Adjust the arch and heel cup, then download a printable STL.</p>
       </div>
     </div>
     <div class="bar-actions">
@@ -2052,7 +849,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       <div class="alerts" id="alerts" aria-live="polite"></div>
       <div id="sections"></div>
       <div class="foot-note">
-        <p><strong>Safety.</strong> These are general-purpose supports. If you have diabetes, poor circulation, numbness or ongoing foot pain, see a podiatrist before wearing them. A podiatrist can also give you the arch and post values to enter here.</p>
+        <p><strong>Safety.</strong> These are general-purpose supports. If you have diabetes, poor circulation, numbness or ongoing foot pain, see a podiatrist before wearing them.</p>
         <div class="file-row">
           <button type="button" class="btn" id="save-settings">Save settings</button>
           <label class="btn" for="load-settings">Load settings</label>
@@ -2089,13 +886,9 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
   const G = window.OrthoGeom;
   const STORE_KEY = 'scan-free-orthotic-designer.v1';
 
-  const BASES = window.OrthoBases || {};
-  const ADJUST = ['archAdjHeight', 'archAdjShift', 'archAdjLength', 'archAdjReach', 'outerAdj', 'heelAdj'];
   const SECTIONS = [
-    { id: 'base', title: 'Start from', sub: 'Base shape', fields: [
-      { type: 'choice', k: 'base', label: 'Shape', options: [['none', 'My measurements'], ...Object.entries(BASES).map(([k, b]) => [k, b.label])],
-        hints: Object.assign({ none: 'Built from your foot measurements and the arch, heel and forefoot settings below.' },
-          ...Object.entries(BASES).map(([k, b]) => ({ [k]: `${b.label}, fitted to a 3D scan, as the starting shape. Adjust the arch from it with the sliders below; at zero you get the original shape. ${b.notes || ''}` }))) },
+    { id: 'shape', title: 'Shape', sub: 'Adjust the arch', fields: [
+      { type: 'note', text: 'A thin moulded 3/4-length shell with a deep heel cup, a tall inner arch and a heel opening, fitted to a 3D scan. These sliders adjust it; at zero you get the shape exactly.' },
       { k: 'archAdjHeight', label: 'Arch height change', unit: 'mm', step: 0.5, hint: 'Raises (+) or lowers (-) the orthotic\'s arch surface, most at the inner edge under the peak, fading smoothly along the foot and across it. This changes the support\'s height, not a measurement of your foot.' },
       { k: 'archAdjShift', label: 'Arch position change', unit: 'mm', step: 1, hint: 'Moves the arch toward the toes (+) or the heel (-).' },
       { k: 'archAdjLength', label: 'Arch length change', unit: '%', step: 1, hint: 'Stretches (+) or shortens (-) the arch along the foot.' },
@@ -2103,92 +896,16 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       { k: 'outerAdj', label: 'Outer side change', unit: 'mm', step: 0.5, hint: 'Raises (+) or lowers (-) the outer side under the arch.' },
       { k: 'heelAdj', label: 'Heel cup change', unit: 'mm', step: 0.5, hint: 'Deepens (+) or flattens (-) the heel cup walls.' }
     ]},
-    { id: 'foot', title: 'Your foot', sub: 'Measurements', fields: [
-      { type: 'sizefill' },
-      { k: 'length', label: 'Foot length', unit: 'mm', step: 1, hint: 'Back of the heel to the tip of your longest toe, standing.' },
-      { k: 'ballWidth', label: 'Forefoot width', unit: 'mm', step: 1, hint: 'Widest part across the ball of the foot (the metatarsal heads, big-toe joint to little-toe joint), standing.' },
-      { k: 'heelWidth', label: 'Heel width', unit: 'mm', step: 1, hint: 'Widest part of the heel, about 2–3 cm in from the back.' },
-      { type: 'choice', k: 'coverage', label: 'Length of the orthotic', options: [['3q', '3/4'], ['sulcus', 'Sulcus'], ['full', 'Full']],
-        hints: { '3q': 'Ends just behind the ball of the foot. Goes in on top of the shoe\'s own insole, so it fits shoes whose insole will not come out. If that makes the shoe tight, take the insole out: the front edge is skived thin, so the step is small.', sulcus: 'Ends under the crease of the toes. Goes over the shoe\'s insole or in place of it, with your toes off the front.', full: 'Toe to heel. Replaces the shoe\'s insole, if it comes out.' } },
-      { k: 'shellLength', label: 'Shell length', unit: 'mm', step: 1, hint: 'Sets the exact length of a 3/4 or sulcus shell, back of the heel to the front tip, for example to match an orthotic you already have. 0 uses the length above.' },
-      { k: 'shellWidth', label: 'Shell width', unit: 'mm', step: 1, hint: 'The widest a 3/4 or sulcus shell gets across the foot. Parts of the outline that would be wider ease down to it; narrower parts, like the heel, stay as they are. 0 follows your foot.' },
-      { k: 'shellSlant', label: 'Front edge slant', unit: 'mm', step: 1, hint: 'How much further forward the inner side of a 3/4 or sulcus shell reaches than the outer side, so the front edge follows the slant of the ball of the foot. 0 keeps a rounded front.' },
-      { type: 'guide' }
-    ]},
-    { id: 'arch', title: 'Arch', sub: 'Main support', fields: [
-      { k: 'archHeight', label: 'Arch height', unit: 'mm', step: 0.5, hint: 'Height of the orthotic\'s top surface under the inner (medial) arch, above the floor. This is the support, not your foot\'s own arch height (navicular height), which a podiatrist measures on the foot itself and which is usually higher. Most adults start at 10–15 mm and go up 2 mm at a time.' },
-      { k: 'archPeak', label: 'Arch peak position', unit: '%', step: 1, hint: 'Highest point, as a percentage of foot length from the heel. 40–45% suits most feet.' },
-      { k: 'archLength', label: 'Arch length', unit: '%', step: 1, hint: 'How far along the foot, heel to toe, the arch stays at full height, as a percentage of foot length, centred on the peak. 0 is a single peak; higher values give a long, flat-topped arch.' },
-      { k: 'archSpread', label: 'Arch spread', unit: '%', step: 1, hint: 'How far across the foot the arch support reaches. At 100% it reaches the outer edge.' },
-      { k: 'archRound', label: 'Arch roundness', unit: '%', step: 5, hint: 'The shape across the foot, seen from the front. 0 is an S-curve that flattens out near the inner edge; 100 keeps rising right up to the inner edge with no flat top, like a moulded shell. The height at the inner edge stays the same.' },
-      { k: 'archFill', label: 'Arch plateau', unit: '%', step: 1, hint: 'How much of the spread stays at full arch height before it slopes down toward the outside. 0 slopes all the way from the inner edge; higher values give a broad, raised midfoot. With spread and plateau both at 100% the arch is full height right across to the outer edge.' },
-      { k: 'lateralArch', label: 'Outer arch', unit: 'mm', step: 0.5, hint: 'A small rise on the outside of the midfoot. Helps the orthotic sit stable.' }
-    ]},
-    { id: 'heel', title: 'Heel', sub: 'Cup, lift and post', fields: [
-      { k: 'heelCup', label: 'Heel cup depth', unit: 'mm', step: 0.5, hint: 'Wall height around the heel. Deeper cups cradle the heel pad and stop it sliding.' },
-      { k: 'heelCupReach', label: 'Heel cup curve', unit: '%', step: 5, hint: 'How far the curve of the cup reaches toward the centre of the heel. 0 keeps a flat heel seat with walls at the edge; 100 makes one continuous bowl.' },
-      { k: 'heelHole', label: 'Heel opening', unit: 'mm', step: 1, hint: 'Width of an oval opening under the middle of the heel, so the heel pad rests on the shoe instead of the orthotic. The seat slopes down to a thin rim around it. Pairs well with a heel cup curve near 100. 0 turns it off.' },
-      { k: 'heelHolePos', label: 'Heel opening position', unit: 'mm', step: 1, hint: 'Distance from the back of the heel to the centre of the opening. 0 centres it under the heel pad, about half the heel width in.' },
-      { k: 'heelLift', label: 'Heel lift', unit: 'mm', step: 0.5, hint: 'Raises the heel, for example to even up a leg-length difference.' },
-      { k: 'rearPost', label: 'Rearfoot post', unit: '°', step: 0.5, hint: 'Tilts the heel. Positive raises the inner side for feet that roll in; negative raises the outer side.' }
-    ]},
-    { id: 'fore', title: 'Forefoot', sub: 'Met pad and post', fields: [
-      { k: 'metPad', label: 'Metatarsal pad height', unit: 'mm', step: 0.5, hint: 'A dome just behind the ball of the foot that eases pressure under it. 0 turns it off.' },
-      { k: 'metPadPos', label: 'Metatarsal pad position', unit: '%', step: 1, hint: 'Centre of the pad, as a percentage of foot length. It should sit behind the ball, not under it.' },
-      { k: 'forePost', label: 'Forefoot post', unit: '°', step: 0.5, hint: 'Tilts the forefoot. Positive raises the inner side.' }
-    ]},
     { id: 'print', title: 'Print', sub: 'Build and material', fields: [
-      { type: 'choice', k: 'style', label: 'Base', options: [['solid', 'Solid, flat base'], ['shell', 'Shell'], ['thin', 'Thin shell']],
-        hints: { solid: 'Flat underneath, prints with no supports. Best in TPU.', shell: 'Hollow under the arch, lighter. Needs supports under the arch.', thin: 'The same thickness everywhere, like a moulded shell: the heel cup and arch are rounded underneath and only touch the shoe where they are low. Lightest. Needs supports under the heel cup and arch.' } },
-      { k: 'shellThick', label: 'Shell thickness', unit: 'mm', step: 0.1, hint: 'Thickness of the shell from the heel through the arch.' },
-      { k: 'foreThick', label: 'Forefoot thickness', unit: 'mm', step: 0.1, hint: 'Base thickness under the forefoot. The end of a 3/4 or sulcus shell tapers thinner.' },
+      { type: 'choice', k: 'style', label: 'Base', options: [['thin', 'Thin shell'], ['solid', 'Solid, flat base']],
+        hints: { thin: 'The same thickness everywhere, like a moulded shell: the heel cup and arch are rounded underneath and only touch the shoe where they are low. Lightest. Needs supports under the heel cup and arch.', solid: 'Filled in flat underneath, so it prints with no supports. Heavier and stiffer. Best in TPU.' } },
+      { k: 'shellThick', label: 'Shell thickness', unit: 'mm', step: 0.1, hint: 'Thickness of the shell.' },
       { type: 'choice', k: 'material', label: 'Material', options: [['tpu', 'TPU 95A'], ['petg', 'PETG'], ['pla', 'PLA']],
         hints: {
           tpu: 'Flexible and durable. 2–3 walls, 15–25% gyroid infill, print slowly at 20–30 mm/s.',
           petg: 'Firm shell. 4 walls, 30–40% infill. Add a foam top cover for comfort.',
           pla: 'Brittle under repeated flexing. Good for test fits; print the final pair in TPU or PETG.' } }
     ]}
-  ];
-
-  /* ---------- Measure from a photo ---------- */
-  // Each way of reading a photo is one entry here, so adding or dropping one is a
-  // single edit and none of them leans on another.
-  const FLOWS = [
-    {
-      id: 'trace', kind: 'top', mode: 'trace', label: 'Foot tracing', sub: 'Length and widths',
-      steps: '<li>Stand on the sheet against a wall with your weight on that foot, and trace around the foot with the pen held upright.</li>' +
-        '<li>Step off, lay the sheet flat, and photograph it from straight above with the sheet filling the frame.</li>',
-      sets: 'Sets foot length, forefoot width and heel width.'
-    },
-    {
-      id: 'print', kind: 'top', mode: 'print', label: 'Wet footprint', sub: 'Arch type',
-      steps: '<li>Wet the sole of your foot, stand on the sheet for a moment with your weight on it, then step off.</li>' +
-        '<li>Photograph the sheet from straight above while the print is still dark.</li>',
-      sets: 'Suggests an arch height and spread to start from. Standing flattens your arch, and that is the point here: this reads how wide the middle of a loaded foot prints, which is what tells a high arch from a flat one. A print leaves the toes out, so it will not set your foot length.'
-    },
-    {
-      id: 'insole', kind: 'top', mode: 'print', label: 'Insole or orthotic', sub: 'Copy the outline',
-      steps: '<li>Pull the insole out of a shoe that fits you, or pick up the orthotic you already wear.</li>' +
-        '<li>Lay it on the sheet and photograph it from straight above. A dark one on white paper reads best.</li>',
-      sets: 'Matches the outline through the same solver as Copy an existing orthotic. Heights still come from the sliders or a side view.'
-    },
-    {
-      id: 'side', kind: 'side', label: 'Side view', sub: 'Arch height',
-      steps: '<li>Lay a sheet of white paper on the floor on the <b>far</b> side of that foot, so the gap under your arch shows up bright against it.</li>' +
-        '<li>Put the phone on the floor on the near side, about half a metre away, and take the photo square on.</li>',
-      diagram: sideDiagram,
-      sets: 'Sets arch height and peak position, the two settings nothing else here can measure. Nothing to hold or prop up: your own foot length is the ruler, so set that first if it is not already right.'
-    }
-  ];
-
-  const SIDE_MARKS = [
-    { k: 'heel', t: 'H', at: [0.16, 0.78], land: true },
-    { k: 'toe', t: 'T', at: [0.82, 0.80], land: true },
-    { k: 'apex', t: 'A', at: [0.46, 0.64], land: true }
-  ];
-  const TOP_MARKS = [
-    { k: 'c0', t: '1', at: [0.1, 0.1] }, { k: 'c1', t: '2', at: [0.9, 0.1] },
-    { k: 'c2', t: '3', at: [0.9, 0.9] }, { k: 'c3', t: '4', at: [0.1, 0.9] }
   ];
 
   let params = Object.assign({}, G.DEFAULTS);
@@ -2210,32 +927,9 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     status(msg) { const el = document.getElementById('status'); el.textContent = msg; }
   };
 
-  const fmt = (v, step) => (step < 1 ? Number(v).toFixed(step < 0.5 ? 1 : 1) : String(Math.round(v)));
+  const fmt = (v, step) => (step < 1 ? Number(v).toFixed(1) : String(Math.round(v)));
   const host = document.getElementById('sections');
   const ranges = {}, nums = {}, choices = {};
-
-  // Snap a measured value onto what its control can actually represent. A photo or
-  // the orthotic solver lands between steps, which is finer than these measurements
-  // deserve and marks the number box invalid until the slider is next touched.
-  function toStep(patch) {
-    const out = {};
-    for (const k in patch) {
-      const r = ranges[k];
-      out[k] = r && typeof patch[k] === 'number'
-        ? Number((Math.round(patch[k] / r._step) * r._step).toFixed(3))
-        : patch[k];
-    }
-    return out;
-  }
-
-  // The outline read off a photo, drawn over the generated one in the measuring
-  // guide. Declared up here because buildGuide runs while the sections are built.
-  let photoOutline = null;
-  let planNote = null;
-  function setPhotoOutline(poly) {
-    photoOutline = poly && poly.length > 2 ? poly : null;
-    drawPlan();
-  }
 
   function el(tag, attrs, html) {
     const e = document.createElement(tag);
@@ -2251,8 +945,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     d.append(s);
     const body = el('div', { class: 'sec-body' });
     for (const f of sec.fields) {
-      if (f.type === 'sizefill') { body.append(buildSizeFill()); continue; }
-      if (f.type === 'guide') { body.append(buildGuide()); continue; }
+      if (f.type === 'note') { body.append(el('p', { class: 'hint' }, f.text)); continue; }
       if (f.type === 'choice') { body.append(buildChoice(f)); continue; }
       const [min, max] = G.LIMITS[f.k];
       const wrap = el('div', { class: 'field', 'data-k': f.k });
@@ -2272,749 +965,6 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     d.append(body);
     host.append(d);
   }
-  host.prepend(buildCopy());
-  host.prepend(buildPhoto());
-  host.prepend(document.getElementById('sec-base'));
-
-  /* ---------- Copy an existing orthotic ---------- */
-  // Width of a closed polyline at a station. Declared, not assigned, because the
-  // sections are built before this point in the file is reached.
-  function spanAt(pts, xs) { return window.OrthoPhoto.spanAt(pts, xs); }
-  function badge(x, y, n) {
-    return `<circle cx="${x}" cy="${y}" r="7.5" class="b"/><text x="${x}" y="${y + 3.2}" class="bt" text-anchor="middle">${n}</text>`;
-  }
-
-  function copyDiagram() {
-    const P = Object.assign({}, G.DEFAULTS, { side: 'right' });
-    const m = G.measureDesign(P), xe = m.length;
-    // Side view of the inner edge (heights exaggerated 2.5x)
-    const sx = 290 / xe, sz = 2.5, x0 = 40, table = 96;
-    const X = x => x0 + x * sx, Z = z => table - z * sz;
-    let prof = `M${X(0)} ${table} L${X(0)} ${Z(m.heelRim)}`;
-    for (let x = 1; x < xe; x += 2) prof += ` L${X(x).toFixed(1)} ${Z(G.innerEdgeTop(P, x)).toFixed(1)}`;
-    prof += ` L${X(xe)} ${Z(1.2)} L${X(xe)} ${table} Z`;
-    const side = [
-      `<svg class="plan diag" viewBox="0 0 360 132" role="img" aria-label="Side view of an orthotic from the inner edge, showing where to measure heights">`,
-      `<line class="ext" x1="10" y1="${table}" x2="350" y2="${table}"/><text x="350" y="${table + 11}" text-anchor="end">table</text>`,
-      `<path class="outline" d="${prof}"/>`,
-      `<line class="ext" x1="${X(8)}" y1="${Z(m.heelSeat)}" x2="${X(70)}" y2="${Z(m.heelSeat)}"/>`,
-      `<line class="dim" x1="${X(0) - 8}" y1="${table}" x2="${X(0) - 8}" y2="${Z(m.heelRim)}"/>`, badge(X(0) - 20, Z(m.heelRim / 2), 5),
-      `<line class="dim" x1="${X(42)}" y1="${table}" x2="${X(42)}" y2="${Z(m.heelSeat)}"/>`, badge(X(42), Z(m.heelSeat) - 12, 4),
-      `<line class="dim" x1="${X(m.archDist)}" y1="${table}" x2="${X(m.archDist)}" y2="${Z(m.archTop)}"/>`, badge(X(m.archDist) + 13, Z(m.archTop / 2), 6),
-      `<line class="dim" x1="${X(0)}" y1="14" x2="${X(m.archDist)}" y2="14"/><line class="ext" x1="${X(m.archDist)}" y1="14" x2="${X(m.archDist)}" y2="${Z(m.archTop)}"/>`, badge((X(0) + X(m.archDist)) / 2, 14, 7),
-      `<line class="dim" x1="${X(0)}" y1="${table + 22}" x2="${X(xe)}" y2="${table + 22}"/>`, badge((X(0) + X(xe)) / 2, table + 22, 1),
-      `<text x="${X(0)}" y="${table + 11}">heel</text>`,
-      '</svg>'
-    ].join('');
-    // Top view (tracing)
-    const o = G.build(P).outline, s = 1.05, tx = 60, cy = 70;
-    const TX = x => tx + x * s, TY = y => cy - y * s;
-    const path = o.map(([x, y], i) => (i ? 'L' : 'M') + TX(x).toFixed(1) + ' ' + TY(y).toFixed(1)).join(' ') + 'Z';
-    let wx = 0, wbest = 0;
-    for (let x = 0.4 * xe; x < xe; x += 1) { const [a, b] = spanAt(o, x); if (b - a > wbest) { wbest = b - a; wx = x; } }
-    const [w0, w1] = spanAt(o, wx), hx = Math.min(P.heelWidth / 2, 0.2 * P.length), [h0, h1] = spanAt(o, hx);
-    const top = [
-      `<svg class="plan diag" viewBox="0 0 360 132" role="img" aria-label="Top view of the tracing, showing the widest width and the heel width">`,
-      `<path class="outline" d="${path}"/>`,
-      `<line class="dim" x1="${TX(wx)}" y1="${TY(w1)}" x2="${TX(wx)}" y2="${TY(w0)}"/>`, badge(TX(wx) - 16, cy, 2),
-      `<line class="dim" x1="${TX(hx)}" y1="${TY(h1)}" x2="${TX(hx)}" y2="${TY(h0)}"/>`, badge(TX(hx) + 14, cy, 3),
-      `<text x="${TX(xe * 0.45)}" y="${Math.max(10, TY(w1) - 6)}" text-anchor="middle">inner edge</text>`,
-      `<text x="${TX(xe) + 8}" y="${cy + 3}">front</text>`,
-      '</svg>'
-    ].join('');
-    return top + side;
-  }
-
-  function buildCopy() {
-    const DRAFT_KEY = 'orthotics-builder.copy.v1';
-    let draft = {};
-    try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || '{}') || {}; } catch (e) { draft = {}; }
-    const state = { coverage: draft.coverage || params.coverage, style: draft.style || params.style };
-
-    const d = el('details', { class: 'sec', id: 'sec-copy' });
-    const s = el('summary');
-    s.append(el('span', { class: 'sec-title' }, 'Copy an existing orthotic'), el('span', { class: 'sec-sub' }, 'Measure and match'));
-    d.append(s);
-    const body = el('div', { class: 'sec-body' });
-    body.append(el('p', { class: 'hint' }, 'Have an orthotic that works for you? Measure it here and the designer will match it. You need a flat table, paper, a pen, a steel rule, and digital calipers if you have them. Measure in millimetres.'));
-    body.append(el('ol', { class: 'steps' },
-      '<li>Lay the orthotic flat on paper and trace around it with the pen held upright. Take <b>1–3</b> from the tracing.</li>' +
-      '<li>Put the orthotic on the table and measure <b>4–6</b> from the table up to the top surface, using the calipers\' depth rod or a steel rule stood on end. Then measure <b>7</b> along the tracing.</li>' +
-      '<li>Add any optional measurements that apply, then press <b>Match this orthotic</b>.</li>'));
-    const diag = el('div', { class: 'diagram' });
-    diag.innerHTML = copyDiagram();
-    body.append(diag);
-
-    const segRow = (label, key, opts) => {
-      const wrap = el('div', { class: 'choice' });
-      wrap.append(el('span', { class: 'field-head' }, '<span style="font-weight:500">' + label + '</span>'));
-      const seg = el('div', { class: 'seg', role: 'group', 'aria-label': label });
-      const paint = () => seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === state[key] ? 'true' : 'false'));
-      for (const [v, t] of opts) {
-        const b = el('button', { type: 'button', id: 'oc-' + key + '-' + v, 'data-v': v }, t);
-        b.addEventListener('click', () => { state[key] = v; paint(); save(); });
-        seg.append(b);
-      }
-      paint();
-      wrap.append(seg);
-      return wrap;
-    };
-    body.append(segRow('Where does it end?', 'coverage', [['3q', 'Behind the ball (3/4)'], ['sulcus', 'Toe crease'], ['full', 'Full']]));
-    body.append(segRow('Underneath the arch', 'style', [['solid', 'Flat'], ['shell', 'Hollow'], ['thin', 'Thin shell']]));
-
-    const inputs = {};
-    const field = (key, n, label, hint) => {
-      const f = el('div', { class: 'ofield' });
-      const lab = el('label', { for: 'o-' + key }, `<span class="badge" aria-hidden="true">${n}</span>${label}`);
-      const inp = el('input', { type: 'number', id: 'o-' + key, step: '0.1', min: '0', inputmode: 'decimal', placeholder: 'mm' });
-      if (draft[key] != null) inp.value = draft[key];
-      inp.addEventListener('input', save);
-      inputs[key] = inp;
-      f.append(lab, inp, el('p', { class: 'hint' }, hint));
-      return f;
-    };
-    const main = el('div', { class: 'ofields' });
-    [
-      ['length', 1, 'Overall length', 'Back of the heel to the front tip.'],
-      ['maxWidth', 2, 'Widest width', 'Widest point of the tracing.'],
-      ['heelWidth', 3, 'Heel width', 'Across the heel, 2–3 cm in from the back.'],
-      ['heelSeat', 4, 'Heel seat height', 'Top of the middle of the heel seat.'],
-      ['heelRim', 5, 'Heel rim height', 'Top of the heel cup at the very back.'],
-      ['archTop', 6, 'Arch height', 'Top of the inner edge where the arch is highest.'],
-      ['archDist', 7, 'Arch position', 'Back of the heel to that highest point.'],
-      ['foreThick', 8, 'Forefoot thickness', 'Under the ball, with calipers. Toe-crease and full length only.']
-    ].forEach(a => main.append(field(...a)));
-    body.append(main);
-
-    const opt = el('details', { class: 'guide' });
-    opt.append(el('summary', null, 'Optional: met pad, heel lift, wedges'));
-    const ob = el('div', { class: 'guide-body' });
-    const og = el('div', { class: 'ofields' });
-    [
-      ['padHeight', 9, 'Met pad height', 'Height of the dome above the surface around it.'],
-      ['padDist', 10, 'Met pad position', 'Back of the heel to the centre of the dome.'],
-      ['heelLift', 11, 'Heel lift pad', 'Thickness of a separate pad stuck under the heel.']
-    ].forEach(a => og.append(field(...a)));
-    ob.append(og);
-    const wedgeRow = (prefix, n, title, hint) => {
-      const w = el('div', { class: 'field' });
-      w.append(el('span', { class: 'field-head' }, `<span style="font-weight:500;display:flex;align-items:center;gap:6px"><span class="badge" aria-hidden="true">${n}</span>${title}</span>`));
-      const row = el('div', { class: 'wedge' });
-      for (const [k, t] of [['Inner', 'Inner edge'], ['Outer', 'Outer edge'], ['Width', 'Width']]) {
-        const c = el('div', { class: 'ofield' });
-        const key = prefix + k;
-        const inp = el('input', { type: 'number', id: 'o-' + key, step: '0.1', min: '0', inputmode: 'decimal', placeholder: 'mm', 'aria-label': title + ' ' + t.toLowerCase() });
-        if (draft[key] != null) inp.value = draft[key];
-        inp.addEventListener('input', save);
-        inputs[key] = inp;
-        c.append(el('span', { class: 'hint' }, t), inp);
-        row.append(c);
-      }
-      w.append(row, el('p', { class: 'hint' }, hint));
-      return w;
-    };
-    ob.append(wedgeRow('heelWedge', 12, 'Heel wedge (rearfoot post)', 'A wedge stuck under the heel: its thickness at the inner and outer edges, and its width across the foot.'));
-    ob.append(wedgeRow('foreWedge', 13, 'Forefoot wedge (forefoot post)', 'The same for a wedge under the front of the orthotic.'));
-    opt.append(ob);
-    body.append(opt);
-
-    const actions = el('div', { class: 'file-row' });
-    const go = el('button', { type: 'button', class: 'btn primary', id: 'copy-match' }, 'Match this orthotic');
-    const clear = el('button', { type: 'button', class: 'btn', id: 'copy-clear' }, 'Clear measurements');
-    actions.append(go, clear);
-    const result = el('div', { class: 'copy-result', id: 'copy-result', 'aria-live': 'polite' });
-    body.append(actions, result);
-    d.append(body);
-
-    function read() {
-      const m = { coverage: state.coverage, style: state.style };
-      for (const k in inputs) m[k] = inputs[k].value;
-      return m;
-    }
-    function save() {
-      try { localStorage.setItem(DRAFT_KEY, JSON.stringify(read())); } catch (e) { /* ignore */ }
-    }
-    clear.addEventListener('click', () => {
-      for (const k in inputs) inputs[k].value = '';
-      result.innerHTML = '';
-      save();
-    });
-    go.addEventListener('click', () => {
-      const meas = read();
-      const r = G.fromOrthotic(meas, params);
-      if (r.error) { result.innerHTML = ''; result.append(el('div', { class: 'alert' }, r.error)); return; }
-      App.set(toStep(r.params), { refit: true });
-      const p = params, md = G.measureDesign(p);
-      const v = k => (meas[k] === '' || meas[k] == null ? null : Number(meas[k]));
-      const rows = [
-        [1, 'Overall length', v('length'), md.length],
-        [2, 'Widest width', v('maxWidth'), md.maxWidth],
-        [3, 'Heel width', v('heelWidth'), p.heelWidth],
-        [4, 'Heel seat height', v('heelSeat'), md.heelSeat],
-        [5, 'Heel rim height', v('heelRim'), md.heelRim],
-        [6, 'Arch height', v('archTop'), v('archDist') != null ? G.innerEdgeTop(p, v('archDist')) : md.archTop]
-      ].filter(r => r[2] != null);
-      const f1 = x => x.toFixed(1);
-      let html = '<p class="hint">Settings updated. Your orthotic compared with the new design, in mm:</p>' +
-        '<div class="table-wrap"><table class="check"><thead><tr><th>Measurement</th><th>Yours</th><th>Design</th></tr></thead><tbody>' +
-        rows.map(([n, l, a, b]) => `<tr><td><span class="badge" aria-hidden="true">${n}</span> ${l}</td><td>${f1(a)}</td><td>${f1(b)}</td></tr>`).join('') +
-        '</tbody></table></div>' +
-        `<p class="hint">That works out at a foot length of ${Math.round(p.length)} mm, forefoot width ${Math.round(p.ballWidth)} mm, arch ${f1(p.archHeight)} mm at ${Math.round(p.archPeak)}%, heel cup ${f1(p.heelCup)} mm.` +
-        (p.rearPost || p.forePost ? ` Posts: rearfoot ${f1(p.rearPost)}°, forefoot ${f1(p.forePost)}°.` : '') + '</p>';
-      result.innerHTML = html;
-      for (const n of r.notes) result.append(el('div', { class: 'alert' }, n));
-      App.status('Matched your orthotic. Fine-tune it with the sliders below.');
-    });
-    return d;
-  }
-
-  function landmark(x, y, t) {
-    return `<circle cx="${x}" cy="${y}" r="7.5" class="bl"/><text x="${x}" y="${y + 3.2}" class="blt" text-anchor="middle">${t}</text>`;
-  }
-
-  // Setting up the side photo. The plan view is the real outline out of the
-  // geometry engine; the profile beside it is drawn by hand, because the engine
-  // models orthotics and not feet.
-  function sideDiagram() {
-    const P = Object.assign({}, G.DEFAULTS, { side: 'right', coverage: 'full' });
-    const o = G.build(P).outline, L = P.length;
-
-    /* ---- From above: where the phone goes ---- */
-    const s = 0.72, x0 = 50;
-    let lo = Infinity, hi = -Infinity;
-    for (const [, y] of o) { lo = Math.min(lo, y); hi = Math.max(hi, y); }
-    const cy = 76 + hi * s;                       // medial edge lands at y = 76
-    const TX = x => x0 + x * s, TY = y => cy - y * s;
-    const foot = o.map(([x, y], i) => (i ? 'L' : 'M') + TX(x).toFixed(1) + ' ' + TY(y).toFixed(1)).join(' ') + 'Z';
-    const camX = TX(0.45 * L), camY = 26;
-    const plan = [
-      `<svg class="plan diag" viewBox="0 0 360 ${(TY(lo) + 30).toFixed(0)}" role="img" aria-label="From above: a right foot with a sheet of paper on the floor beyond its far side, and the phone on the floor on the near side, square on, about half a metre away">`,
-      // the sheet goes beyond the foot, so the gap under the arch reads against it
-      `<rect class="sheet" x="${TX(-0.08 * L).toFixed(1)}" y="${(TY(lo) + 3).toFixed(1)}" width="${(1.16 * L * s).toFixed(1)}" height="22"/>`,
-      `<text x="${TX(0.5 * L)}" y="${(TY(lo) + 18).toFixed(1)}" text-anchor="middle">paper, on the far side</text>`,
-      `<path class="outline" d="${foot}"/>`,
-      // the phone, lying on the floor looking across at the inside of the foot
-      `<rect class="cam" x="${camX - 9}" y="${camY - 15}" width="18" height="30" rx="3"/>`,
-      `<circle class="cam" cx="${camX}" cy="${camY + 9}" r="3.2"/>`,
-      `<line class="ext" x1="${camX}" y1="${camY + 17}" x2="${camX}" y2="${TY(hi) - 2}"/>`,
-      `<path class="dim" d="M${camX + 8} ${TY(hi) - 2} L${camX + 8} ${TY(hi) - 10} L${camX} ${TY(hi) - 10}"/>`,
-      `<text x="${camX + 16}" y="${camY - 6}">phone, flat on the floor</text>`,
-      `<text x="${camX + 14}" y="${TY(hi) - 14}">square on</text>`,
-      `<text x="${camX - 14}" y="${(camY + TY(hi)) / 2}" text-anchor="end">about 50 cm</text>`,
-      `<text x="${TX(L) + 6}" y="${TY(0) - 2}">toes</text>`,
-      '</svg>'
-    ].join('');
-
-    /* ---- From the inside: what the camera should see ---- */
-    // Drawn in millimetres at one unit each, so the arch really is the fraction of
-    // the foot that it is: a 265 mm foot with a 22 mm arch, to the same scale.
-    const fl = 100, FX = mm => 30 + mm, FY = h => fl - h;
-    const P2 = (mm, h) => FX(mm).toFixed(1) + ' ' + FY(h).toFixed(1);
-    const profile = [
-      `M${P2(0, 0)} L${P2(0, 32)}`,                                   // up the back of the heel
-      `C${P2(0, 46)} ${P2(14, 56)} ${P2(38, 62)}`,                    // round into the achilles
-      `C${P2(36, 72)} ${P2(35, 80)} ${P2(35, 88)}`,                   // the leg, cut off at the top
-      `L${P2(83, 88)}`,
-      `C${P2(81, 74)} ${P2(82, 64)} ${P2(90, 56)}`,                   // down the shin to the instep
-      `C${P2(118, 52)} ${P2(150, 45)} ${P2(200, 34)}`,                // the dorsum, out to the toes
-      `C${P2(224, 29)} ${P2(246, 23)} ${P2(263, 17)}`,
-      `C${P2(266, 8)} ${P2(266, 2)} ${P2(259, 0)} L${P2(165, 0)}`,    // round the toe, forefoot on the floor
-      `C${P2(141, 1)} ${P2(123, 22)} ${P2(110, 22)}`,                 // up into the arch
-      `C${P2(97, 22)} ${P2(73, 1)} ${P2(55, 0)} Z`                    // and down to the heel
-    ].join(' ');
-    const ax = FX(110), ay = FY(22);                                  // the top of the arch
-    const side = [
-      `<svg class="plan diag" viewBox="0 0 360 136" role="img" aria-label="From the inside of the foot: the three points to mark, at the back of the heel, the tip of the toe and the top of the arch, with the arch height measured up from the floor and the foot length along it">`,
-      `<line class="floor" x1="12" y1="${fl}" x2="348" y2="${fl}"/>`,
-      `<text x="348" y="${fl - 5}" text-anchor="end">floor</text>`,
-      `<path class="outline" d="${profile}"/>`,
-      // what the three marks between them measure
-      `<line class="dim" x1="${ax}" y1="${ay}" x2="${ax}" y2="${fl}"/>`,
-      `<text x="${ax}" y="${ay - 13}" text-anchor="middle">arch height</text>`,
-      `<line class="dim" x1="${FX(0)}" y1="120" x2="${FX(259)}" y2="120"/>`,
-      `<line class="ext" x1="${FX(0)}" y1="114" x2="${FX(0)}" y2="126"/>`,
-      `<line class="ext" x1="${FX(259)}" y1="114" x2="${FX(259)}" y2="126"/>`,
-      `<text x="${FX(130)}" y="133" text-anchor="middle">your foot length is the ruler for both</text>`,
-      landmark(ax, ay, 'A'),
-      landmark(FX(0), fl, 'H'),
-      landmark(FX(259), fl, 'T'),
-      '</svg>'
-    ].join('');
-    return plan + side;
-  }
-
-  function buildPhoto() {
-    const Ph = window.OrthoPhoto;
-    const UI_KEY = 'orthotics-builder.photo.ui.v1';
-    const state = { flow: FLOWS[0], sheet: 'a4', stance: 'standing', fill: Ph.DEFAULT_FILL, coverage: 'full' };
-    try {
-      const d = JSON.parse(localStorage.getItem(UI_KEY) || '{}') || {};
-      const f = FLOWS.find(x => x.id === d.flow);
-      if (f) state.flow = f;
-      if (Ph.SHEETS[d.sheet]) state.sheet = d.sheet;
-      if (d.stance === 'standing' || d.stance === 'sitting') state.stance = d.stance;
-      if (d.fill >= 60 && d.fill <= 130) state.fill = d.fill;
-      if (G.COVERAGE_END[d.coverage]) state.coverage = d.coverage;
-    } catch (e) { /* storage unavailable */ }
-    const saveUI = () => {
-      try {
-        localStorage.setItem(UI_KEY, JSON.stringify({ flow: state.flow.id, sheet: state.sheet, stance: state.stance, fill: state.fill, coverage: state.coverage }));
-      } catch (e) { /* ignore */ }
-    };
-
-    // The photo being worked on. Marks are stored as fractions of the image, so
-    // the preview can be any size on screen and the maths stays in pixels.
-    let shot = null, drag = null, lastSide = null;
-
-    const d = el('details', { class: 'sec', id: 'sec-photo' });
-    const s = el('summary');
-    s.append(el('span', { class: 'sec-title' }, 'Measure from a photo'), el('span', { class: 'sec-sub' }, 'Experimental'));
-    d.append(s);
-    const body = el('div', { class: 'sec-body' });
-    body.append(el('div', { class: 'alert' }, 'Experimental, so results may be off. Check them against a tape measure before you print.'));
-    body.append(el('p', { class: 'hint' }, 'Photograph a sheet of paper and the page reads the measurements off it. The sheet is a known size, so its four corners cancel out the angle you held the camera at.'));
-
-    const pick = el('div', { class: 'flowpick', role: 'group', 'aria-label': 'What the photo shows' });
-    const flowBtns = {};
-    for (const f of FLOWS) {
-      const b = flowBtns[f.id] = el('button', { type: 'button', id: 'ph-flow-' + f.id }, `<b>${f.label}</b><span>${f.sub}</span>`);
-      b.addEventListener('click', () => {
-        if (state.flow === f) return;
-        state.flow = f;
-        saveUI();
-        resetMarks();
-        clearResult();
-        paintFlow();
-        if (shot && f.kind === 'top') autoFind();
-        placeMarks();
-      });
-      pick.append(b);
-    }
-    body.append(pick);
-
-    const steps = el('ol', { class: 'steps' });
-    const diag = el('div', { class: 'diagram' });
-    const sets = el('p', { class: 'hint' });
-    body.append(steps, diag, sets);
-
-    const sheetRow = el('div', { class: 'field' });
-    sheetRow.append(el('label', { for: 'ph-sheet' }, '<span style="font-weight:500">Paper size</span>'));
-    const sheetSel = el('select', { id: 'ph-sheet', class: 'ph-sheet', 'aria-label': 'Paper size' },
-      Object.keys(Ph.SHEETS).map(k => `<option value="${k}">${Ph.SHEETS[k].label} — ${Ph.SHEETS[k].detail}</option>`).join(''));
-    sheetSel.value = state.sheet;
-    const sheetWrap = el('div', { class: 'sizefill' });
-    sheetWrap.append(sheetSel);
-    sheetRow.append(sheetWrap, el('p', { class: 'hint' }, 'A4 holds a foot up to about 290 mm. Longer than that and the tracing will not fit, so tape two A4 sheets together along their long edges and mark the corners of the whole rectangle.'));
-    sheetSel.addEventListener('change', () => {
-      state.sheet = sheetSel.value;
-      saveUI();
-      clearResult();
-      if (shot) { autoFind(); placeMarks(); }
-    });
-    body.append(sheetRow);
-
-    // How far the thing in the photo reaches, which is not the same question as how
-    // long you want the orthotic: the solver works back from one to the other.
-    const covRow = el('div', { class: 'choice' });
-    covRow.append(el('span', { class: 'field-head' }, '<span style="font-weight:500">Where does it end?</span>'));
-    const covSeg = el('div', { class: 'seg', role: 'group', 'aria-label': 'Where the insole or orthotic ends' });
-    const paintCov = () => covSeg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === state.coverage ? 'true' : 'false'));
-    for (const [v, t] of [['full', 'Full length'], ['sulcus', 'Toe crease'], ['3q', 'Behind the ball']]) {
-      const b = el('button', { type: 'button', id: 'ph-cov-' + v, 'data-v': v }, t);
-      b.addEventListener('click', () => { state.coverage = v; paintCov(); saveUI(); clearResult(); });
-      covSeg.append(b);
-    }
-    paintCov();
-    covRow.append(covSeg, el('p', { class: 'hint' }, 'An insole pulled out of a shoe is almost always full length. Orthotics often stop behind the ball of the foot.'));
-    body.append(covRow);
-
-    // Standing or sitting changes what the measurement means, so it has to be asked
-    // rather than assumed: the same number is nearly all of the arch to build in one
-    // position and about two thirds of it in the other.
-    const stanceRow = el('div', { class: 'choice' });
-    stanceRow.append(el('span', { class: 'field-head' }, '<span style="font-weight:500">Weight on that foot?</span>'));
-    const stanceSeg = el('div', { class: 'seg', role: 'group', 'aria-label': 'Whether you are standing on that foot' });
-    const stanceHint = el('p', { class: 'hint' });
-    const paintStance = () => {
-      stanceSeg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === state.stance ? 'true' : 'false'));
-      stanceHint.innerHTML = state.stance === 'standing'
-        ? 'Standing, the gap under your arch is at its smallest, but for most feet it is still there &mdash; that gap is exactly what a wet footprint leaves a narrow waist in. It is smaller and so harder to see, which is what the paper behind your foot is for, but it is the arch you need, measured rather than estimated.'
-        : `Sitting, the arch springs up and the gap is easy to see, but it is not an arch you ever stand on. About ${Ph.ARCH_DROP} mm comes off before building, and that is a figure for people in general, not for you. Worth using when you cannot make out the gap standing; otherwise standing is the more accurate of the two.`;
-    };
-    for (const [v, t] of [['standing', 'Standing on it'], ['sitting', 'Sitting, no weight']]) {
-      const b = el('button', { type: 'button', id: 'ph-stance-' + v, 'data-v': v }, t);
-      b.addEventListener('click', () => {
-        if (state.stance === v) return;
-        state.stance = v;
-        paintStance();
-        saveUI();
-        clearResult();
-      });
-      stanceSeg.append(b);
-    }
-    paintStance();
-    stanceRow.append(stanceSeg, stanceHint);
-    body.append(stanceRow);
-
-    const fileRow = el('div', { class: 'file-row' });
-    // No capture attribute: on a phone that would force the camera and rule out a
-    // photo already taken. The picker offers the camera either way.
-    const file = el('input', { type: 'file', id: 'ph-file', accept: 'image/*', hidden: '' });
-    const fileBtn = el('label', { class: 'btn', for: 'ph-file' }, 'Choose a photo');
-    fileRow.append(fileBtn, file);
-    body.append(fileRow);
-
-    const shotHost = el('div', { class: 'shot' });
-    const shotImg = el('img', { alt: 'The photo you chose, with draggable markers on it' });
-    const guides = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    guides.setAttribute('class', 'guides');
-    guides.setAttribute('preserveAspectRatio', 'none');
-    guides.setAttribute('viewBox', '0 0 100 100');
-    guides.setAttribute('aria-hidden', 'true');
-    const guidePoly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    guides.append(guidePoly);
-    shotHost.append(shotImg, guides);
-    const markHint = el('p', { class: 'hint' });
-    body.append(shotHost, markHint);
-
-    const actions = el('div', { class: 'file-row' });
-    const readBtn = el('button', { type: 'button', class: 'btn primary', id: 'ph-read' }, 'Read the photo');
-    const againBtn = el('button', { type: 'button', class: 'btn', id: 'ph-again' }, 'Find the sheet again');
-    actions.append(readBtn, againBtn);
-    const result = el('div', { class: 'photo-result', id: 'ph-result', 'aria-live': 'polite' });
-    body.append(actions, result);
-    d.append(body);
-
-    /* ---- markers ---- */
-
-    const marks = {};        // key -> button element
-    function markDefs() { return state.flow.kind === 'side' ? SIDE_MARKS : TOP_MARKS; }
-
-    function resetMarks() {
-      if (!shot) return;
-      shot.marks = {};
-      for (const m of markDefs()) shot.marks[m.k] = m.at.slice();
-      shot.found = false;
-    }
-
-    function buildMarks() {
-      for (const k in marks) { marks[k].remove(); delete marks[k]; }
-      for (const m of markDefs()) {
-        const b = el('button', {
-          type: 'button', class: 'mark' + (m.land ? ' land' : ''), 'data-k': m.k,
-          'aria-label': 'Marker ' + m.t + (m.land ? '' : ', corner of the sheet') + '. Drag it, or nudge it with the arrow keys.'
-        }, m.t);
-        b.addEventListener('pointerdown', e => {
-          // Capture keeps the drag alive when the pointer leaves the marker. If the
-          // pointer has already gone it throws, and the drag is still fine without it.
-          try { b.setPointerCapture(e.pointerId); } catch (err) { /* carry on uncaptured */ }
-          drag = { k: m.k, id: e.pointerId };
-          e.preventDefault();
-        });
-        b.addEventListener('pointermove', e => {
-          if (!drag || drag.id !== e.pointerId || !shot) return;
-          const r = shotHost.getBoundingClientRect();
-          if (!r.width || !r.height) return;
-          shot.marks[drag.k] = [
-            Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)),
-            Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))
-          ];
-          placeMarks();
-        });
-        b.addEventListener('pointerup', () => { drag = null; });
-        b.addEventListener('pointercancel', () => { drag = null; });
-        b.addEventListener('keydown', e => {
-          const step = e.shiftKey ? 0.01 : 0.002;
-          const d2 = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key];
-          if (!d2 || !shot) return;
-          e.preventDefault();
-          const p = shot.marks[m.k];
-          shot.marks[m.k] = [Math.min(1, Math.max(0, p[0] + d2[0])), Math.min(1, Math.max(0, p[1] + d2[1]))];
-          placeMarks();
-        });
-        marks[m.k] = b;
-        shotHost.append(b);
-      }
-    }
-
-    function placeMarks() {
-      const on = !!shot;
-      shotHost.style.display = on ? '' : 'none';
-      markHint.style.display = on ? '' : 'none';
-      actions.style.display = on ? '' : 'none';
-      againBtn.style.display = on && state.flow.kind === 'top' ? '' : 'none';
-      if (!on) return;
-      for (const m of markDefs()) {
-        const p = shot.marks[m.k], b = marks[m.k];
-        if (!p || !b) continue;
-        b.style.left = (p[0] * 100).toFixed(3) + '%';
-        b.style.top = (p[1] * 100).toFixed(3) + '%';
-      }
-      const q = ['c0', 'c1', 'c2', 'c3'].map(k => shot.marks[k]).filter(Boolean);
-      guidePoly.setAttribute('points', q.map(p => (p[0] * 100).toFixed(2) + ',' + (p[1] * 100).toFixed(2)).join(' '));
-      if (state.flow.kind === 'side') {
-        markHint.innerHTML = 'Put <b>H</b> on the back of your heel and <b>T</b> on the tip of your longest toe, both right down where they meet the floor, then <b>A</b> on the highest point of the arch underneath. Arrow keys nudge, Shift speeds them up.';
-      } else if (shot.found) {
-        markHint.innerHTML = 'Found the sheet. Check <b>1–4</b> really are on its corners and drag any that are off. Arrow keys nudge, Shift speeds them up.';
-      } else {
-        markHint.innerHTML = 'Could not pick the sheet out of this photo, so drag <b>1–4</b> onto its four corners yourself. Arrow keys nudge, Shift speeds them up.';
-      }
-    }
-
-    function paintFlow() {
-      for (const f of FLOWS) flowBtns[f.id].setAttribute('aria-pressed', f === state.flow ? 'true' : 'false');
-      steps.innerHTML = state.flow.steps;
-      diag.innerHTML = state.flow.diagram ? state.flow.diagram() : '';
-      diag.style.display = state.flow.diagram ? '' : 'none';
-      sets.textContent = state.flow.sets;
-      sheetRow.style.display = state.flow.kind === 'top' ? '' : 'none';
-      covRow.style.display = state.flow.id === 'insole' ? '' : 'none';
-      stanceRow.style.display = state.flow.kind === 'side' ? '' : 'none';
-      buildMarks();
-    }
-
-    /* ---- loading ---- */
-
-    function clearResult() { result.innerHTML = ''; lastSide = null; }
-    function fail(msg) {
-      clearResult();
-      result.append(el('div', { class: 'alert' }, msg));
-    }
-
-    file.addEventListener('change', () => {
-      const f = file.files && file.files[0];
-      file.value = '';
-      if (f) loadFile(f);
-    });
-
-    function loadFile(f) {
-      const url = URL.createObjectURL(f);
-      const im = new Image();
-      im.onload = () => {
-        // Cap the working resolution: beyond this the extra pixels cost time and
-        // buy nothing, because the corners are what limit the accuracy.
-        const cap = 1600, sc = Math.min(1, cap / Math.max(im.naturalWidth, im.naturalHeight));
-        const w = Math.max(1, Math.round(im.naturalWidth * sc)), h = Math.max(1, Math.round(im.naturalHeight * sc));
-        const c = document.createElement('canvas');
-        c.width = w; c.height = h;
-        const ctx = c.getContext('2d', { willReadFrequently: true });
-        ctx.drawImage(im, 0, 0, w, h);
-        let data = null;
-        try { data = ctx.getImageData(0, 0, w, h).data; } catch (e) { data = null; }
-        if (!data) { URL.revokeObjectURL(url); fail('The browser would not let the page read that image.'); return; }
-        if (shot && shot.url) URL.revokeObjectURL(shot.url);
-        shot = { url, px: { width: w, height: h, data }, marks: {}, found: false };
-        shotImg.src = url;
-        resetMarks();
-        clearResult();
-        if (state.flow.kind === 'top') autoFind();
-        placeMarks();
-        App.status(shot.found ? 'Photo loaded and the sheet found. Check the corner markers.' : 'Photo loaded. Drag the markers into place.');
-      };
-      im.onerror = () => { URL.revokeObjectURL(url); fail('That file did not load as an image.'); };
-      im.src = url;
-    }
-
-    function autoFind() {
-      if (!shot) return;
-      const q = Ph.findQuad(shot.px, Ph.SHEETS[state.sheet]);
-      shot.found = !!q;
-      if (!q) return;
-      ['c0', 'c1', 'c2', 'c3'].forEach((k, i) => {
-        shot.marks[k] = [q[i][0] / shot.px.width, q[i][1] / shot.px.height];
-      });
-    }
-
-    againBtn.addEventListener('click', () => {
-      if (!shot) return;
-      autoFind();
-      placeMarks();
-      App.status(shot.found ? 'Found the sheet again.' : 'Still could not find the sheet in this photo.');
-    });
-
-    /* ---- reading ---- */
-
-    readBtn.addEventListener('click', () => {
-      if (!shot) { fail('Choose a photo first.'); return; }
-      const toPx = k => [shot.marks[k][0] * shot.px.width, shot.marks[k][1] * shot.px.height];
-      if (state.flow.kind === 'side') { readSide(toPx); return; }
-      const corners = ['c0', 'c1', 'c2', 'c3'].map(toPx);
-      if (!Ph.isConvexQuad(corners)) {
-        fail('Markers 1 to 4 cross over each other. Put them on the four corners in order, going round the shape.');
-        return;
-      }
-      const sheet = Ph.SHEETS[state.sheet];
-      const rect = Ph.rectify(shot.px, Ph.orderQuad(corners, sheet.w, sheet.h), sheet.w, sheet.h, 4);
-      if (!rect) { fail('Could not work out the angle from those four corners. Check they are on the sheet.'); return; }
-      const out = Ph.extractOutline(rect, state.flow.mode);
-      if (out.error) { fail(out.error); return; }
-      const m = Ph.measureOutline(out.poly);
-      if (m.error) { fail(m.error); return; }
-      showTop(rect, out, m);
-    });
-
-    function reading(value, unit, label, extra) {
-      return el('div', { class: 'reading' + (extra ? ' ' + extra : '') }, `<b>${value}<span>${unit ? ' ' + unit : ''}</span></b><span>${label}</span>`);
-    }
-
-    function showTop(rect, out, m) {
-      clearResult();
-      const f1 = x => x.toFixed(1);
-      result.append(el('p', { class: 'hint' }, 'The sheet flattened out, with the outline the page found drawn on it. If that outline is not your foot, fix the corner markers and read it again.'));
-      const host = el('div', { class: 'shot' });
-      host.append(rectCanvas(rect, out.poly));
-      result.append(host);
-
-      const rows = el('div', { class: 'readings' });
-      if (state.flow.id === 'print') {
-        const a = Ph.archFromPrint(m.csi);
-        rows.append(reading(f1(m.midWidth != null ? m.midWidth : 0), 'mm', 'narrowest middle'));
-        rows.append(reading(f1(m.maxWidth), 'mm', 'widest part'));
-        rows.append(reading(m.csi != null ? m.csi.toFixed(2) : '—', '', 'middle ÷ widest'));
-        if (a) rows.append(reading(a.type, '', 'arch reads as'));
-        result.append(rows);
-        if (!a) { result.append(el('div', { class: 'alert' }, 'Could not read a midfoot width from that print.')); return; }
-        result.append(el('p', { class: 'hint' }, `That ratio puts you in ${a.say}. Published cut-offs for this scatter a lot and most of the research is in children, so treat it as somewhere to start rather than a finding: wear it a few days and go up or down 2 mm at a time.`));
-        addApply(`Use this: arch ${a.archHeight} mm, spread ${a.archSpread}%`, () => {
-          App.set(toStep({ archHeight: a.archHeight, archSpread: a.archSpread }), { refit: true });
-          setPhotoOutline(m.poly);
-          return `Starting arch set to ${a.archHeight} mm from your footprint.`;
-        });
-        return;
-      }
-
-      rows.append(reading(f1(m.length), 'mm', state.flow.id === 'insole' ? 'overall length' : 'foot length'));
-      rows.append(reading(f1(m.maxWidth), 'mm', state.flow.id === 'insole' ? 'widest width' : 'forefoot width'));
-      rows.append(reading(f1(m.heelWidth), 'mm', 'heel width'));
-      result.append(rows);
-
-      if (state.flow.id === 'insole') {
-        result.append(el('p', { class: 'hint' }, 'This goes through the same solver as Copy an existing orthotic: it works back from the outline to a foot that would fit it. Heights are not in a photo from above, so set those with the sliders or read a side view.'));
-        addApply('Match this outline', () => {
-          const r = G.fromOrthotic({
-            coverage: state.coverage, style: params.style,
-            length: m.length, maxWidth: m.maxWidth, heelWidth: m.heelWidth
-          }, params);
-          if (r.error) return r.error;
-          App.set(toStep(r.params), { refit: true });
-          setPhotoOutline(m.poly);
-          for (const n of r.notes) result.append(el('div', { class: 'alert' }, n));
-          return 'Matched the outline from your photo.';
-        });
-        return;
-      }
-
-      result.append(el('p', { class: 'hint' }, 'Measured the way the instructions below say to measure by hand: length heel to longest toe, widest point across the ball, and the heel 25 mm in from the back.'));
-      addApply('Use these measurements', () => {
-        App.set(toStep({ length: m.length, ballWidth: m.maxWidth, heelWidth: m.heelWidth }), { refit: true });
-        setPhotoOutline(m.poly);
-        return 'Set your foot measurements from the tracing. The dashed outline in the guide below is the one from your photo.';
-      });
-    }
-
-    function readSide(toPx) {
-      const marksIn = { heel: toPx('heel'), toe: toPx('toe'), apex: toPx('apex') };
-      const go = fill => Ph.archFromSide(marksIn, { footLength: params.length, stance: state.stance, fill: fill / 100 });
-      const r = go(state.fill);
-      if (r.error) { fail(r.error); return; }
-      showSide(r, go);
-    }
-
-    function showSide(r, go) {
-      clearResult();
-      // After clearing, not before: clearing drops the stored reading, and the fill
-      // slider below needs it to re-run without going back to the photo.
-      lastSide = go;
-      const f1 = x => x.toFixed(1);
-      const rows = el('div', { class: 'readings' });
-      const sitting = r.stance === 'sitting';
-      rows.append(reading(f1(r.clearHeight), 'mm', sitting ? 'arch, sitting' : 'arch above the floor'));
-      if (sitting) rows.append(reading(f1(r.loadedHeight), 'mm', 'arch once you stand'));
-      rows.append(reading(Math.round(r.archPeak), '%', 'peak along the foot'));
-      rows.append(reading(f1(r.archHeight), 'mm', 'arch to build', 'built'));
-      rows.append(reading(Math.round(r.footLength), 'mm', 'scaled from foot length'));
-      result.append(rows);
-      // The slider sits on the arch you stand on, so say plainly what that is.
-      result.append(el('p', { class: 'hint' }, sitting
-        ? `You measured sitting, so ${f1(r.clearHeight)} mm is an arch with no load on it. It settles about ${Ph.ARCH_DROP} mm the moment you stand, leaving ${f1(r.loadedHeight)} mm to support, and that is what the percentage below works from. Building the full sitting height instead would lift your arch rather than meet it.`
-        : `You measured standing, so ${f1(r.clearHeight)} mm is the arch you have to support: it is already pressed down as far as it goes. Building all of it puts the orthotic against your arch along its whole length.`));
-      if (r.loadedHeight < 4) {
-        result.append(el('div', { class: 'alert' }, sitting
-          ? 'That leaves almost no arch once the drop comes off. Check the three markers. If it is right, a foot this flat wants a low, broad support rather than a tall one, so widen the arch spread instead of raising the arch.'
-          : 'Almost no gap under your arch standing. If you could not really make out the gap in the photo, try it again sitting instead. If the arch genuinely does flatten onto the floor, that is a flat foot under load, and it wants a low, broad support rather than a tall one: widen the arch spread instead of raising the arch.'));
-      }
-      result.append(el('p', { class: 'hint' }, 'Photographs read arch height a little high compared with calipers, so treat a first fit as a starting point and go up 2 mm at a time.'));
-
-      const wrap = el('div', { class: 'field' });
-      const head = el('div', { class: 'field-head' });
-      head.append(el('label', { for: 'ph-fill' }, 'How much of it to build'));
-      const num = el('span', { class: 'num' }, `${state.fill}<span>%</span>`);
-      head.append(num);
-      const sl = el('input', { type: 'range', id: 'ph-fill', min: '60', max: '130', step: '5' });
-      sl.value = state.fill;
-      sl.style.setProperty('--fill', ((state.fill - 60) / 70 * 100).toFixed(1) + '%');
-      wrap.append(head, sl, el('p', { class: 'hint' }, '100% meets your arch along its whole length when you stand on it, which is what supporting the arch means. Lower leaves a gap in quiet standing that closes again as the foot flattens in walking, which is a gentler way to break a first orthotic in. Higher lifts the arch above where it stands.'));
-      result.append(wrap);
-      sl.addEventListener('input', () => {
-        state.fill = Number(sl.value);
-        saveUI();
-        sl.style.setProperty('--fill', ((state.fill - 60) / 70 * 100).toFixed(1) + '%');
-        num.innerHTML = `${state.fill}<span>%</span>`;
-        if (!lastSide) return;
-        const next = lastSide(state.fill);
-        if (next.error) return;
-        const cell = result.querySelector('.reading.built b');
-        if (cell) cell.innerHTML = `${f1(next.archHeight)}<span> mm</span>`;
-      });
-
-      addApply('Use this arch', () => {
-        const cur = lastSide ? lastSide(state.fill) : r;
-        if (cur.error) return cur.error;
-        App.set(toStep({ archHeight: cur.archHeight, archPeak: cur.archPeak }), { refit: true });
-        return `Arch set to ${f1(params.archHeight)} mm at ${Math.round(params.archPeak)}% along the foot, from ${f1(cur.clearHeight)} mm of clear arch height.`;
-      });
-    }
-
-    function addApply(label, run) {
-      const row = el('div', { class: 'file-row' });
-      const b = el('button', { type: 'button', class: 'btn primary' }, label);
-      b.addEventListener('click', () => {
-        const msg = run();
-        if (msg) App.status(msg);
-      });
-      row.append(b);
-      result.append(row);
-    }
-
-    // The rectified sheet, in grey, with the outline that was found drawn over it.
-    function rectCanvas(rect, poly) {
-      const c = el('canvas');
-      c.width = rect.width; c.height = rect.height;
-      const ctx = c.getContext('2d');
-      const im = ctx.createImageData(rect.width, rect.height);
-      for (let i = 0, n = rect.width * rect.height; i < n; i++) {
-        const v = rect.data[i], j = i * 4;
-        im.data[j] = v; im.data[j + 1] = v; im.data[j + 2] = v; im.data[j + 3] = 255;
-      }
-      ctx.putImageData(im, 0, 0);
-      if (poly && poly.length) {
-        ctx.beginPath();
-        for (let i = 0; i < poly.length; i++) {
-          const x = poly[i][0] * rect.pxPerMm, y = poly[i][1] * rect.pxPerMm;
-          if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y);
-        }
-        ctx.closePath();
-        ctx.lineWidth = Math.max(2, rect.pxPerMm);
-        ctx.strokeStyle = '#E0613A';
-        ctx.stroke();
-      }
-      return c;
-    }
-
-    paintFlow();
-    placeMarks();
-    return d;
-  }
 
   function buildChoice(f) {
     const wrap = el('div', { class: 'choice' });
@@ -3022,107 +972,13 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     const seg = el('div', { class: 'seg', role: 'group', 'aria-label': f.label });
     for (const [val, text] of f.options) {
       const b = el('button', { type: 'button', id: 'c-' + f.k + '-' + val }, text);
-      b.addEventListener('click', () => {
-        if (f.k === 'base' && val !== 'none' && params.base !== val) {
-          App.set({ base: val, style: 'thin', shellThick: BASES[val].thickness }, { refit: true });
-        } else App.set({ [f.k]: val }, { refit: f.k === 'coverage' || f.k === 'base' });
-      });
+      b.addEventListener('click', () => App.set({ [f.k]: val }));
       seg.append(b);
     }
     const hint = el('p', { class: 'hint' });
     wrap.append(seg, hint);
     choices[f.k] = { seg, hint, hints: f.hints };
     return wrap;
-  }
-
-  function buildSizeFill() {
-    const wrap = el('div', { class: 'field' });
-    wrap.append(el('label', { for: 'size-num' }, '<span style="font-weight:500">Start from shoe size</span>'));
-    const row = el('div', { class: 'sizefill' });
-    const sel = el('select', { id: 'size-sys', 'aria-label': 'Size system' },
-      '<option value="au-m">AU/UK men\'s</option><option value="au-w">AU/US women\'s</option><option value="us-m">US men\'s</option><option value="eu">EU</option>');
-    const inp = el('input', { id: 'size-num', type: 'number', step: '0.5', value: '10', inputmode: 'decimal' });
-    const btn = el('button', { type: 'button', class: 'btn', id: 'size-fill' }, 'Fill in');
-    row.append(sel, inp, btn);
-    wrap.append(row, el('p', { class: 'hint' }, 'Gives typical measurements for that size. Measuring your own foot is more accurate.'));
-    btn.addEventListener('click', () => {
-      const L = G.lengthFromShoeSize(sel.value, inp.value);
-      if (!L || L < 150 || L > 340) { App.status('That size is outside the range this tool covers.'); return; }
-      App.set({ length: Math.round(L), ballWidth: Math.round(L * 0.38), heelWidth: Math.round(L * 0.25) }, { refit: true });
-      App.status('Filled in typical measurements for that size.');
-    });
-    return wrap;
-  }
-
-  function buildGuide() {
-    const d = el('details', { class: 'guide', id: 'guide' });
-    d.append(el('summary', null, 'How to measure your foot'));
-    const body = el('div', { class: 'guide-body' });
-    body.append(el('ol', null,
-      '<li>Stand on a sheet of paper against a wall, with your weight on that foot.</li>' +
-      '<li>Trace around the foot with the pen held upright.</li>' +
-      '<li><b>Length:</b> heel line to the tip of the longest toe.</li>' +
-      '<li><b>Forefoot width:</b> widest point across the ball of the foot, big-toe joint to little-toe joint.</li>' +
-      '<li><b>Heel width:</b> widest point of the heel, 2–3 cm in from the back.</li>' +
-      '<li>Measure both feet and use each foot\'s own numbers. They often differ by a few millimetres.</li>'));
-    const svg = el('div', { id: 'plan-host' });
-    planNote = el('p', { class: 'hint' }, 'Outline generated from your numbers, shown full length. Compare it with your tracing.');
-    body.append(svg, planNote);
-    d.append(body);
-    d.addEventListener('toggle', drawPlan);
-    return d;
-  }
-
-  function drawPlan() {
-    const d = document.getElementById('guide');
-    if (!d || !d.open) return;
-    const p = Object.assign({}, params, { coverage: 'full', heelCup: 0 });
-    const side = params.side === 'left' ? 'left' : 'right';
-    const m = G.build(p, { side });
-    const L = p.length, W = p.ballWidth;
-    const pts = m.outline;
-    let minY = Infinity, maxY = -Infinity;
-    for (const [, y] of pts) { minY = Math.min(minY, y); maxY = Math.max(maxY, y); }
-    // A photo outline arrives medial-side positive, like a right foot, so mirror it
-    // for a left one and sit it on the generated outline's centre line.
-    let traced = null, top = L;
-    if (photoOutline) {
-      const flip = side === 'left' ? -1 : 1;
-      let tlo = Infinity, thi = -Infinity;
-      for (const [, y] of photoOutline) { const v = y * flip; tlo = Math.min(tlo, v); thi = Math.max(thi, v); }
-      const dy = (minY + maxY) / 2 - (tlo + thi) / 2;
-      traced = photoOutline.map(([x, y]) => [x, y * flip + dy]);
-      for (const [x, y] of traced) { minY = Math.min(minY, y); maxY = Math.max(maxY, y); top = Math.max(top, x); }
-    }
-    // SVG: toes up. svgX = -y (so the right foot's big toe is on the left), svgY = L - x
-    const pad = 34, w = (maxY - minY) + pad * 2 + 30, h = top + pad * 2;
-    const X = y => (maxY - y) + pad, Y = x => (top - x) + pad;
-    const path = pts.map(([x, y], i) => (i ? 'L' : 'M') + X(y).toFixed(1) + ' ' + Y(x).toFixed(1)).join(' ') + 'Z';
-    const across = xs => spanAt(pts, xs);
-    // Values from a photo or the orthotic solver are not whole millimetres.
-    const mm = v => Math.round(v);
-    const xb = 0.69 * L, xh = 0.12 * L;
-    const [b0, b1] = across(xb), [h0, h1] = across(xh);
-    const rx = X(minY) + 14;
-    const s = [];
-    s.push(`<svg class="plan" viewBox="0 0 ${w.toFixed(0)} ${h.toFixed(0)}" role="img" aria-label="Plan view of the ${side} foot outline with length ${mm(L)} mm, forefoot width ${mm(p.ballWidth)} mm and heel width ${mm(p.heelWidth)} mm">`);
-    s.push(`<path class="outline" d="${path}"/>`);
-    s.push(`<line class="ext" x1="30" y1="${Y(L)}" x2="${rx + 4}" y2="${Y(L)}"/><line class="ext" x1="30" y1="${Y(0)}" x2="${rx + 4}" y2="${Y(0)}"/>`);
-    s.push(`<line class="dim" x1="${rx}" y1="${Y(L)}" x2="${rx}" y2="${Y(0)}"/>`);
-    s.push(`<text x="${rx + 4}" y="${(Y(L) + Y(0)) / 2}" transform="rotate(90 ${rx + 4} ${(Y(L) + Y(0)) / 2})" text-anchor="middle">length ${mm(L)}</text>`);
-    s.push(`<line class="dim" x1="${X(b1)}" y1="${Y(xb)}" x2="${X(b0)}" y2="${Y(xb)}"/>`);
-    s.push(`<text x="${(X(b1) + X(b0)) / 2}" y="${Y(xb) - 5}" text-anchor="middle">forefoot ${mm(p.ballWidth)}</text>`);
-    s.push(`<line class="dim" x1="${X(h1)}" y1="${Y(xh)}" x2="${X(h0)}" y2="${Y(xh)}"/>`);
-    s.push(`<text x="${(X(h1) + X(h0)) / 2}" y="${Y(xh) - 5}" text-anchor="middle">heel ${mm(p.heelWidth)}</text>`);
-    s.push(`<text x="2" y="${Y(L) + 3}">toes</text><text x="2" y="${Y(0) + 3}">heel</text>`);
-    if (traced) {
-      s.push('<path class="traced" d="' + traced.map(([x, y], i) => (i ? 'L' : 'M') + X(y).toFixed(1) + ' ' + Y(x).toFixed(1)).join(' ') + 'Z"/>');
-    }
-    s.push('</svg>');
-    document.getElementById('plan-host').innerHTML = s.join('');
-    if (planNote) planNote.textContent = traced
-      ? 'Solid is the outline generated from your numbers. Dashed is the one read off your photo, laid over it.'
-      : 'Outline generated from your numbers, shown full length. Compare it with your tracing.';
   }
 
   function syncControls() {
@@ -3138,19 +994,11 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
       c.hint.textContent = c.hints[params[k]] || '';
     }
     for (const b of document.querySelectorAll('[data-side]')) b.setAttribute('aria-pressed', b.dataset.side === params.side ? 'true' : 'false');
-    const onBase = params.base !== 'none';
-    for (const id of ['sec-foot', 'sec-arch', 'sec-heel', 'sec-fore', 'sec-copy', 'sec-photo']) {
-      const sec = document.getElementById(id);
-      if (sec) sec.hidden = onBase;
-    }
-    for (const k of ADJUST) { const w = document.querySelector(`.field[data-k="${k}"]`); if (w) w.hidden = !onBase; }
-    for (const k of ['shellLength', 'shellWidth', 'shellSlant']) { const w = document.querySelector(`.field[data-k="${k}"]`); if (w) w.hidden = onBase; }
     const label = params.side === 'pair' ? 'Download pair STL' : 'Download ' + params.side + ' STL';
     document.getElementById('download-label').textContent = label;
     const alerts = document.getElementById('alerts');
     alerts.innerHTML = '';
     for (const w of G.warnings(params)) alerts.append(el('div', { class: 'alert' }, w));
-    drawPlan();
   }
 
   for (const b of document.querySelectorAll('[data-side]')) b.addEventListener('click', () => App.set({ side: b.dataset.side }, { refit: true }));
@@ -3160,8 +1008,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     return JSON.stringify({ app: 'orthotics-builder', version: 1, params }, null, 2);
   }
   function fileStem(side) {
-    if (G.baseOf(params)) return `orthotic-${side}-${params.base}`;
-    return `orthotic-${side}-${Math.round(params.length)}mm-${params.coverage}`;
+    return `orthotic-${side}`;
   }
   function stlFor(side) {
     if (side === 'pair') {
@@ -3178,7 +1025,7 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
     'Archform export',
     '',
     'Units: millimetres. The base sits flat on Z = 0, toes point along +X.',
-    'Print with the flat base on the bed. Shell style needs supports under the arch; thin shell under the heel cup and arch.',
+    'Print with the base on the bed. Thin shell needs supports under the heel cup and arch; solid needs none.',
     'settings.json reloads these exact values with "Load settings".',
     '',
     'General-purpose supports only. See a podiatrist if you have diabetes, poor circulation,',
@@ -3386,29 +1233,13 @@ function buildDims(stats, oy) {
   const near = App.params.side === 'left' ? -1 : 1;
   const gap = Math.max(10, stats.maxWidth * 0.12), tick = gap * 0.4;
   const yOut = (near > 0 ? yHi : yLo) + gap * near;
-  // These measure the orthotic. Where that differs from the foot measurements in the panel
-  // (a 3/4 or sulcus length, or an end that stops short of the ball), say so on the label.
-  const pf = App.params;
-  const baseL = G.baseOf(pf);
-  const cov = baseL ? null : pf.coverage === 'full' ? null
-    : pf.shellLength > 0 ? Math.round((100 * L) / pf.length) + '%' : { '3q': '3/4', sulcus: 'sulcus' }[pf.coverage];
-  const narrower = !baseL && stats.maxWidth < pf.ballWidth - 0.5;
-  addDim(V(0, yOut, 0), V(L, yOut, 0), V(0, 0, tick),
-    L.toFixed(0) + ' mm long' + (baseL ? ` · ${baseL.label}` : cov ? ` · ${cov} of ${pf.length.toFixed(0)} mm foot` : ''));
-  addDim(V(-gap, yLo, 0), V(-gap, yHi, 0), V(0, 0, tick),
-    stats.maxWidth.toFixed(0) + ' mm wide' + (narrower ? ` · forefoot ${pf.ballWidth.toFixed(0)} mm` : ''));
+  addDim(V(0, yOut, 0), V(L, yOut, 0), V(0, 0, tick), L.toFixed(0) + ' mm long');
+  addDim(V(-gap, yLo, 0), V(-gap, yHi, 0), V(0, 0, tick), stats.maxWidth.toFixed(0) + ' mm wide');
   addDim(V(-gap, yOut, 0), V(-gap, yOut, H), V(tick, 0, 0), H.toFixed(1) + ' mm tall');
-  // The arch, standing at the point along the foot where it actually peaks. It
-  // spans the rise above the base, which is what the arch height slider sets, so
-  // it reads lower than the tallest point by the thickness underneath it.
-  const pa = App.params;
-  if (baseL) {
-    const md = G.measureDesign(pa);
-    addDim(V(md.archDist, yOut, 0), V(md.archDist, yOut, md.archTop), V(tick, 0, 0), md.archTop.toFixed(1) + ' mm arch');
-  } else if (pa.archHeight > 0) {
-    const md = G.measureDesign(pa), top = md.archTop, base = Math.max(0, top - pa.archHeight);
-    addDim(V(md.archDist, yOut, base), V(md.archDist, yOut, top), V(tick, 0, 0), pa.archHeight.toFixed(1) + ' mm arch');
-  }
+  // The arch, standing at the point along the foot where it actually peaks: the
+  // height of the inner edge's top surface above the table there.
+  const pk = G.archPeak(App.params);
+  addDim(V(pk.x, yOut, 0), V(pk.x, yOut, pk.top), V(tick, 0, 0), pk.top.toFixed(1) + ' mm arch');
 }
 
 // Put each number on its line, and drop any dimension the camera is looking
@@ -3508,10 +1339,8 @@ function rebuild() {
   const matName = { tpu: 'TPU', petg: 'PETG', pla: 'PLA' }[p.material];
   const per = sides.length > 1 ? ' each' : '';
   document.getElementById('readout').innerHTML =
-    (G.baseOf(p) ? `<span class="chip">Base <b>${G.baseOf(p).label}</b></span><span class="chip">Length <b>${st.length.toFixed(0)} mm</b></span>` +
-      `<span class="chip">Width <b>${st.maxWidth.toFixed(0)} mm</b></span>`
-    : `<span class="chip">Length <b>${st.length.toFixed(0)} mm</b>${p.coverage !== 'full' ? ` of ${p.length.toFixed(0)} mm foot` : ''}</span>` +
-      `<span class="chip">Width <b>${st.maxWidth.toFixed(0)} mm</b>${st.maxWidth < p.ballWidth - 0.5 ? ` · forefoot ${p.ballWidth.toFixed(0)} mm` : ''}</span>`) +
+    `<span class="chip">Length <b>${st.length.toFixed(0)} mm</b></span>` +
+    `<span class="chip">Width <b>${st.maxWidth.toFixed(0)} mm</b></span>` +
     `<span class="chip">Tallest point <b>${st.maxHeight.toFixed(1)} mm</b></span>` +
     `<span class="chip">Solid volume <b>${st.volume.toFixed(0)} cm³</b>${per} · up to <b>${st.weight.toFixed(0)} g</b> ${matName}</span>`;
 

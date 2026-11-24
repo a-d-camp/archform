@@ -5,7 +5,7 @@ A measurement insole that sits **on top of** each printed orthotic prototype, so
 Files:
 - `sensor_layout.csv` (generated): 24 sensors, multiplexer channel, position in builder coordinates, and the P01 orthotic surface under each pad.
 - `sensor_template.svg` (generated): 1:1 A4 print of the foot outline, the P01 outline and the pads.
-- Regenerate both for a new foot or prototype with `node tools/sensor_layout.mjs <orthotic-settings.json saved from the builder>` (uses the geometry in `builder/src/`).
+- Regenerate both for a new foot or prototype with `node tools/sensor_layout.mjs <orthotic-settings.json saved from the builder> --foot <length>,<forefoot width>,<heel width>` (uses the geometry in `builder/src/`; the foot size, in mm, sets the sensor sheet outline).
 
 ## Architecture
 

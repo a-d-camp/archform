@@ -29,8 +29,8 @@ uv run ortho fit designs/high-arch.json my_points.json --smooth 0.1
                                                 # fit the control heights to measured points, then build
 uv run ortho scan my_scan.stl designs/high-arch.json my_scan_points.json [--include extra_points.json]
                                                 # fit the design to a 3D scan of a shell (see below)
-uv run ortho export "designs/high-arch.json=High arch baseline"
-                                                # hand designs to the browser builder (writes builder/src/bases.js)
+uv run ortho export designs/high-arch.json
+                                                # make it the browser builder's shape (writes builder/src/shape.js)
 uv run pytest -q                                # every design builds watertight on both feet; fitting works
 ```
 
@@ -45,7 +45,7 @@ Fit points use v = 0 for the inner edge and 1 for the outer edge at that x. Weig
 
 ## Adjusting in the browser builder
 
-`tools/builder.sh` rebuilds the builder and opens it. Under **Start from**, choose *High arch baseline*. The builder draws exactly the exported surface (it matches the Python model to 0.01 mm), and these sliders adjust it:
+`tools/builder.sh` rebuilds the builder and opens it. The builder draws exactly the exported surface (it matches the Python model to 0.01 mm), and these sliders adjust it:
 
 - **Arch height change** (mm): largest at the inner edge under the peak, fading smoothly along and across.
 - **Arch position change** (mm toward the toes or heel).
@@ -54,9 +54,7 @@ Fit points use v = 0 for the inner edge and 1 for the outer edge at that x. Weig
 - **Outer side change** (mm).
 - **Heel cup change** (mm).
 
-At zero you get the baseline. The changes are saved in the settings file as offsets from the base, so they survive a refit: run `ortho export` again, then reload the builder. **Print → Base** is set to *Thin shell*; print with supports under the heel cup and arch.
-
-The builder also keeps its original measurement-driven mode (*My measurements*), which builds a shell from foot measurements alone.
+At zero you get the exported shape. The changes are saved in the settings file as offsets from it, so they survive a refit: run `ortho export` again, then reload the builder. **Print → Base** defaults to *Thin shell*; print with supports under the heel cup and arch.
 
 `out/<name>/overview.png` shows:
 
@@ -69,7 +67,7 @@ The builder also keeps its original measurement-driven mode (*My measurements*),
 
 - `ortho/`: the Python code (geometry, fit, scan processing, mesh/STL, pictures, CLI).
 - `designs/`: designs. `high-arch.json` is the baseline.
-- `builder/`: the browser builder, extended to adjust fitted base shapes. Forked from [Orthotics Builder](https://github.com/markusg1234/Orthotics-builder) by markusg1234 (MIT licence; see `builder/LICENSE`). Archform is an independent project and isn't affiliated with or endorsed by the original author.
+- `builder/`: the browser builder, which adjusts the exported shape. Forked from [Orthotics Builder](https://github.com/markusg1234/Orthotics-builder) by markusg1234 (MIT licence; see `builder/LICENSE`). Archform is an independent project and isn't affiliated with or endorsed by the original author.
 - `tools/`: builder launcher, profile tools, and the sensor-layout generator.
 - `hardware/`: plan for a pressure-sensing insole to compare prototypes (work in progress).
 
