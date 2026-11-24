@@ -3,8 +3,11 @@ on:
   push:
   pull_request:
 jobs:
-  test:
+  builder:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: builder
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -16,3 +19,13 @@ jobs:
         run: node tests/check_photo.js
       - name: index.html matches the sources
         run: python3 build.py --check
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Tests
+        run: uv run pytest -q
